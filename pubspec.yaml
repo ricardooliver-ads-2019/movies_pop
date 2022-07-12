@@ -37,6 +37,8 @@ dependencies:
 
   dartz: ^0.10.1
 
+  dio: ^4.0.6
+
   equatable: ^2.0.3
 
   data_connection_checker_tv: ^0.3.5-nullsafety
