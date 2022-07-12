@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:movies_pop/core/network/http_client_exception.dart';
 import 'package:movies_pop/core/network/http_client.dart';
+import 'package:movies_pop/core/network/http_client_exception.dart';
 import 'package:movies_pop/core/network/http_client_response.dart';
 import 'package:movies_pop/core/utils/constants.dart';
 
@@ -39,7 +39,7 @@ class DioClient implements HttpClient {
       {Map<String, dynamic>? queryParameters,
       Map<String, dynamic>? headers}) async {
     try {
-      final response = await _dio.delete(
+      final response = await _dio.get(
         path,
         queryParameters: queryParameters,
         options: Options(headers: headers),
@@ -57,7 +57,7 @@ class DioClient implements HttpClient {
       Map<String, dynamic>? queryParameters,
       Map<String, dynamic>? headers}) async {
     try {
-      final response = await _dio.delete(
+      final response = await _dio.patch(
         path,
         data: data,
         queryParameters: queryParameters,
@@ -76,7 +76,7 @@ class DioClient implements HttpClient {
       Map<String, dynamic>? queryParameters,
       Map<String, dynamic>? headers}) async {
     try {
-      final response = await _dio.delete(
+      final response = await _dio.post(
         path,
         data: data,
         queryParameters: queryParameters,
@@ -95,7 +95,7 @@ class DioClient implements HttpClient {
       Map<String, dynamic>? queryParameters,
       Map<String, dynamic>? headers}) async {
     try {
-      final response = await _dio.delete(
+      final response = await _dio.put(
         path,
         data: data,
         queryParameters: queryParameters,
@@ -115,7 +115,7 @@ class DioClient implements HttpClient {
       Map<String, dynamic>? queryParameters,
       Map<String, dynamic>? headers}) async {
     try {
-      final response = await _dio.delete(
+      final response = await _dio.request(
         path,
         data: data,
         queryParameters: queryParameters,
