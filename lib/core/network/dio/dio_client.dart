@@ -16,7 +16,7 @@ class DioClient implements HttpClient {
   }
 
   @override
-  Future<HttpClientResponse<T>> delete<T>(String path,
+  Future<HttpClientResponse> delete(String path,
       {data,
       Map<String, dynamic>? queryParameters,
       Map<String, dynamic>? headers}) async {
@@ -35,7 +35,7 @@ class DioClient implements HttpClient {
   }
 
   @override
-  Future<HttpClientResponse<T>> get<T>(String path,
+  Future<HttpClientResponse> get(String path,
       {Map<String, dynamic>? queryParameters,
       Map<String, dynamic>? headers}) async {
     try {
@@ -52,7 +52,7 @@ class DioClient implements HttpClient {
   }
 
   @override
-  Future<HttpClientResponse<T>> patch<T>(String path,
+  Future<HttpClientResponse> patch(String path,
       {data,
       Map<String, dynamic>? queryParameters,
       Map<String, dynamic>? headers}) async {
@@ -71,7 +71,7 @@ class DioClient implements HttpClient {
   }
 
   @override
-  Future<HttpClientResponse<T>> post<T>(String path,
+  Future<HttpClientResponse> post(String path,
       {data,
       Map<String, dynamic>? queryParameters,
       Map<String, dynamic>? headers}) async {
@@ -90,7 +90,7 @@ class DioClient implements HttpClient {
   }
 
   @override
-  Future<HttpClientResponse<T>> put<T>(String path,
+  Future<HttpClientResponse> put(String path,
       {data,
       Map<String, dynamic>? queryParameters,
       Map<String, dynamic>? headers}) async {
@@ -109,7 +109,7 @@ class DioClient implements HttpClient {
   }
 
   @override
-  Future<HttpClientResponse<T>> request<T>(String path,
+  Future<HttpClientResponse> request(String path,
       {required String method,
       data,
       Map<String, dynamic>? queryParameters,
@@ -131,9 +131,18 @@ class DioClient implements HttpClient {
     }
   }
 
-  Future<HttpClientResponse<T>> _dioResponseConverter<T>(
+  Future<HttpClientResponse> _dioResponseConverter(
       Response<dynamic> response) async {
-    return HttpClientResponse<T>(
+    if ((response.statusCode! >= 200) && (response.statusCode! < 400)) {
+      print(response.requestOptions.validateStatus);
+      return HttpClientResponseSuccess(
+          data: response.data,
+          statusCode: response.statusCode,
+          statusMessage: response.statusMessage);
+    }
+
+    print(response.requestOptions.validateStatus);
+    return HttpClientResponseError(
       data: response.data,
       statusCode: response.statusCode,
       statusMessage: response.statusMessage,

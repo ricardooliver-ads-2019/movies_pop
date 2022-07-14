@@ -1,41 +1,41 @@
 import 'package:movies_pop/core/network/http_client_response.dart';
 
 abstract class HttpClient {
-  Future<HttpClientResponse<T>> post<T>(
+  Future<HttpClientResponse> post(
     String path, {
     dynamic data,
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? headers,
   });
 
-  Future<HttpClientResponse<T>> get<T>(
+  Future<HttpClientResponse> get(
     String path, {
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? headers,
   });
 
-  Future<HttpClientResponse<T>> put<T>(
-    String path, {
-    dynamic data,
-    Map<String, dynamic>? queryParameters,
-    Map<String, dynamic>? headers,
-  });
-
-  Future<HttpClientResponse<T>> delete<T>(
+  Future<HttpClientResponse> put(
     String path, {
     dynamic data,
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? headers,
   });
 
-  Future<HttpClientResponse<T>> patch<T>(
+  Future<HttpClientResponse> delete(
     String path, {
     dynamic data,
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? headers,
   });
 
-  Future<HttpClientResponse<T>> request<T>(
+  Future<HttpClientResponse> patch(
+    String path, {
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+    Map<String, dynamic>? headers,
+  });
+
+  Future<HttpClientResponse> request(
     String path, {
     required String method,
     dynamic data,
