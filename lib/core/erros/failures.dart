@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 
 abstract class Failure extends Equatable {
-  final String message;
+  final String? message;
   final dynamic error;
-  final int statusCode;
+  final int? statusCode;
 
   const Failure({
     required this.message,
@@ -17,6 +17,8 @@ abstract class Failure extends Equatable {
 
 class GenericFailure extends Failure {
   const GenericFailure(
-      {required String message, required error, required int statusCode})
+      {required String? message,
+      required dynamic error,
+      required int? statusCode})
       : super(message: message, error: error, statusCode: statusCode);
 }
