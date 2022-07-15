@@ -20,14 +20,14 @@ class MovieModel extends MovieEntipy {
         title: json['title'],
         posterPath: json['poster_path'],
         stars: json['vote_average'],
-        releaseDate: json['release_date'],
+        releaseDate: DateTime.parse(json['release_date']),
       );
 
-  Map<String, dynamic> toJoson() => {
+  Map<String, dynamic> toJson() => {
         'id': id,
         'title': title,
         'poster_path': posterPath,
         'vote_average': stars,
-        'release_date': releaseDate,
+        'release_date': releaseDate.toString(),
       };
 }

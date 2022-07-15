@@ -7,7 +7,7 @@ import 'package:movies_pop/features/movies/home/domain/entities/movie_entipy/mov
 import '../../../../../mocks/models_test.dart';
 
 void main() {
-  final DateTime tDate = DateTime(2022 - 03 - 04);
+  final DateTime tDate = DateTime.parse('2022-03-04');
   final MovieModel tMovieModel = MovieModel(
     id: 86,
     title: 'A Day to Die',
@@ -16,11 +16,15 @@ void main() {
     posterPath: '/8Kce1utfytAG5m1PbtVoDzmDZJH.jpg',
     releaseDate: tDate,
   );
+
+  print(tDate);
+
   test('deve responder que MovieModel é uma subclass de MovieEntipy', () {
     expect(tMovieModel, isA<MovieEntipy>());
   });
 
   test('deve obter como retorno a validação do model', () {
+    print(tDate);
     final Map<String, dynamic> jsonMap = json.decode(movieMock);
     final result = MovieModel.fromJson(jsonMap);
     expect(result, tMovieModel);
