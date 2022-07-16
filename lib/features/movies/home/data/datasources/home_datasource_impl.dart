@@ -7,18 +7,19 @@ class HomeDatasourceImpl implements IHomeDatasource {
   HomeDatasourceImpl({required HttpClient client}) : _client = client;
 
   @override
-  Future<HttpClientResponse> getMoviesPlayingInBrazilNow() async {
+  Future<HttpClientResponse> getMoviesPlayingInBrazilNow(
+      {required int page}) async {
     return await _client.get('https://api.themoviedb.org/3/movie/now_playing',
         queryParameters: {
           'api_key': '899e6212bb39852b379032c9c5e25689',
           'language': 'pt-br',
           'region': 'Brazil',
-          'page': 2
+          'page': page
         });
   }
 
   @override
-  Future<HttpClientResponse> getMoviesPopular() {
+  Future<HttpClientResponse> getMoviesPopular({required int page}) {
     // TODO: implement getMoviesPopular
     throw UnimplementedError();
   }
