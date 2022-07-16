@@ -1,9 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:movies_pop/core/erros/failures.dart';
-
-import '../../entities/movie_entipy/movie_entipy.dart';
+import 'package:movies_pop/features/movies/home/domain/entities/movies_page_entipy/movies_page_entipy.dart';
 
 abstract class HomeRepository {
-  Future<Either<Failure, List<MovieEntipy>>> getMoviesPlayingInBrazilNow();
-  Future<Either<Failure, List<MovieEntipy>>> getMoviesPopular();
+  Future<Either<Failure, MoviesPageEntipy>> getMoviesPlayingInBrazilNow(
+      {required int page});
+  Future<Either<Failure, MoviesPageEntipy>> getMoviesPopular(
+      {required int page});
 }
