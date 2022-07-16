@@ -4,8 +4,12 @@ import 'package:mocktail/mocktail.dart';
 import 'package:movies_pop/core/erros/failures.dart';
 import 'package:movies_pop/core/network/http_client_response.dart';
 import 'package:movies_pop/features/movies/home/data/datasources/i_home_datasource.dart';
+import 'package:movies_pop/features/movies/home/data/models/movies_page_model.dart';
 import 'package:movies_pop/features/movies/home/data/repositories/home_repository_impl.dart';
 import 'package:movies_pop/features/movies/home/domain/entities/movie_entipy/movie_entipy.dart';
+import 'package:movies_pop/features/movies/home/domain/entities/movies_page_entipy/movies_page_entipy.dart';
+
+import '../../../../../mocks/models_test.dart';
 
 class MockHomeDatasourceImpl extends Mock implements IHomeDatasource {}
 
@@ -17,6 +21,13 @@ void main() {
     datasource = MockHomeDatasourceImpl();
     repositoryImpl = HomeRepositoryImpl(datasource: datasource);
   });
+
+  final List<MovieEntipy> listMovies =
+      MoviesPageModel.fromJson(mockPageMovie).movies;
+
+  //final List<MovieEntipy> listMoviesIsEmpty =
+  //    MoviesPageModel.fromJson(mockPageMovieWithListMoviesIsEmpty).movies;
+
   final DateTime tDate = DateTime(2021, 02, 02);
   final tMovieEntipy = MovieEntipy(
     id: 2,
@@ -26,30 +37,144 @@ void main() {
     posterPath: 'testeUrl',
     releaseDate: tDate,
   );
-  final List<MovieEntipy> tListMovieEnpity = [tMovieEntipy];
+
+  //final List<MovieEntipy> tListMovieEnpity = [tMovieEntipy];
+  const int page = 1;
+
+  // final MoviesPageEntipy moviesPage = MoviesPageEntipy(
+  //   page: page,
+  //   movies: tListMovieEnpity,
+  //   totalPages: 5,
+  //   totalResults: 22,
+  // );
 
   test('deve obter um HttpClientResponseError', () async {
     // Arrange
-    when(() => datasource.getMoviesPlayingInBrazilNow()).thenAnswer((_) async =>
-        HttpClientResponseError(data: '', statusCode: 200, statusMessage: ''));
+    when(() => datasource.getMoviesPlayingInBrazilNow(page: page)).thenAnswer(
+        (_) async => HttpClientResponseError(
+            data: '', statusCode: 500, statusMessage: ''));
     // Act
-    final result = await repositoryImpl.getMoviesPlayingInBrazilNow();
+    final result = await repositoryImpl.getMoviesPlayingInBrazilNow(page: page);
     // Assert
     expect(
         result,
         const Left(
             GenericFailure(error: null, message: null, statusCode: null)));
-    verify(() => datasource.getMoviesPlayingInBrazilNow());
+    verify(() => datasource.getMoviesPlayingInBrazilNow(page: page));
   });
 
   test('deve obter uma lista de moledo de filmes', () async {
     // Arrange
-    when(() => datasource.getMoviesPlayingInBrazilNow()).thenAnswer((_) async =>
-        HttpClientResponseSuccess(
-            data: '', statusCode: 200, statusMessage: ''));
+    when(() => datasource.getMoviesPlayingInBrazilNow(page: page)).thenAnswer(
+        (_) async => HttpClientResponseSuccess(
+            data: mockPageMovie, statusCode: 200, statusMessage: 'Success'));
     // Act
-    final result = await repositoryImpl.getMoviesPlayingInBrazilNow();
+    final result = await repositoryImpl.getMoviesPlayingInBrazilNow(page: page);
+    final moviesReturn = result.fold((l) => null, ((r) => r));
     // Assert
-    expect(result, Right(tListMovieEnpity));
+    expect(
+        moviesReturn,
+        MoviesPageModel(
+          page: page,
+          movies: listMovies,
+          totalPages: 69,
+          totalResults: 1372,
+        ));
+  });
+
+  test('deve obter uma lista de moledo de filmes', () async {
+    // Arrange
+    when(() => datasource.getMoviesPlayingInBrazilNow(page: page)).thenAnswer(
+        (_) async => HttpClientResponseSuccess(
+            data: mockPageMovie, statusCode: 200, statusMessage: 'Success'));
+    // Act
+    final result = await repositoryImpl.getMoviesPlayingInBrazilNow(page: page);
+    // Assert
+    expect(result, isA<Right<Failure, MoviesPageEntipy>>());
+  });
+
+  test('deve obter uma falha de lista de filmes vazia', () async {
+    // Arrange
+    when(() => datasource.getMoviesPlayingInBrazilNow(page: page)).thenAnswer(
+      (_) async => HttpClientResponseSuccess(
+        data: mockPageMovieNull,
+        statusCode: 200,
+        statusMessage: 'Success',
+      ),
+    );
+    // Act
+    final result = await repositoryImpl.getMoviesPlayingInBrazilNow(page: page);
+    final moviesReturn = result.fold((l) => l, ((r) => null));
+    // Assert
+    expect(
+        moviesReturn,
+        const GenericFailure(
+          error: 'Lista de filmes vazia',
+          message: 'Erro ao buscar lista de filmes',
+          statusCode: 000,
+        ));
+  });
+
+  test('deve obter uma falha de lista de filmes vazia', () async {
+    // Arrange
+    when(() => datasource.getMoviesPlayingInBrazilNow(page: page))
+        .thenAnswer((_) async => HttpClientResponseSuccess(
+              data: mockPageMovieWithListMoviesIsEmpty,
+              statusCode: 200,
+              statusMessage: 'Success',
+            ));
+    // Act
+    final result = await repositoryImpl.getMoviesPlayingInBrazilNow(page: page);
+    final moviesReturn = result.fold((l) => l, ((r) => null));
+    // Assert
+    expect(
+        moviesReturn,
+        const GenericFailure(
+          error: 'Lista de filmes vazia',
+          message: 'Erro ao buscar lista de filmes',
+          statusCode: 000,
+        ));
+  });
+
+  test('deve obter uma falha conversão de contrato no MoviesPage', () async {
+    // Arrange
+    when(() => datasource.getMoviesPlayingInBrazilNow(page: page))
+        .thenAnswer((_) async => HttpClientResponseSuccess(
+              data: mockPageMovieContractInvaled,
+              statusCode: 200,
+              statusMessage: 'Success',
+            ));
+    // Act
+    final result = await repositoryImpl.getMoviesPlayingInBrazilNow(page: page);
+    final moviesReturn = result.fold((l) => l, ((r) => null));
+    // Assert
+    expect(
+        moviesReturn,
+        const GenericFailure(
+          message: 'Erro de conversão',
+          error: 'xxMoviePagexx',
+          statusCode: 500,
+        ));
+  });
+
+  test('deve obter uma falha conversão de contrato no Movies', () async {
+    // Arrange
+    when(() => datasource.getMoviesPlayingInBrazilNow(page: page))
+        .thenAnswer((_) async => HttpClientResponseSuccess(
+              data: mockPageMovieWithContractMovieInvaled,
+              statusCode: 200,
+              statusMessage: 'Success',
+            ));
+    // Act
+    final result = await repositoryImpl.getMoviesPlayingInBrazilNow(page: page);
+    final moviesReturn = result.fold((l) => l, ((r) => null));
+    // Assert
+    expect(
+        moviesReturn,
+        const GenericFailure(
+          message: 'Erro de conversão nos filmes',
+          error: 'XXFilmeXX',
+          statusCode: 500,
+        ));
   });
 }

@@ -18,6 +18,8 @@ void main() {
     datasource = HomeDatasourceImpl(client: client);
   });
 
+  const int page = 1;
+
   const urlBase = 'https://api.themoviedb.org/3/movie/now_playing';
 
   test('deve obter uma resposta de sucesso', () async {
@@ -27,13 +29,13 @@ void main() {
         .thenAnswer((_) async => HttpClientResponseSuccess(
             data: movieMock, statusCode: 200, statusMessage: 'success'));
     // Act
-    final result = await datasource.getMoviesPlayingInBrazilNow();
+    final result = await datasource.getMoviesPlayingInBrazilNow(page: page);
     //Asset
     verify(() => client.get(urlBase, queryParameters: {
           'api_key': '899e6212bb39852b379032c9c5e25689',
           'language': 'pt-br',
           'region': 'Brazil',
-          'page': 2
+          'page': page
         })).called(1);
   });
 
