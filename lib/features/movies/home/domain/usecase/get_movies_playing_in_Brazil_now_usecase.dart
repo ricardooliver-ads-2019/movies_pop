@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:movies_pop/core/erros/failures.dart';
-import 'package:movies_pop/features/movies/home/domain/entities/movie_entipy/movie_entipy.dart';
+import 'package:movies_pop/features/movies/home/domain/entities/movies_page_entipy/movies_page_entipy.dart';
 
 import '../repositories/home/home_repository.dart';
 
@@ -10,7 +10,7 @@ class GetMoviesPlayingInBrazilNowUsecase {
   GetMoviesPlayingInBrazilNowUsecase({required HomeRepository repository})
       : _repository = repository;
 
-  Future<Either<Failure, List<MovieEntipy>>> call() async {
-    return await _repository.getMoviesPlayingInBrazilNow();
+  Future<Either<Failure, MoviesPageEntipy>> call({required int page}) async {
+    return await _repository.getMoviesPlayingInBrazilNow(page: page);
   }
 }
