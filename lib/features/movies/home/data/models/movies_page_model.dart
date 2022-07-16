@@ -21,8 +21,8 @@ class MoviesPageModel extends MoviesPageEntipy {
       movies: (pageMoviesJson['results'] as List)
           .map((movie) => MovieModel.fromJson(movie))
           .toList(),
-      totalPages: pageMoviesJson['totalPages'],
-      totalResults: pageMoviesJson['totalResults'],
+      totalPages: pageMoviesJson['total_pages'],
+      totalResults: pageMoviesJson['total_results'],
     );
   }
 }
