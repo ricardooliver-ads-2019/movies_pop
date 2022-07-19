@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies_pop/core/dependencies/get_it/dependencies.dart';
+import 'package:movies_pop/core/theme/color_schemes.dart';
 
 void main() {
   getItDependencies();
@@ -14,9 +15,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+        theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
+        darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
         home: null);
   }
 }
