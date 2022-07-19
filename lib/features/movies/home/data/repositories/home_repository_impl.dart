@@ -62,8 +62,48 @@ class HomeRepositoryImpl implements HomeRepository {
 
   @override
   Future<Either<Failure, MoviesPageEntipy>> getMoviesPopular(
-      {required int page}) {
-    // TODO: implement getMoviesPopular
-    throw UnimplementedError();
+      {required int page}) async {
+    final result = await _datasource.getMoviesPopular(page: page);
+
+    if (result is HttpClientResponseError) {
+      return Left(GenericFailure(
+        error: result.error,
+        message: result.message,
+        statusCode: result.statusCode,
+      ));
+    }
+
+    if ((result.data == null) || (result.data['results'] as List).isEmpty) {
+      return const Left(GenericFailure(
+        error: 'Lista de filmes vazia',
+        message: 'Erro ao buscar lista de filmes',
+        statusCode: 000,
+      ));
+    }
+
+    try {
+      try {
+        final movies = MovieModel.fromJson(result.data['results'][0]);
+      } catch (e) {
+        return const Left(GenericFailure(
+          message: 'Erro de conversão nos filmes',
+          error: 'XXFilmeXX',
+          statusCode: 500,
+        ));
+      }
+
+      try {
+        final results = MoviesPageModel.fromJson(result.data);
+        return Right(results);
+      } catch (e) {
+        return const Left(GenericFailure(
+            message: 'Erro de conversão',
+            error: 'xxMoviePagexx',
+            statusCode: 500));
+      }
+    } on Exception {
+      return const Left(
+          GenericFailure(error: 'Erro', message: 'Ferrou', statusCode: 500));
+    }
   }
 }
