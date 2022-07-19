@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:movies_pop/features/movies/home/data/models/movie_model.dart';
 import 'package:movies_pop/features/movies/home/domain/entities/movie_entipy/movie_entipy.dart';
 
-import '../../../../../mocks/models_test.dart';
+import '../../../../../mocks/models.dart';
 
 void main() {
   final DateTime tDate = DateTime.parse('2022-03-04');
