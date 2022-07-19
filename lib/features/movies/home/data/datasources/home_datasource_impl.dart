@@ -19,8 +19,13 @@ class HomeDatasourceImpl implements IHomeDatasource {
   }
 
   @override
-  Future<HttpClientResponse> getMoviesPopular({required int page}) {
-    // TODO: implement getMoviesPopular
-    throw UnimplementedError();
+  Future<HttpClientResponse> getMoviesPopular({required int page}) async {
+    return await _client
+        .get('https://api.themoviedb.org/3/movie/popular', queryParameters: {
+      'api_key': '899e6212bb39852b379032c9c5e25689',
+      'language': 'pt-br',
+      'region': 'Brazil',
+      'page': page
+    });
   }
 }
