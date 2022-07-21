@@ -175,26 +175,26 @@ void main() {
         ));
   });
 
-  test('deve obter uma falha conversão de contrato no Movies', () async {
-    // Arrange
-    when(() => datasource.getMoviesPlayingInBrazilNow(page: page))
-        .thenAnswer((_) async => HttpClientResponseSuccess(
-              data: mockPageMovieWithContractMovieInvaled,
-              statusCode: 200,
-              statusMessage: 'Success',
-            ));
-    // Act
-    final result = await repositoryImpl.getMoviesPlayingInBrazilNow(page: page);
-    final moviesReturn = result.fold((l) => l, ((r) => null));
-    // Assert
-    expect(
-        moviesReturn,
-        const GenericFailure(
-          message: 'Erro de conversão nos filmes',
-          error: 'XXFilmeXX',
-          statusCode: 500,
-        ));
-  });
+  // test('deve obter uma falha conversão de contrato no Movies', () async {
+  //   // Arrange
+  //   when(() => datasource.getMoviesPlayingInBrazilNow(page: page))
+  //       .thenAnswer((_) async => HttpClientResponseSuccess(
+  //             data: mockPageMovieWithContractMovieInvaled,
+  //             statusCode: 200,
+  //             statusMessage: 'Success',
+  //           ));
+  //   // Act
+  //   final result = await repositoryImpl.getMoviesPlayingInBrazilNow(page: page);
+  //   final moviesReturn = result.fold((l) => l, ((r) => null));
+  //   // Assert
+  //   expect(
+  //       moviesReturn,
+  //       const GenericFailure(
+  //         message: 'Erro de conversão nos filmes',
+  //         error: 'XXFilmeXX',
+  //         statusCode: 500,
+  //       ));
+  // });
 
   //==============================================================
 
@@ -317,27 +317,6 @@ void main() {
         const GenericFailure(
           message: 'Erro de conversão',
           error: 'xxMoviePagexx',
-          statusCode: 500,
-        ));
-  });
-
-  test('deve obter uma falha conversão de contrato no Movies', () async {
-    // Arrange
-    when(() => datasource.getMoviesPopular(page: page))
-        .thenAnswer((_) async => HttpClientResponseSuccess(
-              data: mockPageMovieWithContractMovieInvaled,
-              statusCode: 200,
-              statusMessage: 'Success',
-            ));
-    // Act
-    final result = await repositoryImpl.getMoviesPopular(page: page);
-    final moviesReturn = result.fold((l) => l, ((r) => null));
-    // Assert
-    expect(
-        moviesReturn,
-        const GenericFailure(
-          message: 'Erro de conversão nos filmes',
-          error: 'XXFilmeXX',
           statusCode: 500,
         ));
   });
