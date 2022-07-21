@@ -4,7 +4,7 @@ import 'package:movies_pop/core/network_connection/i_network_connection.dart';
 class NetworkConnectionImpl implements INetworkConnection {
   final DataConnectionChecker connectionChecker;
 
-  NetworkConnectionImpl(this.connectionChecker);
+  NetworkConnectionImpl({required this.connectionChecker});
   @override
   Future<bool> get isConnected => connectionChecker.hasConnection;
 }
