@@ -19,9 +19,16 @@ class HomeRepositoryImpl implements HomeRepository {
     final result = await _datasource.getMoviesPlayingInBrazilNow(page: page);
 
     if (result is HttpClientResponseError) {
+      if (result.statusCode == 0) {
+        return Left(GenericFailure(
+          error: result.data,
+          message: result.statusMessage,
+          statusCode: result.statusCode,
+        ));
+      }
       return Left(GenericFailure(
-        error: result.error,
-        message: result.message,
+        error: result.data,
+        message: result.statusMessage,
         statusCode: result.statusCode,
       ));
     }
@@ -66,9 +73,16 @@ class HomeRepositoryImpl implements HomeRepository {
     final result = await _datasource.getMoviesPopular(page: page);
 
     if (result is HttpClientResponseError) {
+      if (result.statusCode == 0) {
+        return Left(GenericFailure(
+          error: result.data,
+          message: result.statusMessage,
+          statusCode: result.statusCode,
+        ));
+      }
       return Left(GenericFailure(
-        error: result.error,
-        message: result.message,
+        error: result.data,
+        message: result.statusMessage,
         statusCode: result.statusCode,
       ));
     }
