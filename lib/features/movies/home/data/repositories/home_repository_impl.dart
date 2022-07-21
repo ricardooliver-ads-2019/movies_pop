@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:movies_pop/core/erros/failures.dart';
 import 'package:movies_pop/core/network/http_client_response.dart';
-import 'package:movies_pop/features/movies/home/data/models/movie_model.dart';
 import 'package:movies_pop/features/movies/home/data/models/movies_page_model.dart';
 import 'package:movies_pop/features/movies/home/domain/entities/movies_page_entipy/movies_page_entipy.dart';
 import 'package:movies_pop/features/movies/home/domain/repositories/home/home_repository.dart';
@@ -42,28 +41,13 @@ class HomeRepositoryImpl implements HomeRepository {
     }
 
     try {
-      try {
-        final movies = MovieModel.fromJson(result.data['results'][0]);
-      } catch (e) {
-        return const Left(GenericFailure(
-          message: 'Erro de conversão nos filmes',
-          error: 'XXFilmeXX',
-          statusCode: 500,
-        ));
-      }
-
-      try {
-        final results = MoviesPageModel.fromJson(result.data);
-        return Right(results);
-      } catch (e) {
-        return const Left(GenericFailure(
-            message: 'Erro de conversão',
-            error: 'xxMoviePagexx',
-            statusCode: 500));
-      }
-    } on Exception {
-      return const Left(
-          GenericFailure(error: 'Erro', message: 'Ferrou', statusCode: 500));
+      final results = MoviesPageModel.fromJson(result.data);
+      return Right(results);
+    } catch (e) {
+      return const Left(GenericFailure(
+          message: 'Erro de conversão',
+          error: 'xxMoviePagexx',
+          statusCode: 500));
     }
   }
 
@@ -80,6 +64,7 @@ class HomeRepositoryImpl implements HomeRepository {
           statusCode: result.statusCode,
         ));
       }
+
       return Left(GenericFailure(
         error: result.data,
         message: result.statusMessage,
@@ -96,28 +81,13 @@ class HomeRepositoryImpl implements HomeRepository {
     }
 
     try {
-      try {
-        final movies = MovieModel.fromJson(result.data['results'][0]);
-      } catch (e) {
-        return const Left(GenericFailure(
-          message: 'Erro de conversão nos filmes',
-          error: 'XXFilmeXX',
-          statusCode: 500,
-        ));
-      }
-
-      try {
-        final results = MoviesPageModel.fromJson(result.data);
-        return Right(results);
-      } catch (e) {
-        return const Left(GenericFailure(
-            message: 'Erro de conversão',
-            error: 'xxMoviePagexx',
-            statusCode: 500));
-      }
-    } on Exception {
-      return const Left(
-          GenericFailure(error: 'Erro', message: 'Ferrou', statusCode: 500));
+      final results = MoviesPageModel.fromJson(result.data);
+      return Right(results);
+    } catch (e) {
+      return const Left(GenericFailure(
+          message: 'Erro de conversão',
+          error: 'xxMoviePagexx',
+          statusCode: 500));
     }
   }
 }
