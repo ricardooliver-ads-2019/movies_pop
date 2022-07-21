@@ -55,12 +55,29 @@ void main() {
             data: '', statusCode: 500, statusMessage: ''));
     // Act
     final result = await repositoryImpl.getMoviesPlayingInBrazilNow(page: page);
+    final moviesReturn = result.fold((l) => l, ((r) => null));
+    // Assert
+    expect(moviesReturn,
+        const GenericFailure(error: '', statusCode: 500, message: ''));
+    verify(() => datasource.getMoviesPlayingInBrazilNow(page: page));
+  });
+
+  test('deve retornar um HttpClientResponseError com statusCode == 0',
+      () async {
+    // Arrange
+    when(() => datasource.getMoviesPlayingInBrazilNow(page: page)).thenAnswer(
+        (_) async => HttpClientResponseError(
+            data: 'Error', statusCode: 0, statusMessage: 'no conection'));
+    // Act
+    final result = await repositoryImpl.getMoviesPlayingInBrazilNow(page: page);
+    final moviesReturn = result.fold((l) => l, ((r) => null));
+    print(moviesReturn);
     // Assert
     expect(
-        result,
-        const Left(
-            GenericFailure(error: null, message: null, statusCode: null)));
-    verify(() => datasource.getMoviesPlayingInBrazilNow(page: page));
+        moviesReturn,
+        const GenericFailure(
+            error: 'Error', statusCode: 0, message: 'no conection'));
+    verify(() => datasource.getMoviesPlayingInBrazilNow(page: page)).called(1);
   });
 
   test('deve obter uma lista de moledo de filmes', () async {
@@ -147,6 +164,7 @@ void main() {
     // Act
     final result = await repositoryImpl.getMoviesPlayingInBrazilNow(page: page);
     final moviesReturn = result.fold((l) => l, ((r) => null));
+
     // Assert
     expect(
         moviesReturn,
@@ -186,12 +204,27 @@ void main() {
         HttpClientResponseError(data: '', statusCode: 500, statusMessage: ''));
     // Act
     final result = await repositoryImpl.getMoviesPopular(page: page);
+    final moviesReturn = result.fold((l) => l, ((r) => r));
     // Assert
-    expect(
-        result,
-        const Left(
-            GenericFailure(error: null, message: null, statusCode: null)));
+    expect(moviesReturn,
+        const GenericFailure(error: '', message: '', statusCode: 500));
     verify(() => datasource.getMoviesPopular(page: page));
+  });
+
+  test('deve responder com um httpResponseError com status code == 0',
+      () async {
+    when(
+      () => datasource.getMoviesPopular(page: page),
+    ).thenAnswer((_) async => HttpClientResponseError(
+        data: '', statusCode: 0, statusMessage: 'no conection'));
+
+    final result = await repositoryImpl.getMoviesPopular(page: page);
+    final returnRenponse = result.fold((l) => l, (r) => r);
+
+    expect(
+        returnRenponse,
+        const GenericFailure(
+            message: 'no conection', error: '', statusCode: 0));
   });
 
   test('deve obter uma lista de moledo de filmes', () async {
