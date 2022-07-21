@@ -2,17 +2,20 @@ import 'package:dio/dio.dart';
 import 'package:movies_pop/core/network/http_client.dart';
 import 'package:movies_pop/core/network/http_client_exception.dart';
 import 'package:movies_pop/core/network/http_client_response.dart';
+import 'package:movies_pop/core/network_connection/i_network_connection.dart';
 import 'package:movies_pop/core/utils/constants.dart';
 
 class DioClient implements HttpClient {
   late final Dio _dio;
+  late final INetworkConnection _networkConnection;
 
   final _defaultOptions = BaseOptions(baseUrl: Constants.base_url);
 
-  DioClient({
-    BaseOptions? baseOptions,
-  }) {
+  DioClient(
+      {BaseOptions? baseOptions,
+      required INetworkConnection networkConnection}) {
     _dio = Dio(baseOptions ?? _defaultOptions);
+    _networkConnection = networkConnection;
   }
 
   @override
@@ -133,20 +136,31 @@ class DioClient implements HttpClient {
 
   Future<HttpClientResponse> _dioResponseConverter(
       Response<dynamic> response) async {
-    if ((response.statusCode! >= 200) && (response.statusCode! < 400)) {
+    if (await _networkConnection.isConnected) {
+      if ((response.statusCode! >= 200) && (response.statusCode! < 400)) {
+        print(response.requestOptions.validateStatus);
+        return HttpClientResponseSuccess(
+            data: response.data,
+            statusCode: response.statusCode,
+            statusMessage: response.statusMessage);
+      }
+
       print(response.requestOptions.validateStatus);
-      return HttpClientResponseSuccess(
-          data: response.data,
-          statusCode: response.statusCode,
-          statusMessage: response.statusMessage);
+      return HttpClientResponseError(
+        data: response.data,
+        statusCode: response.statusCode,
+        statusMessage: response.statusMessage,
+      );
     }
 
-    print(response.requestOptions.validateStatus);
     return HttpClientResponseError(
-      data: response.data,
-      statusCode: response.statusCode,
-      statusMessage: response.statusMessage,
-    );
+        data: response.data,
+        statusCode: 0,
+        statusMessage: 'no connection',
+        response: HttpClientResponse(
+            data: 'no connection',
+            statusCode: 0,
+            statusMessage: 'no connection'));
   }
 
   Never _throwHttpClientExeception(DioError dioError) {
