@@ -23,35 +23,55 @@ class DioClient implements HttpClient {
       {data,
       Map<String, dynamic>? queryParameters,
       Map<String, dynamic>? headers}) async {
-    try {
-      final response = await _dio.delete(
-        path,
-        data: data,
-        queryParameters: queryParameters,
-        options: Options(headers: headers),
-      );
+    if (await _networkConnection.isConnected) {
+      try {
+        final response = await _dio.delete(
+          path,
+          data: data,
+          queryParameters: queryParameters,
+          options: Options(headers: headers),
+        );
 
-      return _dioResponseConverter(response);
-    } on DioError catch (e) {
-      _throwHttpClientExeception(e);
+        return _dioResponseConverter(response);
+      } on DioError catch (e) {
+        _throwHttpClientExeception(e);
+      }
     }
+
+    return HttpClientResponseError(
+      data: null,
+      statusCode: 0,
+      statusMessage: 'no connection',
+      response: HttpClientResponse(
+          data: null, statusCode: 0, statusMessage: 'no connection'),
+    );
   }
 
   @override
   Future<HttpClientResponse> get(String path,
       {Map<String, dynamic>? queryParameters,
       Map<String, dynamic>? headers}) async {
-    try {
-      final response = await _dio.get(
-        path,
-        queryParameters: queryParameters,
-        options: Options(headers: headers),
-      );
+    if (await _networkConnection.isConnected) {
+      try {
+        final response = await _dio.get(
+          path,
+          queryParameters: queryParameters,
+          options: Options(headers: headers),
+        );
 
-      return _dioResponseConverter(response);
-    } on DioError catch (e) {
-      _throwHttpClientExeception(e);
+        return _dioResponseConverter(response);
+      } on DioError catch (e) {
+        _throwHttpClientExeception(e);
+      }
     }
+
+    return HttpClientResponseError(
+      data: null,
+      statusCode: 0,
+      statusMessage: 'no connection',
+      response: HttpClientResponse(
+          data: null, statusCode: 0, statusMessage: 'no connection'),
+    );
   }
 
   @override
@@ -59,18 +79,28 @@ class DioClient implements HttpClient {
       {data,
       Map<String, dynamic>? queryParameters,
       Map<String, dynamic>? headers}) async {
-    try {
-      final response = await _dio.patch(
-        path,
-        data: data,
-        queryParameters: queryParameters,
-        options: Options(headers: headers),
-      );
+    if (await _networkConnection.isConnected) {
+      try {
+        final response = await _dio.patch(
+          path,
+          data: data,
+          queryParameters: queryParameters,
+          options: Options(headers: headers),
+        );
 
-      return _dioResponseConverter(response);
-    } on DioError catch (e) {
-      _throwHttpClientExeception(e);
+        return _dioResponseConverter(response);
+      } on DioError catch (e) {
+        _throwHttpClientExeception(e);
+      }
     }
+
+    return HttpClientResponseError(
+      data: null,
+      statusCode: 0,
+      statusMessage: 'no connection',
+      response: HttpClientResponse(
+          data: null, statusCode: 0, statusMessage: 'no connection'),
+    );
   }
 
   @override
@@ -78,18 +108,28 @@ class DioClient implements HttpClient {
       {data,
       Map<String, dynamic>? queryParameters,
       Map<String, dynamic>? headers}) async {
-    try {
-      final response = await _dio.post(
-        path,
-        data: data,
-        queryParameters: queryParameters,
-        options: Options(headers: headers),
-      );
+    if (await _networkConnection.isConnected) {
+      try {
+        final response = await _dio.post(
+          path,
+          data: data,
+          queryParameters: queryParameters,
+          options: Options(headers: headers),
+        );
 
-      return _dioResponseConverter(response);
-    } on DioError catch (e) {
-      _throwHttpClientExeception(e);
+        return _dioResponseConverter(response);
+      } on DioError catch (e) {
+        _throwHttpClientExeception(e);
+      }
     }
+
+    return HttpClientResponseError(
+      data: null,
+      statusCode: 0,
+      statusMessage: 'no connection',
+      response: HttpClientResponse(
+          data: null, statusCode: 0, statusMessage: 'no connection'),
+    );
   }
 
   @override
@@ -97,18 +137,28 @@ class DioClient implements HttpClient {
       {data,
       Map<String, dynamic>? queryParameters,
       Map<String, dynamic>? headers}) async {
-    try {
-      final response = await _dio.put(
-        path,
-        data: data,
-        queryParameters: queryParameters,
-        options: Options(headers: headers),
-      );
+    if (await _networkConnection.isConnected) {
+      try {
+        final response = await _dio.put(
+          path,
+          data: data,
+          queryParameters: queryParameters,
+          options: Options(headers: headers),
+        );
 
-      return _dioResponseConverter(response);
-    } on DioError catch (e) {
-      _throwHttpClientExeception(e);
+        return _dioResponseConverter(response);
+      } on DioError catch (e) {
+        _throwHttpClientExeception(e);
+      }
     }
+
+    return HttpClientResponseError(
+      data: null,
+      statusCode: 0,
+      statusMessage: 'no connection',
+      response: HttpClientResponse(
+          data: null, statusCode: 0, statusMessage: 'no connection'),
+    );
   }
 
   @override
@@ -117,50 +167,49 @@ class DioClient implements HttpClient {
       data,
       Map<String, dynamic>? queryParameters,
       Map<String, dynamic>? headers}) async {
-    try {
-      final response = await _dio.request(
-        path,
-        data: data,
-        queryParameters: queryParameters,
-        options: Options(
-          headers: headers,
-          method: method,
-        ),
-      );
+    if (await _networkConnection.isConnected) {
+      try {
+        final response = await _dio.request(
+          path,
+          data: data,
+          queryParameters: queryParameters,
+          options: Options(
+            headers: headers,
+            method: method,
+          ),
+        );
 
-      return _dioResponseConverter(response);
-    } on DioError catch (e) {
-      _throwHttpClientExeception(e);
+        return _dioResponseConverter(response);
+      } on DioError catch (e) {
+        _throwHttpClientExeception(e);
+      }
     }
+
+    return HttpClientResponseError(
+      data: null,
+      statusCode: 0,
+      statusMessage: 'no connection',
+      response: HttpClientResponse(
+          data: null, statusCode: 0, statusMessage: 'no connection'),
+    );
   }
 
   Future<HttpClientResponse> _dioResponseConverter(
       Response<dynamic> response) async {
-    if (await _networkConnection.isConnected) {
-      if ((response.statusCode! >= 200) && (response.statusCode! < 400)) {
-        print(response.requestOptions.validateStatus);
-        return HttpClientResponseSuccess(
-            data: response.data,
-            statusCode: response.statusCode,
-            statusMessage: response.statusMessage);
-      }
-
+    if ((response.statusCode! >= 200) && (response.statusCode! < 400)) {
       print(response.requestOptions.validateStatus);
-      return HttpClientResponseError(
-        data: response.data,
-        statusCode: response.statusCode,
-        statusMessage: response.statusMessage,
-      );
+      return HttpClientResponseSuccess(
+          data: response.data,
+          statusCode: response.statusCode,
+          statusMessage: response.statusMessage);
     }
 
+    print(response.requestOptions.validateStatus);
     return HttpClientResponseError(
-        data: response.data,
-        statusCode: 0,
-        statusMessage: 'no connection',
-        response: HttpClientResponse(
-            data: 'no connection',
-            statusCode: 0,
-            statusMessage: 'no connection'));
+      data: response.data,
+      statusCode: response.statusCode,
+      statusMessage: response.statusMessage,
+    );
   }
 
   Never _throwHttpClientExeception(DioError dioError) {
