@@ -13,7 +13,7 @@ class HomeDatasourceImpl implements IHomeDatasource {
         queryParameters: {
           'api_key': '899e6212bb39852b379032c9c5e25689',
           'language': 'pt-br',
-          'region': 'Brazil',
+          'regio': 'Brazil',
           'page': page
         });
   }
@@ -24,7 +24,7 @@ class HomeDatasourceImpl implements IHomeDatasource {
         .get('https://api.themoviedb.org/3/movie/popular', queryParameters: {
       'api_key': '899e6212bb39852b379032c9c5e25689',
       'language': 'pt-br',
-      'region': 'Brazil',
+      'regio': 'Brazil',
       'page': page
     });
   }
