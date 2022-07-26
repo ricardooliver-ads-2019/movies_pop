@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:movies_pop/core/erros/failures.dart';
 import 'package:movies_pop/core/network/http_client_response.dart';
+import 'package:movies_pop/features/movies/home/data/models/movie_model.dart';
 import 'package:movies_pop/features/movies/home/data/models/movies_page_model.dart';
 import 'package:movies_pop/features/movies/home/domain/entities/movies_page_entipy/movies_page_entipy.dart';
 import 'package:movies_pop/features/movies/home/domain/repositories/home/home_repository.dart';
@@ -36,7 +37,17 @@ class HomeRepositoryImpl implements HomeRepository {
       return const Left(GenericFailure(
         error: 'Lista de filmes vazia',
         message: 'Erro ao buscar lista de filmes',
-        statusCode: 000,
+        statusCode: 54,
+      ));
+    }
+
+    try {
+      final movies = MovieModel.fromJson(result.data['results'][0]);
+    } catch (e) {
+      return const Left(GenericFailure(
+        message: 'Erro de conversão nos filmes',
+        error: 'XXFilmeXX',
+        statusCode: 300,
       ));
     }
 

@@ -17,12 +17,12 @@ class MoviesPageModel extends MoviesPageEntipy {
 
   factory MoviesPageModel.fromJson(Map<String, dynamic> pageMoviesJson) {
     return MoviesPageModel(
-      page: pageMoviesJson['page'],
+      page: pageMoviesJson['page'].toInt(),
       movies: (pageMoviesJson['results'] as List)
           .map((movie) => MovieModel.fromJson(movie))
           .toList(),
-      totalPages: pageMoviesJson['total_pages'],
-      totalResults: pageMoviesJson['total_results'],
+      totalPages: pageMoviesJson['total_pages'].toInt(),
+      totalResults: pageMoviesJson['total_results'].toInt(),
     );
   }
 }

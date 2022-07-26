@@ -15,14 +15,15 @@ class MovieModel extends MovieEntipy {
           releaseDate: releaseDate,
         );
 
-  factory MovieModel.fromJson(Map<String, dynamic> json) => MovieModel(
-        id: json['id'],
-        title: json['title'],
-        posterPath: json['poster_path'],
-        stars: json['vote_average'],
-        releaseDate: DateTime.parse(json['release_date']),
-      );
-
+  factory MovieModel.fromJson(Map<String, dynamic> json) {
+    return MovieModel(
+      id: json['id'],
+      title: json['title'],
+      posterPath: json['poster_path'],
+      stars: json['vote_average'].toDouble(),
+      releaseDate: DateTime.parse(json['release_date']),
+    );
+  }
   Map<String, dynamic> toJson() => {
         'id': id,
         'title': title,
