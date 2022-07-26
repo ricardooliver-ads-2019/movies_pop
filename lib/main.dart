@@ -1,10 +1,17 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:movies_pop/core/dependencies/get_it/dependencies.dart';
+import 'package:movies_pop/core/routes/app_routes.dart';
 import 'package:movies_pop/core/theme/color_schemes.dart';
 
 void main() {
-  getItDependencies();
-  runApp(const MyApp());
+  runZonedGuarded(() async {
+    await getItDependencies();
+    runApp(const MyApp());
+  }, (Object error, StackTrace stackTrace) {
+    debugPrint(error.toString());
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -14,9 +21,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
         darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
-        home: null);
+        initialRoute: '/main_navigation_page',
+        onGenerateRoute: AppRoutes.onGenerateRoute);
   }
 }
