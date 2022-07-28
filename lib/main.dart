@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:asuka/asuka.dart' as asuka;
 import 'package:flutter/material.dart';
 import 'package:movies_pop/core/dependencies/get_it/dependencies.dart';
 import 'package:movies_pop/core/routes/app_routes.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        builder: asuka.builder,
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
