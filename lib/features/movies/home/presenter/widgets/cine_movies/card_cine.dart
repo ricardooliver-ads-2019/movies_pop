@@ -10,15 +10,15 @@ class CardCine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var mediaSize = MediaQuery.of(context).size;
-    return Container(
+    return SizedBox(
       width: mediaSize.width,
-      constraints: const BoxConstraints(maxWidth: 500),
+      //constraints: const BoxConstraints(maxWidth: 500),
       //color: Colors.red,
       child: Column(
         children: [
           Container(
             height: mediaSize.height * 0.3,
-            constraints: const BoxConstraints(maxHeight: 300),
+            constraints: const BoxConstraints(maxHeight: 500, minHeight: 250),
             decoration: BoxDecoration(
               image: DecorationImage(
                   fit: BoxFit.fill,
