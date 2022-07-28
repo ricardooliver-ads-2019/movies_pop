@@ -1,6 +1,4 @@
-import 'package:equatable/equatable.dart';
-import 'package:movies_pop/core/erros/failures.dart';
-import 'package:movies_pop/features/movies/home/domain/entities/movies_page_entipy/movies_page_entipy.dart';
+part of 'home_cubit_controller.dart';
 
 enum HomeStatus { initial, loading, success, error }
 
@@ -24,6 +22,10 @@ class HomeState extends Equatable {
           pageCineMovies: null,
           pagePopularMovies: null,
         );
+
+  @override
+  List<Object?> get props => [status, error, pageCineMovies, pagePopularMovies];
+
   HomeState copyWith({
     HomeStatus? status,
     Failure? error,
@@ -36,7 +38,4 @@ class HomeState extends Equatable {
         pageCineMovies: pageCineMovies ?? this.pageCineMovies,
         pagePopularMovies: pagePopularMovies ?? this.pagePopularMovies);
   }
-
-  @override
-  List<Object?> get props => [status, error, pageCineMovies, pagePopularMovies];
 }
