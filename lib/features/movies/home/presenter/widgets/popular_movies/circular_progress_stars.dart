@@ -43,10 +43,10 @@ class _CircularProgressStarsState extends State<CircularProgressStars>
           width: mediaSize.width * 0.1,
           height: mediaSize.width * 0.1,
           constraints: const BoxConstraints(
-            maxHeight: 50,
-            maxWidth: 50,
-            minHeight: 25,
-            minWidth: 25,
+            maxHeight: 38,
+            maxWidth: 38,
+            minHeight: 23,
+            minWidth: 23,
           ),
           decoration: const BoxDecoration(
               image: DecorationImage(
@@ -66,24 +66,25 @@ class _CircularProgressStarsState extends State<CircularProgressStars>
           ),
         ),
         TweenAnimationBuilder(
-            tween: Tween<double>(begin: 0, end: widget.value / 10),
-            duration: const Duration(milliseconds: 2000),
-            builder: (context, double value, child) => Container(
-                  width: mediaSize.width * 0.105,
-                  height: mediaSize.width * 0.105,
-                  constraints: const BoxConstraints(
-                    maxHeight: 50,
-                    maxWidth: 50,
-                    minHeight: 25,
-                    minWidth: 25,
-                  ),
-                  child: CircularProgressIndicator(
-                    color: Colors.green,
-                    backgroundColor: Colors.grey.withOpacity(0.5),
-                    value: value,
-                    semanticsLabel: 'Linear progress indicator',
-                  ),
-                ))
+          tween: Tween<double>(begin: 0, end: widget.value / 10),
+          duration: const Duration(milliseconds: 2000),
+          builder: (context, double value, child) => Container(
+            width: mediaSize.width * 0.105,
+            height: mediaSize.width * 0.105,
+            constraints: const BoxConstraints(
+              maxHeight: 40,
+              maxWidth: 40,
+              minHeight: 25,
+              minWidth: 25,
+            ),
+            child: CircularProgressIndicator(
+              color: Colors.green,
+              backgroundColor: Colors.grey.withOpacity(0.5),
+              value: value,
+              semanticsLabel: 'Linear progress indicator',
+            ),
+          ),
+        )
       ],
     );
   }
