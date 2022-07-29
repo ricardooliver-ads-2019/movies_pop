@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_pop/core/dependencies/get_it/dependencies.dart';
 import 'package:movies_pop/features/main_navigation_page/controller/main_navigation_page_cubit.dart';
 import 'package:movies_pop/features/main_navigation_page/main_navigation_page.dart';
-import 'package:movies_pop/features/movies/home/presenter/home_controller/home_cubit_controller.dart';
 import 'package:movies_pop/features/movies/home/presenter/screens/home_screen.dart';
 import 'package:movies_pop/features/watch_movies/watch_movies_screen.dart';
 import 'package:movies_pop/features/watched_movies/watched_movies_screen.dart';
@@ -28,10 +27,7 @@ class AppRoutes {
 
       case AppRoutes.home:
         return MaterialPageRoute(
-          builder: (contex) => BlocProvider(
-            create: (contex) => getItDependency.get<HomeCubitController>(),
-            child: const HomeScreen(),
-          ),
+          builder: (_) => const HomeScreen(),
         );
 
       case AppRoutes.watchedMovies:
