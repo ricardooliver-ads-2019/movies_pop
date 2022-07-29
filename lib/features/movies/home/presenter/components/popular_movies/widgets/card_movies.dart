@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:movies_pop/features/movies/home/domain/entities/movie_entipy/movie_entipy.dart';
-import 'package:movies_pop/features/movies/home/presenter/widgets/popular_movies/circular_progress_stars.dart';
+
+import 'circular_progress_stars.dart';
 
 class CardMovies extends StatelessWidget {
   final MovieEntipy movie;

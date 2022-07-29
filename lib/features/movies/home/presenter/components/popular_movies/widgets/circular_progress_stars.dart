@@ -78,7 +78,7 @@ class _CircularProgressStarsState extends State<CircularProgressStars>
               minWidth: 25,
             ),
             child: CircularProgressIndicator(
-              color: Colors.green,
+              color: const Color.fromARGB(255, 4, 171, 248),
               backgroundColor: Colors.grey.withOpacity(0.5),
               value: value,
               semanticsLabel: 'Linear progress indicator',

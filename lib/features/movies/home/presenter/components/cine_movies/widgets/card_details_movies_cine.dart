@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies_pop/features/movies/home/domain/entities/movie_entipy/movie_entipy.dart';
-import 'package:movies_pop/features/movies/home/presenter/widgets/cine_movies/stars.dart';
+
+import '../stars.dart';
 
 class CardDetailsMoviesCine extends StatelessWidget {
   final MovieEntipy movie;
