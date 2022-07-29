@@ -28,20 +28,20 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
       builder: (context, state) {
         return Scaffold(
           bottomNavigationBar: BottomNavigationBar(
-              selectedItemColor: darkColorScheme.onPrimary,
-              unselectedItemColor: darkColorScheme.secondary,
-              onTap: (index) {
-                _controller.goToPage(index, context);
-              },
-              items: const [
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.movie), label: 'Filmes'),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.video_library_rounded),
-                    label: 'Já vistos'),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.live_tv_sharp), label: 'Assistir'),
-              ]),
+            selectedItemColor: darkColorScheme.onPrimary,
+            unselectedItemColor: darkColorScheme.secondary,
+            onTap: (index) {
+              _controller.goToPage(index, context);
+            },
+            currentIndex: state.pageIndex,
+            items: const [
+              BottomNavigationBarItem(icon: Icon(Icons.movie), label: 'Filmes'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.video_library_rounded), label: 'Já vistos'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.live_tv_sharp), label: 'Assistir'),
+            ],
+          ),
           body: Navigator(
             key: navigatorState,
             initialRoute: '/home',
