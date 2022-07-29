@@ -10,7 +10,8 @@ import 'package:movies_pop/features/movies/home/data/repositories/home_repositor
 import 'package:movies_pop/features/movies/home/domain/repositories/home/home_repository.dart';
 import 'package:movies_pop/features/movies/home/domain/usecase/get_movies_playing_in_Brazil_now_usecase.dart';
 import 'package:movies_pop/features/movies/home/domain/usecase/get_movies_popular_usecar.dart';
-import 'package:movies_pop/features/movies/home/presenter/home_controller/home_cubit_controller.dart';
+import 'package:movies_pop/features/movies/home/presenter/components/cine_movies/cine_movies_cubit_controller/cine_movies_cubit_controller.dart';
+import 'package:movies_pop/features/movies/home/presenter/components/popular_movies/popular_cubit_controller/popular_cubit_controller.dart';
 
 GetIt getItDependency = GetIt.instance;
 
@@ -38,10 +39,14 @@ Future<void> getItDependencies() async {
   getItDependency.registerFactory<MainNavigationPageCubit>(
       () => MainNavigationPageCubit());
 
-  getItDependency
-      .registerFactory<HomeCubitController>(() => HomeCubitController(
+  getItDependency.registerFactory<CineMoviesCubitController>(
+      () => CineMoviesCubitController(
             moviesPlayingInBrazilNowUsecase:
                 getItDependency<GetMoviesPlayingInBrazilNowUsecase>(),
+          ));
+
+  getItDependency
+      .registerFactory<PopularCubitController>(() => PopularCubitController(
             moviesPopularUsecar: getItDependency<GetMoviesPopularUsecar>(),
           ));
 }
