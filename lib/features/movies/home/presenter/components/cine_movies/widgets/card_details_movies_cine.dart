@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies_pop/features/movies/home/domain/entities/movie_entipy/movie_entipy.dart';
 
-import '../stars.dart';
-
 class CardDetailsMoviesCine extends StatelessWidget {
   final MovieEntipy movie;
   const CardDetailsMoviesCine({Key? key, required this.movie})
@@ -44,8 +42,8 @@ class CardDetailsMoviesCine extends StatelessWidget {
               ],
             ),
           ),
-          Stars(
-              value: movie.stars / 2, color: Colors.yellow.shade800, size: 15),
+          // Stars(
+          //     value: movie.stars / 2, color: Colors.yellow.shade800, size: 15, ),
         ],
       ),
     );

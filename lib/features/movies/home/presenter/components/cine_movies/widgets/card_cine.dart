@@ -1,34 +1,57 @@
 import 'package:flutter/material.dart';
 import 'package:movies_pop/features/movies/home/domain/entities/movie_entipy/movie_entipy.dart';
 
-import 'card_details_movies_cine.dart';
+import 'stars.dart';
 
 class CardCine extends StatelessWidget {
   final MovieEntipy movie;
-  const CardCine({Key? key, required this.movie}) : super(key: key);
+  final bool isCurrentPage;
+  const CardCine({Key? key, required this.movie, required this.isCurrentPage})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final double width = isCurrentPage ? 180 : 150;
+    final double top = isCurrentPage ? 50 : 70;
+    final double botton = isCurrentPage ? 30 : 20;
+    final double right = isCurrentPage ? 20 : 30;
+    final double left = isCurrentPage ? 20 : 30;
+    final Color color =
+        isCurrentPage ? Colors.white.withOpacity(0.8) : Colors.black54;
     var mediaSize = MediaQuery.of(context).size;
-    return SizedBox(
-      width: mediaSize.width,
-      //constraints: const BoxConstraints(maxWidth: 500),
-      //color: Colors.red,
+    return Container(
+      //color: Colors.orange,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Container(
-            height: mediaSize.height * 0.3,
-            constraints: const BoxConstraints(maxHeight: 500, minHeight: 250),
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 500),
+            margin: EdgeInsets.only(
+                left: left, top: top, bottom: botton, right: right),
+            width: width,
+            height: mediaSize.height,
+            constraints: const BoxConstraints(
+                maxHeight: 230, maxWidth: 180, minWidth: 160, minHeight: 190),
             decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: color,
+                  blurRadius: 2,
+                  spreadRadius: 5,
+                )
+              ],
+              //color: Colors.yellow,
               image: DecorationImage(
-                  fit: BoxFit.fill,
                   image: NetworkImage(
-                      'https://image.tmdb.org/t/p/w500/${movie.posterPath}')),
+                      'https://image.tmdb.org/t/p/w500/${movie.posterPath}'),
+                  fit: BoxFit.fill),
             ),
           ),
-          CardDetailsMoviesCine(
-            movie: movie,
-          )
+          Stars(
+              color: Colors.yellow.shade800,
+              size: 18,
+              value: movie.stars / 2,
+              test: isCurrentPage),
         ],
       ),
     );

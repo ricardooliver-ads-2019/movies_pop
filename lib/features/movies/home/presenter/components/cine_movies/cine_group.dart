@@ -29,16 +29,20 @@ class _CineGroupState extends State<CineGroup> {
     _scrollController.addListener(
       () {
         infiniteScrolling();
-        int next = _scrollController.page!.round();
-        if (_currentPage != next) {
-          setState(() {
-            _currentPage = next;
-          });
-        }
-        _scrollController2.animateToPage(_scrollController.page!.round(),
-            duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
+        animatedBackgroundPath();
       },
     );
+  }
+
+  animatedBackgroundPath() {
+    int next = _scrollController.page!.round();
+    if (_currentPage != next) {
+      setState(() {
+        _currentPage = next;
+      });
+    }
+    _scrollController2.animateToPage(_scrollController.page!.round(),
+        duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
   }
 
   infiniteScrolling() {
@@ -118,8 +122,8 @@ class _CineGroupState extends State<CineGroup> {
                       controller: _scrollController,
                       itemCount: state.pageCineMovies.movies.length,
                       itemBuilder: (context, index) {
-                        print('$index tetetetetete');
-                        print(_currentPage);
+                        // print('$index tetetetetete');
+                        // print(_currentPage);
                         bool isCurrentPage = index == _currentPage;
                         var movie = state.pageCineMovies.movies[index];
                         return CardCine(
