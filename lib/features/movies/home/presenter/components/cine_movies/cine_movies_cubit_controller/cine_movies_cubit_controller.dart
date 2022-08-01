@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_pop/core/erros/failures.dart';
+import 'package:movies_pop/features/movies/home/domain/entities/movie_entipy/movie_entipy.dart';
 import 'package:movies_pop/features/movies/home/domain/entities/movies_page_entipy/movies_page_entipy.dart';
 import 'package:movies_pop/features/movies/home/domain/usecase/get_movies_playing_in_Brazil_now_usecase.dart';
 
@@ -14,12 +15,24 @@ class CineMoviesCubitController extends Cubit<CineMoviesState> {
   })  : _moviesPlayingInbrazilNowUsecase = moviesPlayingInBrazilNowUsecase,
         super(InitialState());
 
-  Future<void> getMoviesPlayingInBrazilNowUsecase(int page) async {
+  List<MovieEntipy> list = [];
+
+  Future getMoviesPlayingInBrazilNowUsecase({required int page}) async {
+    //print(list);
     emit(LoadingState());
     final result = await _moviesPlayingInbrazilNowUsecase.call(page: page);
     result.fold(
-      (error) => emit(ErrorState(error: error)),
-      (pageCineMovies) => emit(SuccessState(pageCineMovies: pageCineMovies)),
-    );
+        (error) => emit(ErrorState(error: error)),
+        (pageCineMovies) => emit(
+              SuccessState(
+                pageCineMovies: MoviesPageEntipy(
+                  page: pageCineMovies.page,
+                  totalResults: pageCineMovies.totalResults,
+                  totalPages: pageCineMovies.totalPages,
+                  movies: list = List.of(list)..addAll(pageCineMovies.movies),
+                ),
+              ),
+            ));
+    //print(list.length);
   }
 }
