@@ -28,6 +28,7 @@ void main() {
     stars: 4.3,
     //genre: tListGeneres,
     posterPath: 'testeUrl',
+    backdropPath: 'testeUrl',
     releaseDate: tDate,
   );
   const int page = 1;

@@ -14,6 +14,7 @@ void main() {
     stars: 6.3,
     //genre: tListGeneres,
     posterPath: '/8Kce1utfytAG5m1PbtVoDzmDZJH.jpg',
+    backdropPath: '/8Kce1utfytAG5m1PbtVoDzmDZJH.jpg',
     releaseDate: tDate,
   );
 

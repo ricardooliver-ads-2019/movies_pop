@@ -35,6 +35,7 @@ void main() {
     stars: 4.3,
     //genre: tListGeneres,
     posterPath: 'testeUrl',
+    backdropPath: 'testeUrl',
     releaseDate: tDate,
   );
 
@@ -128,7 +129,7 @@ void main() {
         const GenericFailure(
           error: 'Lista de filmes vazia',
           message: 'Erro ao buscar lista de filmes',
-          statusCode: 000,
+          statusCode: 54,
         ));
   });
 
@@ -149,7 +150,7 @@ void main() {
         const GenericFailure(
           error: 'Lista de filmes vazia',
           message: 'Erro ao buscar lista de filmes',
-          statusCode: 000,
+          statusCode: 54,
         ));
   });
 
