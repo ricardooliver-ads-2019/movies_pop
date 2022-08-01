@@ -14,10 +14,33 @@ class MoviesGroup extends StatefulWidget {
 }
 
 class _MoviesGroupState extends State<MoviesGroup> {
+  int page = 1;
+  int pageFin = 1;
+  late final PopularCubitController _controller;
+  late final ScrollController _scrollControllerr;
   @override
   void initState() {
-    final _controller = context.read<PopularCubitController>();
-    _controller.getMoviesPopular(page: 1);
+    _controller = context.read<PopularCubitController>();
+    _controller.getMoviesPopular(page: page);
+    print(_controller.state.props);
+    _scrollControllerr = ScrollController();
+    _scrollControllerr.addListener(infiniteScroll);
+  }
+
+  infiniteScroll() {
+    if (page <= pageFin) {
+      if (_scrollControllerr.position.pixels ==
+          _scrollControllerr.position.maxScrollExtent) {
+        page++;
+        _controller.getMoviesPopular(page: page);
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _scrollControllerr.dispose();
   }
 
   @override
@@ -52,6 +75,8 @@ class _MoviesGroupState extends State<MoviesGroup> {
           child: const Center(child: Text('Error')),
         );
       } else if (state is SuccessPopularState) {
+        pageFin = state.pagePopularMovies.totalPages;
+
         return SizedBox(
           //color: Colors.black,
           width: mediaSize.width,
@@ -80,6 +105,8 @@ class _MoviesGroupState extends State<MoviesGroup> {
                   constraints:
                       const BoxConstraints(maxWidth: 800, minHeight: 270),
                   child: ListView.builder(
+                      key: const PageStorageKey<String>('MoviesPopular'),
+                      controller: _scrollControllerr,
                       scrollDirection: Axis.horizontal,
                       itemCount: state.pagePopularMovies.movies.length,
                       itemBuilder: (context, index) {
