@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:movies_pop/features/movies/home/domain/entities/movie_entipy/movie_entipy.dart';
+import 'package:movies_pop/features/movies/home/presenter/components/fab_menu_button/fab_menu_Button.dart';
 
 import 'circular_progress_stars.dart';
 
@@ -40,7 +41,7 @@ class CardMovies extends StatelessWidget {
                           image: DecorationImage(
                             fit: BoxFit.fill,
                             image: NetworkImage(
-                              'https://image.tmdb.org/t/p/w200/${movie.posterPath}',
+                              'https://image.tmdb.org/t/p/w200${movie.posterPath}',
                             ),
                           ),
                           //borderRadius: BorderRadius.circular(10),
@@ -85,6 +86,11 @@ class CardMovies extends StatelessWidget {
               ),
             ],
           ),
+          const SizedBox(
+            width: 40,
+            height: 40,
+            child: FabMenuButton(),
+          )
         ],
       ),
     );

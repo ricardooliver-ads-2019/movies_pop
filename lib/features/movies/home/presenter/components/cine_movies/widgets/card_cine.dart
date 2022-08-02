@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies_pop/features/movies/home/domain/entities/movie_entipy/movie_entipy.dart';
+import 'package:movies_pop/features/movies/home/presenter/components/fab_menu_button/fab_menu_Button.dart';
 
 import 'stars.dart';
 
@@ -24,34 +25,53 @@ class CardCine extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          AnimatedContainer(
-            duration: const Duration(milliseconds: 500),
-            margin: EdgeInsets.only(
-                left: left, top: top, bottom: botton, right: right),
-            width: width,
-            height: mediaSize.height,
-            constraints: const BoxConstraints(
-                maxHeight: 230, maxWidth: 180, minWidth: 160, minHeight: 190),
-            decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: color,
-                  blurRadius: 2,
-                  spreadRadius: 5,
-                )
-              ],
-              //color: Colors.yellow,
-              image: DecorationImage(
-                  image: NetworkImage(
-                      'https://image.tmdb.org/t/p/w500/${movie.posterPath}'),
-                  fit: BoxFit.fill),
-            ),
+          Stack(
+            children: [
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 500),
+                margin: EdgeInsets.only(
+                    left: left, top: top, bottom: botton, right: right),
+                width: width,
+                height: mediaSize.height,
+                constraints: const BoxConstraints(
+                  maxHeight: 240,
+                  maxWidth: 190,
+                  minWidth: 160,
+                  minHeight: 190,
+                ),
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: color,
+                      blurRadius: 2,
+                      spreadRadius: 5,
+                    )
+                  ],
+                  //color: Colors.yellow,
+                  image: DecorationImage(
+                      image: NetworkImage(
+                          'https://image.tmdb.org/t/p/w500${movie.posterPath}'),
+                      fit: BoxFit.fill),
+                ),
+              ),
+              AnimatedPositioned(
+                top: isCurrentPage ? 50 : 70,
+                right: isCurrentPage ? 25 : 35,
+                duration: const Duration(milliseconds: 500),
+                child: const SizedBox(
+                  width: 40,
+                  height: 40,
+                  child: FabMenuButton(),
+                ),
+              )
+            ],
           ),
           Stars(
-              color: Colors.yellow.shade800,
-              size: 18,
-              value: movie.stars / 2,
-              test: isCurrentPage),
+            color: Colors.yellow.shade800,
+            size: 18,
+            value: movie.stars / 2,
+            test: isCurrentPage,
+          ),
         ],
       ),
     );
