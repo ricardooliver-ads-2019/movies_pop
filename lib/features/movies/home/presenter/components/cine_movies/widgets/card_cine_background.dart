@@ -24,7 +24,7 @@ class CardCineBackground extends StatelessWidget {
                   image: DecorationImage(
                     fit: BoxFit.fill,
                     image: NetworkImage(
-                        'https://image.tmdb.org/t/p/w500/${movie.backdropPath}'),
+                        'https://image.tmdb.org/t/p/w500${movie.backdropPath}'),
                   ),
                 ),
               ),
