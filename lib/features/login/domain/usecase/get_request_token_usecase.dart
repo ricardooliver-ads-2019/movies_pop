@@ -9,7 +9,6 @@ class GetRequestTokenUsecase {
   GetRequestTokenUsecase({required ILoginRepository iLoginRepository})
       : _iLoginRepository = iLoginRepository;
 
-  Future<Either<Failure, RequestTokenEntity>> call() {
-    return _iLoginRepository.getRequestToken();
-  }
+  Future<Either<Failure, RequestTokenEntity>> call() =>
+      _iLoginRepository.getRequestToken();
 }
