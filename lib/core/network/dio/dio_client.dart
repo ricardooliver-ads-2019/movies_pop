@@ -29,7 +29,7 @@ class DioClient implements HttpClient {
           path,
           data: data,
           queryParameters: queryParameters,
-          options: Options(headers: headers),
+          options: _getOptions(headers: headers),
         );
 
         return _dioResponseConverter(response);
@@ -56,7 +56,7 @@ class DioClient implements HttpClient {
         final response = await _dio.get(
           path,
           queryParameters: queryParameters,
-          options: Options(headers: headers),
+          options: _getOptions(headers: headers),
         );
 
         return _dioResponseConverter(response);
@@ -85,7 +85,7 @@ class DioClient implements HttpClient {
           path,
           data: data,
           queryParameters: queryParameters,
-          options: Options(headers: headers),
+          options: _getOptions(headers: headers),
         );
 
         return _dioResponseConverter(response);
@@ -110,12 +110,11 @@ class DioClient implements HttpClient {
       Map<String, dynamic>? headers}) async {
     if (await _networkConnection.isConnected) {
       try {
-        final response = await _dio.post(
-          path,
-          data: data,
-          queryParameters: queryParameters,
-          options: Options(headers: headers),
-        );
+        final response = await _dio.post(path,
+            data: data,
+            queryParameters: queryParameters,
+            options: _getOptions(headers: headers));
+        print(response);
 
         return _dioResponseConverter(response);
       } on DioError catch (e) {
@@ -143,7 +142,7 @@ class DioClient implements HttpClient {
           path,
           data: data,
           queryParameters: queryParameters,
-          options: Options(headers: headers),
+          options: _getOptions(headers: headers),
         );
 
         return _dioResponseConverter(response);
@@ -169,15 +168,10 @@ class DioClient implements HttpClient {
       Map<String, dynamic>? headers}) async {
     if (await _networkConnection.isConnected) {
       try {
-        final response = await _dio.request(
-          path,
-          data: data,
-          queryParameters: queryParameters,
-          options: Options(
-            headers: headers,
-            method: method,
-          ),
-        );
+        final response = await _dio.request(path,
+            data: data,
+            queryParameters: queryParameters,
+            options: _getOptions(headers: headers, method: method));
 
         return _dioResponseConverter(response);
       } on DioError catch (e) {
@@ -199,9 +193,10 @@ class DioClient implements HttpClient {
     if ((response.statusCode! >= 200) && (response.statusCode! < 400)) {
       print(response.requestOptions.validateStatus);
       return HttpClientResponseSuccess(
-          data: response.data,
-          statusCode: response.statusCode,
-          statusMessage: response.statusMessage);
+        data: response.data,
+        statusCode: response.statusCode,
+        statusMessage: response.statusMessage,
+      );
     }
 
     print(response.requestOptions.validateStatus);
@@ -224,5 +219,18 @@ class DioClient implements HttpClient {
           statusCode: response?.statusCode,
           statusMessage: response?.statusMessage,
         ));
+  }
+
+  Options _getOptions({Map<String, dynamic>? headers, String? method}) {
+    return Options(
+        headers: headers,
+        method: method,
+        validateStatus: (statusCode) {
+          if (statusCode == null) {
+            return false;
+          } else {
+            return statusCode >= 200 && statusCode < 500;
+          }
+        });
   }
 }
