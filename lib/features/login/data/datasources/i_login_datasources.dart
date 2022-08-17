@@ -9,7 +9,7 @@ abstract class ILoginDatasources {
     required String requestToken,
   });
 
-  Future<HttpClientResponse> validateSessionId({
-    required String requestToken,
-  });
+  Future<HttpClientResponse> validateSessionId({required String requestToken});
+
+  Future<HttpClientResponse> getDetailsAccount({required String sessionId});
 }

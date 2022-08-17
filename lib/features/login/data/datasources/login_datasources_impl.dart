@@ -44,4 +44,13 @@ class LoginDatasourcesImpl implements ILoginDatasources {
       data: {"request_token": requestToken},
     );
   }
+
+  @override
+  Future<HttpClientResponse> getDetailsAccount(
+      {required String sessionId}) async {
+    return await _client.get(Constants.base_url + '/account', queryParameters: {
+      'api_key': Constants.api_key,
+      'session_id': sessionId
+    });
+  }
 }
