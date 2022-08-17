@@ -11,10 +11,15 @@ class RequestTokenModel extends RequestTokenEntity {
 
   factory RequestTokenModel.fromJson(Map<String, dynamic> json) {
     return RequestTokenModel(
-      expiresAt: DateTime.parse(json['expires_at']),
+      expiresAt: DateTime.parse(clearStringDateTime(date: json['expires_at'])),
       requestToken: json['request_token'],
     );
   }
 
   Map<String, dynamic> toJson() => {'request_token': requestToken};
+}
+
+String clearStringDateTime({required String date}) {
+  var result = date.split(' ');
+  return '${result[0]} ${result[1]}';
 }
