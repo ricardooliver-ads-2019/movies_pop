@@ -2,8 +2,10 @@ import 'package:dartz/dartz.dart';
 import 'package:movies_pop/core/erros/failures.dart';
 import 'package:movies_pop/core/network/http_client_response.dart';
 import 'package:movies_pop/features/login/data/datasources/i_login_datasources.dart';
+import 'package:movies_pop/features/login/data/models/account_model.dart';
 import 'package:movies_pop/features/login/data/models/request_token_model.dart';
 import 'package:movies_pop/features/login/data/models/session_id_model.dart';
+import 'package:movies_pop/features/login/domain/entities/account_entity.dart';
 import 'package:movies_pop/features/login/domain/entities/request_token_entity.dart';
 import 'package:movies_pop/features/login/domain/entities/session_id_entity.dart';
 import 'package:movies_pop/features/login/domain/repositories/i_login_repository.dart';
@@ -109,6 +111,40 @@ class LoginRepositoryImpl implements ILoginRepository {
         GenericFailure(
           message: 'Erro de conversão',
           error: 'xxRequestTokenxx',
+          statusCode: 500,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, AccountEntity>> getDetailsAccount(
+      {required String sessionId}) async {
+    final result =
+        await _loginDatasources.getDetailsAccount(sessionId: sessionId);
+    if (result is HttpClientResponseError) {
+      if (result.statusCode == 0) {
+        return Left(GenericFailure(
+          error: result.data,
+          message: result.statusMessage,
+          statusCode: result.statusCode,
+        ));
+      }
+      return Left(GenericFailure(
+        error: result.data,
+        message: result.statusMessage,
+        statusCode: result.statusCode,
+      ));
+    }
+
+    try {
+      final results = AccountModel.fromJson(result.data);
+      return Right(results);
+    } catch (e) {
+      return const Left(
+        GenericFailure(
+          message: 'Erro de conversão',
+          error: 'xxAccountXX',
           statusCode: 500,
         ),
       );
