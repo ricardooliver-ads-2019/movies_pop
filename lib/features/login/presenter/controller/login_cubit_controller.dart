@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:movies_pop/features/auth/auth.dart';
+import 'package:movies_pop/core/auth/auth.dart';
+import 'package:movies_pop/core/user_lists_watched_movies/details_list_watched_movies.dart';
 import 'package:movies_pop/features/login/domain/usecase/get_details_account.dart';
 import 'package:movies_pop/features/login/domain/usecase/get_request_token_usecase.dart';
 import 'package:movies_pop/features/login/domain/usecase/validate_token_with_login_usecase.dart';
@@ -13,6 +14,7 @@ class LoginCubitController extends Cubit<LoginState> {
   final ValidateTokenWithLoginUsecase _validateTokenWithLoginUsecase;
   final ValidateSessionIdUsecase _validateSessionIdUsecase;
   final GetDetailsAccountUsecase _getDetailsAccountUsecase;
+  final DetailsListWatchedMovies _detailsListWatchedMovies;
 
   LoginCubitController({
     required AuthSession authSession,
@@ -20,11 +22,14 @@ class LoginCubitController extends Cubit<LoginState> {
     required GetRequestTokenUsecase getRequestTokenusecase,
     required ValidateSessionIdUsecase validateSessionIdUsecase,
     required GetDetailsAccountUsecase getDetailsAccountUsecase,
+    required DetailsListWatchedMovies detailsListWatchedMovies,
+    createMyListWatchedMoviesUsecaseL,
   })  : _authSession = authSession,
         _getRequestTokenusecase = getRequestTokenusecase,
         _validateTokenWithLoginUsecase = validateTokenWithLoginUsecase,
         _validateSessionIdUsecase = validateSessionIdUsecase,
         _getDetailsAccountUsecase = getDetailsAccountUsecase,
+        _detailsListWatchedMovies = detailsListWatchedMovies,
         super(InitState());
 
   Future<void> validateTokenWithLoginUsecase({
@@ -77,7 +82,6 @@ class LoginCubitController extends Cubit<LoginState> {
           username: detailsAccount.username, id: detailsAccount.id);
       _authSession.username = detailsAccount.username;
       _authSession.id = detailsAccount.id;
-      _authSession.init();
       emit(LoginSuccess(detailsAccount: detailsAccount));
     });
   }
