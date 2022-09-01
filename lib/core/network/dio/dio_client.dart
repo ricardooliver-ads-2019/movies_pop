@@ -9,7 +9,7 @@ class DioClient implements HttpClient {
   late final Dio _dio;
   late final INetworkConnection _networkConnection;
 
-  final _defaultOptions = BaseOptions(baseUrl: Constants.base_url);
+  final _defaultOptions = BaseOptions(baseUrl: Constants.baseUrl);
 
   DioClient(
       {BaseOptions? baseOptions,
@@ -114,7 +114,6 @@ class DioClient implements HttpClient {
             data: data,
             queryParameters: queryParameters,
             options: _getOptions(headers: headers));
-        print(response);
 
         return _dioResponseConverter(response);
       } on DioError catch (e) {
@@ -191,7 +190,6 @@ class DioClient implements HttpClient {
   Future<HttpClientResponse> _dioResponseConverter(
       Response<dynamic> response) async {
     if ((response.statusCode! >= 200) && (response.statusCode! < 400)) {
-      print(response.requestOptions.validateStatus);
       return HttpClientResponseSuccess(
         data: response.data,
         statusCode: response.statusCode,
@@ -199,7 +197,6 @@ class DioClient implements HttpClient {
       );
     }
 
-    print(response.requestOptions.validateStatus);
     return HttpClientResponseError(
       data: response.data,
       statusCode: response.statusCode,
