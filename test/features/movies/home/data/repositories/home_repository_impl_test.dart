@@ -4,12 +4,14 @@ import 'package:mocktail/mocktail.dart';
 import 'package:movies_pop/core/erros/failures.dart';
 import 'package:movies_pop/core/network/http_client_response.dart';
 import 'package:movies_pop/features/movies/home/data/datasources/i_home_datasource.dart';
-import 'package:movies_pop/features/movies/home/data/models/movies_page_model.dart';
+import 'package:movies_pop/features/movies/home/data/models/my_lists_movies_model.dart';
 import 'package:movies_pop/features/movies/home/data/repositories/home_repository_impl.dart';
-import 'package:movies_pop/features/movies/home/domain/entities/movie_entipy/movie_entipy.dart';
-import 'package:movies_pop/features/movies/home/domain/entities/movies_page_entipy/movies_page_entipy.dart';
+import 'package:movies_pop/features/shared/entities/movie_entipy/movie_entipy.dart';
+import 'package:movies_pop/features/shared/entities/movies_page_entipy/movies_page_entipy.dart';
+import 'package:movies_pop/features/shared/models/movies_page_model/movies_page_model.dart';
 
 import '../../../../../mocks/models.dart';
+import '../../domain/usecase/mocks/mocks_my_lists.dart';
 
 class MockHomeDatasourceImpl extends Mock implements IHomeDatasource {}
 
@@ -320,5 +322,16 @@ void main() {
           error: 'xxMoviePagexx',
           statusCode: 500,
         ));
+  });
+
+  test('deve obter MyListsMoviesEntity ...', () async {
+    when(() => datasource.getMylists()).thenAnswer((_) async =>
+        HttpClientResponseSuccess(
+            data: mockMylists, statusCode: 200, statusMessage: 'Success'));
+
+    final result = await repositoryImpl.getMyLists();
+    final response = result.fold((l) => null, (r) => r);
+    expect(response, MyListsMoviesModel.fromJson(mockMylists));
+    verify(() => datasource.getMylists()).called(1);
   });
 }
