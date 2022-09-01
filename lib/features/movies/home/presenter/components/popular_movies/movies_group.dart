@@ -103,7 +103,7 @@ class _MoviesGroupState extends State<MoviesGroup> {
                   height: mediaSize.height * 0.4,
                   width: mediaSize.width,
                   constraints:
-                      const BoxConstraints(maxWidth: 800, minHeight: 270),
+                      const BoxConstraints(maxWidth: 800, minHeight: 350),
                   child: ListView.builder(
                       key: const PageStorageKey<String>('MoviesPopular'),
                       controller: _scrollControllerr,
