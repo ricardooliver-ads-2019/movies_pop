@@ -5,10 +5,13 @@ import 'package:movies_pop/features/login/presenter/controller/login_cubit_contr
 import 'package:movies_pop/features/login/presenter/screen/login_screen.dart';
 import 'package:movies_pop/features/main_navigation_page/controller/main_navigation_page_cubit.dart';
 import 'package:movies_pop/features/main_navigation_page/main_navigation_page.dart';
+import 'package:movies_pop/features/movies/home/presenter/screens/controller/home_cubit_controller.dart';
 import 'package:movies_pop/features/movies/home/presenter/screens/home_screen.dart';
 import 'package:movies_pop/features/splash/splash_screen.dart';
-import 'package:movies_pop/features/watch_movies/watch_movies_screen.dart';
-import 'package:movies_pop/features/watched_movies/watched_movies_screen.dart';
+import 'package:movies_pop/features/watch_movies/presenter/controller/watch_movies_cubit_controller.dart';
+import 'package:movies_pop/features/watch_movies/presenter/screen/watch_movies_screen.dart';
+import 'package:movies_pop/features/watched_movies/presenter/controller/watched_cubit_controller.dart';
+import 'package:movies_pop/features/watched_movies/presenter/screen/watched_movies_screen.dart';
 
 class AppRoutes {
   static const splash = '/splash';
@@ -41,14 +44,25 @@ class AppRoutes {
 
       case AppRoutes.home:
         return MaterialPageRoute(
-          builder: (_) => const HomeScreen(),
-        );
+            builder: (_) => BlocProvider(
+                  create: (_) => getItDependency.get<HomeCubitController>(),
+                  child: const HomeScreen(),
+                ));
 
       case AppRoutes.watchedMovies:
-        return MaterialPageRoute(builder: (_) => const WatchedMoviesScreen());
+        return MaterialPageRoute(
+            builder: (_) => BlocProvider(
+                  create: (_) => getItDependency.get<WatchedCubitController>(),
+                  child: const WatchedMoviesScreen(),
+                ));
 
       case AppRoutes.watchMovies:
-        return MaterialPageRoute(builder: (_) => const WatchMoviesScreen());
+        return MaterialPageRoute(
+            builder: (_) => BlocProvider(
+                  create: (_) =>
+                      getItDependency.get<WatchMoviesCubitController>(),
+                  child: const WatchMoviesScreen(),
+                ));
 
       default:
         null;
