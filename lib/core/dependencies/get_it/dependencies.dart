@@ -23,7 +23,6 @@ import 'package:movies_pop/features/login/domain/usecase/get_details_account.dar
 import 'package:movies_pop/features/login/domain/usecase/get_request_token_usecase.dart';
 import 'package:movies_pop/features/login/domain/usecase/validate_session_id_usecase.dart';
 import 'package:movies_pop/features/login/domain/usecase/validate_token_with_login_usecase.dart';
-import 'package:movies_pop/features/login/presenter/componets/animated.dart';
 import 'package:movies_pop/features/login/presenter/controller/login_cubit_controller.dart';
 import 'package:movies_pop/features/main_navigation_page/controller/main_navigation_page_cubit.dart';
 import 'package:movies_pop/features/movies/home/data/datasources/home_datasource_impl.dart';
@@ -55,7 +54,6 @@ import '../../../features/fab_button_menu/domain/usecase/remove_movie_to_watch_m
 GetIt getItDependency = GetIt.instance;
 
 Future<void> getItDependencies() async {
-  getItDependency.registerSingleton<AnimatedButtonLogin>(AnimatedButtonLogin());
   getItDependency
       .registerFactory<INetworkConnection>(() => NetworkConnectionImpl());
 

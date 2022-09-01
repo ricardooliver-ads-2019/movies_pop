@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:movies_pop/core/auth/auth.dart';
 import 'package:movies_pop/core/dependencies/get_it/dependencies.dart';
 import 'package:movies_pop/core/routes/app_routes.dart';
-import 'package:movies_pop/features/auth/auth.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

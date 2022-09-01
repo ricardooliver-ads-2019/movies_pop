@@ -122,8 +122,6 @@ class _CineGroupState extends State<CineGroup> {
                       controller: _scrollController,
                       itemCount: state.pageCineMovies.movies.length,
                       itemBuilder: (context, index) {
-                        // print('$index tetetetetete');
-                        // print(_currentPage);
                         bool isCurrentPage = index == _currentPage;
                         var movie = state.pageCineMovies.movies[index];
                         return CardCine(
