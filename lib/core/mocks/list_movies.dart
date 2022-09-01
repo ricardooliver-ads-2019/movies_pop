@@ -1,4 +1,4 @@
-import '../../features/movies/home/domain/entities/movie_entipy/movie_entipy.dart';
+import 'package:movies_pop/features/shared/entities/movie_entipy/movie_entipy.dart';
 
 final List<MovieEntipy> listMoviesMock = [
   MovieEntipy(
