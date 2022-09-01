@@ -15,7 +15,6 @@ class AuthSession {
     sessionId = preferences.getString(Constants.sharedPreferencesSessionId);
     username = preferences.getString(Constants.sharedPreferencesUsername);
     id = preferences.getInt(Constants.sharedPreferencesAccountId);
-    print(id);
 
     // print('========================');
     // print(sessionId);
