@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:movies_pop/features/movies/home/data/models/movie_model.dart';
-import 'package:movies_pop/features/movies/home/domain/entities/movie_entipy/movie_entipy.dart';
+import 'package:movies_pop/features/shared/entities/movie_entipy/movie_entipy.dart';
+import 'package:movies_pop/features/shared/models/movie_model/movie_model.dart';
 
 import '../../../../../mocks/models.dart';
 

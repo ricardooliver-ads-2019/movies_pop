@@ -23,7 +23,6 @@ void main() {
               expiresAt: DateTime.parse("2022-08-04 15:19:25"),
               requestToken: "039ad8a2ef1b5636a6bba3351a592a905c801392")));
       final result = await usecase.call();
-      print(result);
       expect(
           result,
           Right(

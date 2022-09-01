@@ -2,11 +2,10 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:movies_pop/core/erros/failures.dart';
-import 'package:movies_pop/features/movies/home/domain/entities/genere_entipy/genere_enpity.dart';
-import 'package:movies_pop/features/movies/home/domain/entities/movie_entipy/movie_entipy.dart';
-import 'package:movies_pop/features/movies/home/domain/entities/movies_page_entipy/movies_page_entipy.dart';
 import 'package:movies_pop/features/movies/home/domain/repositories/home/home_repository.dart';
 import 'package:movies_pop/features/movies/home/domain/usecase/get_movies_popular_usecar.dart';
+import 'package:movies_pop/features/shared/entities/movie_entipy/movie_entipy.dart';
+import 'package:movies_pop/features/shared/entities/movies_page_entipy/movies_page_entipy.dart';
 
 class MockRepositories extends Mock implements HomeRepository {}
 
@@ -18,9 +17,9 @@ void main() {
     mockRepository = MockRepositories();
     usecar = GetMoviesPopularUsecar(repository: mockRepository);
   });
-  final tGenere = GenereEnpity(id: 2, name: 'Ação');
+
   final DateTime tDate = DateTime(2021, 02, 02);
-  final List<GenereEnpity> tListGeneres = [tGenere];
+
   final tMovieEntipy = MovieEntipy(
     id: 2,
     title: 'Homen de Ferro',
