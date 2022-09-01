@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:movies_pop/features/movies/home/domain/entities/movie_entipy/movie_entipy.dart';
-import 'package:movies_pop/features/movies/home/domain/entities/movies_page_entipy/movies_page_entipy.dart';
 import 'package:movies_pop/features/movies/home/domain/usecase/get_movies_popular_usecar.dart';
+import 'package:movies_pop/features/shared/entities/movie_entipy/movie_entipy.dart';
+import 'package:movies_pop/features/shared/entities/movies_page_entipy/movies_page_entipy.dart';
 
 import 'popular_state.dart';
 

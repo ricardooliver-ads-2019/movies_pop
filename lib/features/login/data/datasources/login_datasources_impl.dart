@@ -10,8 +10,8 @@ class LoginDatasourcesImpl implements ILoginDatasources {
   @override
   Future<HttpClientResponse> getRequestToken() async {
     return await _client.get(
-      Constants.base_url + '/authentication/token/new',
-      queryParameters: {'api_key': Constants.api_key},
+      Constants.baseUrl + '/authentication/token/new',
+      queryParameters: {'api_key': Constants.apiKey},
     );
   }
 
@@ -22,9 +22,9 @@ class LoginDatasourcesImpl implements ILoginDatasources {
     required String requestToken,
   }) async {
     return await _client.post(
-        Constants.base_url + '/authentication/token/validate_with_login',
+        Constants.baseUrl + '/authentication/token/validate_with_login',
         queryParameters: {
-          'api_key': Constants.api_key
+          'api_key': Constants.apiKey
         },
         data: {
           "username": login,
@@ -37,9 +37,9 @@ class LoginDatasourcesImpl implements ILoginDatasources {
   Future<HttpClientResponse> validateSessionId(
       {required String requestToken}) async {
     return await _client.post(
-      Constants.base_url + '/authentication/session/new',
+      Constants.baseUrl + '/authentication/session/new',
       queryParameters: {
-        'api_key': Constants.api_key,
+        'api_key': Constants.apiKey,
       },
       data: {"request_token": requestToken},
     );
@@ -48,8 +48,8 @@ class LoginDatasourcesImpl implements ILoginDatasources {
   @override
   Future<HttpClientResponse> getDetailsAccount(
       {required String sessionId}) async {
-    return await _client.get(Constants.base_url + '/account', queryParameters: {
-      'api_key': Constants.api_key,
+    return await _client.get(Constants.baseUrl + '/account', queryParameters: {
+      'api_key': Constants.apiKey,
       'session_id': sessionId
     });
   }
