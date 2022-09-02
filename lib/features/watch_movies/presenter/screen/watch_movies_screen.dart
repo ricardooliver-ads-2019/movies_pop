@@ -49,28 +49,16 @@ class _WatchMoviesScreenState extends State<WatchMoviesScreen> {
   Widget build(BuildContext context) {
     var mediaSize = MediaQuery.of(context).size;
     return Scaffold(
-        body: BlocConsumer<WatchMoviesCubitController, WatchMoviesState>(
-      listener: (context, state) async {
-        if (state is SuccessWatchMoviesState) {
-          page = state.moviesPageEntipy.page;
-          totalPages = state.moviesPageEntipy.totalPages;
-          print(totalPages);
-          listMoviesWatch.value.addAll(state.moviesPageEntipy.movies);
-          setState(() {});
-        }
-        if (state is ErrorWatchMoviesState) {
-          final mensagen = state.error.message?.toString() ?? 'Error';
-          final snackBar = SnackBar(
-            content: Text(mensagen),
-            backgroundColor: Colors.red,
-          );
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        }
-      },
-      builder: (context, state) {
-        return Container(
-          decoration: const BoxDecoration(
-              gradient: LinearGradient(
+        appBar: AppBar(
+          automaticallyImplyLeading: true,
+          centerTitle: true,
+          title: const Text(
+            'Assistir depois',
+            style: TextStyle(fontWeight: FontWeight.w500),
+          ),
+          flexibleSpace: Container(
+              decoration: const BoxDecoration(
+                  gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
@@ -83,37 +71,72 @@ class _WatchMoviesScreenState extends State<WatchMoviesScreen> {
               0.5,
               0.9,
             ],
-          )),
-          width: mediaSize.width,
-          height: mediaSize.height,
-          child: state is LoadingWatchMoviesState
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-              : SingleChildScrollView(
-                  key: const PageStorageKey<String>('watchList'),
-                  controller: _scrollController,
-                  child: SizedBox(
-                    child: Center(
-                      child: Wrap(
-                        alignment: WrapAlignment.start,
-                        children: listMoviesWatch.value
-                            .map((m) => Container(
-                                width: mediaSize.width * 0.46,
-                                constraints: const BoxConstraints(
-                                    maxWidth: 215, minWidth: 175),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 15, vertical: 20),
-                                  child: CardMovies(movie: m),
-                                )))
-                            .toList(),
+          ))),
+        ),
+        body: BlocConsumer<WatchMoviesCubitController, WatchMoviesState>(
+          listener: (context, state) async {
+            if (state is SuccessWatchMoviesState) {
+              page = state.moviesPageEntipy.page;
+              totalPages = state.moviesPageEntipy.totalPages;
+              listMoviesWatch.value.addAll(state.moviesPageEntipy.movies);
+              setState(() {});
+            }
+            if (state is ErrorWatchMoviesState) {
+              final mensagen = state.error.message?.toString() ?? 'Error';
+              final snackBar = SnackBar(
+                content: Text(mensagen),
+                backgroundColor: Colors.red,
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            }
+          },
+          builder: (context, state) {
+            return Container(
+              decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Colors.black87,
+                  Colors.blue,
+                  Colors.white,
+                ],
+                stops: [
+                  0.01,
+                  0.5,
+                  0.9,
+                ],
+              )),
+              width: mediaSize.width,
+              height: mediaSize.height,
+              child: state is LoadingWatchMoviesState
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : SingleChildScrollView(
+                      key: const PageStorageKey<String>('watchList'),
+                      controller: _scrollController,
+                      child: SizedBox(
+                        child: Center(
+                          child: Wrap(
+                            alignment: WrapAlignment.start,
+                            children: listMoviesWatch.value
+                                .map((m) => Container(
+                                    width: mediaSize.width * 0.46,
+                                    constraints: const BoxConstraints(
+                                        maxWidth: 215, minWidth: 175),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 15, vertical: 20),
+                                      child: CardMovies(movie: m),
+                                    )))
+                                .toList(),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-        );
-      },
-    ));
+            );
+          },
+        ));
   }
 }
