@@ -129,93 +129,97 @@ class _FabMenuButtonState extends State<FabMenuButton>
           setState(() {});
         }
       },
-      child: Flow(
-        clipBehavior: Clip.none,
-        delegate: FabVerticalDelegate(animation: animation),
-        children: [
-          SizedBox(
-            width: 40,
-            height: 40,
-            child: FloatingActionButton(
-              backgroundColor: actionButtonColor,
-              child: AnimatedIcon(
-                progress: animation,
-                icon: AnimatedIcons.menu_close,
-                color: Colors.blue,
+      child: Padding(
+        padding: const EdgeInsets.only(right: 5, top: 5),
+        child: Flow(
+          clipBehavior: Clip.none,
+          delegate: FabVerticalDelegate(animation: animation),
+          children: [
+            SizedBox(
+              width: 40,
+              height: 40,
+              child: FloatingActionButton(
+                backgroundColor: actionButtonColor,
+                child: AnimatedIcon(
+                  progress: animation,
+                  icon: AnimatedIcons.menu_close,
+                  color: Colors.blue,
+                ),
+                onPressed: () {
+                  toggleButtonMenu();
+                  setState(() {});
+                },
               ),
-              onPressed: () {
-                toggleButtonMenu();
-                setState(() {});
-              },
             ),
-          ),
-          GestureDetector(
-            onTap: () {
-              debugPrint('tess');
-            },
-            child: SizedBox(
+            GestureDetector(
+              onTap: () {
+                debugPrint('tess');
+              },
+              child: SizedBox(
+                width: 40,
+                height: 40,
+                child: FloatingActionButton(
+                  backgroundColor: actionButtonColor,
+                  child: Icon(
+                    Icons.video_library_rounded,
+                    color: menuIsOpen.value
+                        ? checkMovies(watchedMovies)
+                        : Colors.transparent,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      if (watchedMovies.value) {
+                        _controller
+                            .removeMovieToWatchedMoviesList(widget.movieId);
+                      } else {
+                        _controller.addMovieToWatchedMoviesList(widget.movieId);
+                      }
+                    });
+                  },
+                ),
+              ),
+            ),
+            SizedBox(
               width: 40,
               height: 40,
               child: FloatingActionButton(
                 backgroundColor: actionButtonColor,
                 child: Icon(
-                  Icons.video_library_rounded,
+                  Icons.live_tv_sharp,
                   color: menuIsOpen.value
-                      ? checkMovies(watchedMovies)
+                      ? checkMovies(watchMovies)
                       : Colors.transparent,
                 ),
                 onPressed: () {
                   setState(() {
-                    if (watchedMovies.value) {
-                      _controller
-                          .removeMovieToWatchedMoviesList(widget.movieId);
+                    if (watchMovies.value) {
+                      _controller.removeMovieToWatchMoviesList(
+                          movieId: widget.movieId);
                     } else {
-                      _controller.addMovieToWatchedMoviesList(widget.movieId);
+                      _controller.addMovieToWatchMoviesList(widget.movieId);
                     }
                   });
                 },
               ),
             ),
-          ),
-          SizedBox(
-            width: 40,
-            height: 40,
-            child: FloatingActionButton(
-              backgroundColor: actionButtonColor,
-              child: Icon(
-                Icons.live_tv_sharp,
-                color: menuIsOpen.value
-                    ? checkMovies(watchMovies)
-                    : Colors.transparent,
+            SizedBox(
+              width: 40,
+              height: 40,
+              child: FloatingActionButton(
+                backgroundColor: actionButtonColor,
+                child: Icon(
+                  Icons.star_outlined,
+                  color: menuIsOpen.value
+                      ? checkMovies(rated)
+                      : Colors.transparent,
+                ),
+                onPressed: () {
+                  debugPrint('object');
+                },
               ),
-              onPressed: () {
-                setState(() {
-                  if (watchMovies.value) {
-                    _controller.removeMovieToWatchMoviesList(
-                        movieId: widget.movieId);
-                  } else {
-                    _controller.addMovieToWatchMoviesList(widget.movieId);
-                  }
-                });
-              },
             ),
-          ),
-          SizedBox(
-            width: 40,
-            height: 40,
-            child: FloatingActionButton(
-              backgroundColor: actionButtonColor,
-              child: Icon(
-                Icons.star_outlined,
-                color:
-                    menuIsOpen.value ? checkMovies(rated) : Colors.transparent,
-              ),
-              onPressed: () {
-                debugPrint('object');
-              },
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
