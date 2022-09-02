@@ -107,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen>
                     child: BlocBuilder<PopularCubitController, PopularState>(
                         buildWhen: (previous, current) => previous != current,
                         builder: (context, state) {
-                          return const MoviesGroup(title: 'Filmes Populares');
+                          return const MoviesGroup(title: 'Mais populares');
                         }),
                   )
                 ],
