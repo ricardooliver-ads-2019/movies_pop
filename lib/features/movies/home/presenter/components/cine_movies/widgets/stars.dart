@@ -21,13 +21,11 @@ class Stars extends StatelessWidget {
   Widget build(BuildContext context) {
     double position = -size;
     var stars = generateStars(value, color, size);
-    return Container(
-      //color: Colors.green,
+    return SizedBox(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(
-            //color: Colors.red,
             width: size * 5,
             height: size,
             child: Stack(
@@ -43,7 +41,6 @@ class Stars extends StatelessWidget {
           ),
           AnimatedOpacity(
             opacity: test ? 1 : 0,
-            //left: position += size,
             curve: Curves.bounceInOut,
             duration: Duration(milliseconds: duration),
             child: Text(
@@ -60,21 +57,6 @@ class Stars extends StatelessWidget {
     );
   }
 }
-// class _StarsState extends State<Stars> {
-//   late double position = -widget.size;
-//   late double positionTop = -widget.size;
-//   @override
-//   void initState() {
-//     positionTop = -widget.size;
-//     position = widget.size * 5;
-//     super.initState();
-//     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-//       setState(() {
-//         positionTop = 0;
-//         position = -widget.size;
-//       });
-//     });
-//   }
 
 List<Widget> generateStars(double value, Color color, double size) {
   List<Icon> totalStars = [];

@@ -78,7 +78,6 @@ class _MoviesGroupState extends State<MoviesGroup> {
         pageFin = state.pagePopularMovies.totalPages;
 
         return SizedBox(
-          //color: Colors.black,
           width: mediaSize.width,
           child: Center(
             child: Column(
@@ -86,7 +85,7 @@ class _MoviesGroupState extends State<MoviesGroup> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 5),
+                  padding: const EdgeInsets.only(left: 15, top: 15),
                   child: Text(
                     '${widget.title}',
                     style: const TextStyle(
@@ -99,7 +98,6 @@ class _MoviesGroupState extends State<MoviesGroup> {
                   height: 10,
                 ),
                 Container(
-                  //color: Colors.red,
                   height: mediaSize.height * 0.4,
                   width: mediaSize.width,
                   constraints:
@@ -112,7 +110,7 @@ class _MoviesGroupState extends State<MoviesGroup> {
                       itemBuilder: (context, index) {
                         var movie = state.pagePopularMovies.movies[index];
                         return Padding(
-                          padding: const EdgeInsets.only(left: 5),
+                          padding: const EdgeInsets.only(left: 15),
                           child: CardMovies(movie: movie),
                         );
                       }),
