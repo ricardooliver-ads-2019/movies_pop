@@ -37,50 +37,50 @@ class CardCine extends StatelessWidget {
               minWidth: 160,
               minHeight: 190,
             ),
-            child: Stack(
-              children: [
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 500),
-                  margin: EdgeInsets.only(
-                      left: left, top: top, bottom: botton, right: right),
-                  width: width,
-                  height: mediaSize.height,
-                  constraints: const BoxConstraints(
-                    maxHeight: 240,
-                    maxWidth: 190,
-                    minWidth: 160,
-                    minHeight: 190,
-                  ),
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: color,
-                        blurRadius: 2,
-                        spreadRadius: 5,
-                      )
-                    ],
-                    image: DecorationImage(
-                        image: NetworkImage(
-                            'https://image.tmdb.org/t/p/w500${movie.posterPath}'),
-                        fit: BoxFit.fill),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.bottomLeft,
-                  child: SizedBox(
-                    child: BlocProvider(
-                        create: (_) =>
-                            getItDependency.get<FabButtonCubitController>(),
-                        child: BlocBuilder<FabButtonCubitController,
-                                FabButtonState>(
-                            buildWhen: (previous, current) =>
-                                previous != current,
-                            builder: (context, state) {
-                              return FabMenuButton(movieId: movie.id);
-                            })),
-                  ),
-                )
-              ],
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 500),
+              margin: EdgeInsets.only(
+                  left: left, top: top, bottom: botton, right: right),
+              width: width,
+              height: mediaSize.height,
+              constraints: const BoxConstraints(
+                maxHeight: 240,
+                maxWidth: 190,
+                minWidth: 160,
+                minHeight: 190,
+              ),
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: color,
+                    blurRadius: 2,
+                    spreadRadius: 5,
+                  )
+                ],
+                image: DecorationImage(
+                    image: NetworkImage(
+                        'https://image.tmdb.org/t/p/w500${movie.posterPath}'),
+                    fit: BoxFit.fill),
+              ),
+              child: Stack(
+                children: [
+                  Align(
+                    alignment: Alignment.bottomLeft,
+                    child: SizedBox(
+                      child: BlocProvider(
+                          create: (_) =>
+                              getItDependency.get<FabButtonCubitController>(),
+                          child: BlocBuilder<FabButtonCubitController,
+                                  FabButtonState>(
+                              buildWhen: (previous, current) =>
+                                  previous != current,
+                              builder: (context, state) {
+                                return FabMenuButton(movieId: movie.id);
+                              })),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
           Stars(
