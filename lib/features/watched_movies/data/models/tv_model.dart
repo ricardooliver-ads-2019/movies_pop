@@ -7,12 +7,14 @@ class TvModel extends TvEntity {
     required String name,
     required String? posterPath,
     required double stars,
+    required String mediaType,
   }) : super(
           backdropPath: backdropPath,
           id: id,
           name: name,
           posterPath: posterPath,
           stars: stars,
+          mediaType: mediaType,
         );
   factory TvModel.fromJson(Map<String, dynamic> json) {
     return TvModel(
@@ -21,6 +23,7 @@ class TvModel extends TvEntity {
       posterPath: json['poster_path'],
       backdropPath: json['backdrop_path'],
       stars: json['vote_average'].toDouble(),
+      mediaType: json['media_type'],
     );
   }
 }

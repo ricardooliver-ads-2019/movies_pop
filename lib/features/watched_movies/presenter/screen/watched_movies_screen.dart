@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_pop/features/movies/home/presenter/components/popular_movies/widgets/card_movies.dart';
 import 'package:movies_pop/features/shared/entities/movie_entipy/movie_entipy.dart';
+import 'package:movies_pop/features/watched_movies/domain/entities/tv_entity.dart';
 import 'package:movies_pop/features/watched_movies/presenter/controller/watched_cubit_controller.dart';
 import 'package:movies_pop/features/watched_movies/presenter/controller/watched_state.dart';
 
@@ -36,6 +37,7 @@ class _WatchedMoviesScreenState extends State<WatchedMoviesScreen> {
       listener: (context, state) async {
         if (state is SucccessWatchedState) {
           listMoviesWatched.value.addAll(state.myListMoviesWatched.listMovies);
+          listMoviesWatched.value.removeWhere((element) => element is TvEntity);
           setState(() {});
         }
         if (state is ErrorWatchedState) {
