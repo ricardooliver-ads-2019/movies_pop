@@ -33,26 +33,16 @@ class _WatchedMoviesScreenState extends State<WatchedMoviesScreen> {
   Widget build(BuildContext context) {
     var mediaSize = MediaQuery.of(context).size;
     return Scaffold(
-        body: BlocConsumer<WatchedCubitController, WatchedState>(
-      listener: (context, state) async {
-        if (state is SucccessWatchedState) {
-          listMoviesWatched.value.addAll(state.myListMoviesWatched.listMovies);
-          listMoviesWatched.value.removeWhere((element) => element is TvEntity);
-          setState(() {});
-        }
-        if (state is ErrorWatchedState) {
-          final mensagen = state.error.message?.toString() ?? 'Error';
-          final snackBar = SnackBar(
-            content: Text(mensagen),
-            backgroundColor: Colors.red,
-          );
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        }
-      },
-      builder: (context, state) {
-        return Container(
-          decoration: const BoxDecoration(
-              gradient: LinearGradient(
+        appBar: AppBar(
+          automaticallyImplyLeading: true,
+          centerTitle: true,
+          title: const Text(
+            'Filmes já vistos',
+            style: TextStyle(fontWeight: FontWeight.w500),
+          ),
+          flexibleSpace: Container(
+              decoration: const BoxDecoration(
+                  gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
@@ -65,34 +55,75 @@ class _WatchedMoviesScreenState extends State<WatchedMoviesScreen> {
               0.5,
               0.9,
             ],
-          )),
-          width: mediaSize.width,
-          height: mediaSize.height,
-          child: SingleChildScrollView(
-            child: SizedBox(
+          ))),
+        ),
+        body: BlocConsumer<WatchedCubitController, WatchedState>(
+          listener: (context, state) async {
+            if (state is SucccessWatchedState) {
+              listMoviesWatched.value
+                  .addAll(state.myListMoviesWatched.listMovies);
+              listMoviesWatched.value
+                  .removeWhere((element) => element is TvEntity);
+              setState(() {});
+            }
+            if (state is ErrorWatchedState) {
+              final mensagen = state.error.message?.toString() ?? 'Error';
+              final snackBar = SnackBar(
+                content: Text(mensagen),
+                backgroundColor: Colors.red,
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            }
+          },
+          builder: (context, state) {
+            return Container(
+              decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Colors.black87,
+                  Colors.blue,
+                  Colors.white,
+                ],
+                stops: [
+                  0.01,
+                  0.5,
+                  0.9,
+                ],
+              )),
               width: mediaSize.width,
-              child: Center(
-                child: state is LoadingWatchedState
-                    ? const CircularProgressIndicator()
-                    : Wrap(
-                        alignment: WrapAlignment.start,
-                        children: listMoviesWatched.value
-                            .map((m) => Container(
-                                width: mediaSize.width * 0.46,
-                                constraints: const BoxConstraints(
-                                    maxWidth: 215, minWidth: 175),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 15, vertical: 20),
-                                  child: CardMovies(movie: m),
-                                )))
-                            .toList(),
-                      ),
+              height: mediaSize.height,
+              child: SingleChildScrollView(
+                child: SizedBox(
+                  width: mediaSize.width,
+                  child: Center(
+                    child: state is LoadingWatchedState
+                        ? SizedBox(
+                            width: mediaSize.width,
+                            height: mediaSize.height,
+                            child: const Center(
+                                child: CircularProgressIndicator()),
+                          )
+                        : Wrap(
+                            alignment: WrapAlignment.start,
+                            children: listMoviesWatched.value
+                                .map((m) => Container(
+                                    width: mediaSize.width * 0.46,
+                                    constraints: const BoxConstraints(
+                                        maxWidth: 215, minWidth: 175),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 15, vertical: 20),
+                                      child: CardMovies(movie: m),
+                                    )))
+                                .toList(),
+                          ),
+                  ),
+                ),
               ),
-            ),
-          ),
-        );
-      },
-    ));
+            );
+          },
+        ));
   }
 }
