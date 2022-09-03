@@ -87,7 +87,7 @@ class CardCine extends StatelessWidget {
             color: Colors.yellow.shade800,
             size: 18,
             value: movie.stars / 2,
-            test: isCurrentPage,
+            animated: isCurrentPage,
           ),
         ],
       ),
