@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../shared/widgets/card_movies.dart';
 import 'popular_cubit_controller/popular_cubit_controller.dart';
 import 'popular_cubit_controller/popular_state.dart';
-import 'widgets/card_movies.dart';
 
 class MoviesGroup extends StatefulWidget {
   final String? title;
