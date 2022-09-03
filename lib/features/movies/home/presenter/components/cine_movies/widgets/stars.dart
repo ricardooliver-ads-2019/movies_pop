@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
 class Stars extends StatelessWidget {
-  final bool test;
+  final bool animated;
   final double value;
   final Color color;
   final double size;
-  Stars(
-      {Key? key,
-      required this.value,
-      required this.color,
-      required this.size,
-      required this.test})
-      : super(key: key);
+  Stars({
+    Key? key,
+    required this.value,
+    required this.color,
+    required this.size,
+    required this.animated,
+  }) : super(key: key);
   late List<Widget> stars;
   final positionTop = 0.0;
 
@@ -32,7 +32,7 @@ class Stars extends StatelessWidget {
               children: List.generate(5, (index) {
                 return AnimatedPositioned(
                     child: stars[index],
-                    top: test ? positionTop : -size,
+                    top: animated ? positionTop : -size,
                     left: position += size,
                     curve: Curves.bounceInOut,
                     duration: Duration(milliseconds: duration * index));
@@ -40,7 +40,7 @@ class Stars extends StatelessWidget {
             ),
           ),
           AnimatedOpacity(
-            opacity: test ? 1 : 0,
+            opacity: animated ? 1 : 0,
             curve: Curves.bounceInOut,
             duration: Duration(milliseconds: duration),
             child: Text(
@@ -65,6 +65,7 @@ List<Widget> generateStars(double value, Color color, double size) {
   Icon? halfStar;
 
   var quantStarsCheias = value ~/ 1;
+
   if (value % 1 != 0) {
     halfStar = Icon(
       Icons.star_half_outlined,
@@ -74,6 +75,7 @@ List<Widget> generateStars(double value, Color color, double size) {
   }
 
   var quantStarsVazias = (5 - value).floor();
+
   fullStars = List<Icon>.generate(
     quantStarsCheias,
     (index) {
