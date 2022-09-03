@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies_pop/features/movies/home/presenter/components/cine_movies/widgets/stars.dart';
 
 class CircularProgressStars extends StatefulWidget {
   final double value;
@@ -25,7 +26,6 @@ class _CircularProgressStarsState extends State<CircularProgressStars>
       });
     controller.repeat(reverse: true);
     super.initState();
-    print(controller.value);
   }
 
   @override
@@ -34,54 +34,52 @@ class _CircularProgressStarsState extends State<CircularProgressStars>
     super.dispose();
   }
 
+  Color setColor(double value) {
+    if (value < 2.5) {
+      return Colors.red;
+    }
+    if (value < 3.5) {
+      return Colors.blue;
+    }
+    return Colors.green;
+  }
+
   @override
   Widget build(BuildContext context) {
-    var mediaSize = MediaQuery.of(context).size;
     return Stack(
       children: [
-        Container(
-          width: mediaSize.width * 0.1,
-          height: mediaSize.width * 0.1,
-          constraints: const BoxConstraints(
-            maxHeight: 38,
-            maxWidth: 38,
-            minHeight: 23,
-            minWidth: 23,
-          ),
-          decoration: const BoxDecoration(
-              image: DecorationImage(
-            image: AssetImage(
-              'assets/images/star.png',
-            ),
-          )),
+        SizedBox(
+          width: 55,
+          height: 55,
           child: Center(
-            child: Text(
-              (widget.value / 2).toStringAsFixed(1),
-              style: const TextStyle(
-                color: Color(0xFF2196F3),
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Stars(
+                  value: widget.value / 2,
+                  color: Colors.orange.shade700,
+                  size: 5,
+                  animated: true,
+                )
+              ],
             ),
           ),
         ),
-        TweenAnimationBuilder(
-          tween: Tween<double>(begin: 0, end: widget.value / 10),
-          duration: const Duration(milliseconds: 2000),
-          builder: (context, double value, child) => Container(
-            width: mediaSize.width * 0.105,
-            height: mediaSize.width * 0.105,
-            constraints: const BoxConstraints(
-              maxHeight: 40,
-              maxWidth: 40,
-              minHeight: 25,
-              minWidth: 25,
-            ),
-            child: CircularProgressIndicator(
-              color: const Color.fromARGB(255, 4, 171, 248),
-              backgroundColor: Colors.grey.withOpacity(0.5),
-              value: value,
-              semanticsLabel: 'Linear progress indicator',
+        Align(
+          alignment: Alignment.center,
+          child: TweenAnimationBuilder(
+            tween: Tween<double>(begin: 0, end: widget.value / 10),
+            duration: const Duration(milliseconds: 2000),
+            builder: (context, double value, child) => SizedBox(
+              width: 46,
+              height: 46,
+              child: CircularProgressIndicator(
+                color: setColor(widget.value / 2),
+                backgroundColor: Colors.grey.withOpacity(0.5),
+                value: value,
+                semanticsLabel: 'Linear progress indicator',
+              ),
             ),
           ),
         )
