@@ -109,6 +109,7 @@ class _WatchedMoviesScreenState extends State<WatchedMoviesScreen> {
                             alignment: WrapAlignment.start,
                             children: listMoviesWatched.value
                                 .map((m) => Container(
+                                    height: 390,
                                     width: mediaSize.width * 0.46,
                                     constraints: const BoxConstraints(
                                         maxWidth: 215, minWidth: 175),

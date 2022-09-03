@@ -123,6 +123,7 @@ class _WatchMoviesScreenState extends State<WatchMoviesScreen> {
                             children: listMoviesWatch.value
                                 .map((m) => Container(
                                     width: mediaSize.width * 0.46,
+                                    height: 390,
                                     constraints: const BoxConstraints(
                                         maxWidth: 215, minWidth: 175),
                                     child: Padding(
