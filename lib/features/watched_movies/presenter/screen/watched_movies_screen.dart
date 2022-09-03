@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_pop/features/movies/home/presenter/components/popular_movies/widgets/card_movies.dart';
 import 'package:movies_pop/features/shared/entities/movie_entipy/movie_entipy.dart';
+import 'package:movies_pop/features/shared/widgets/card_movies.dart';
 import 'package:movies_pop/features/watched_movies/domain/entities/tv_entity.dart';
 import 'package:movies_pop/features/watched_movies/presenter/controller/watched_cubit_controller.dart';
 import 'package:movies_pop/features/watched_movies/presenter/controller/watched_state.dart';
