@@ -33,7 +33,7 @@ class CardCineBackground extends StatelessWidget {
                 constraints:
                     const BoxConstraints(maxHeight: 500, minHeight: 380),
                 decoration:
-                    BoxDecoration(color: Colors.black54.withOpacity(0.4)),
+                    BoxDecoration(color: Colors.white38.withOpacity(0.1)),
               ),
             ],
           ),
