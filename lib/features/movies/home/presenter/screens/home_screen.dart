@@ -19,28 +19,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   late final AnimationController _animationController;
-  late final Animation<double> animationPositionWidth;
-  late final Animation<double> animationPositionHeight;
   late final Animation<double> animationOpacity;
   late final HomeCubitController _controller;
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    animationPositionWidth =
-        Tween<double>(begin: MediaQuery.of(context).size.width, end: 0).animate(
-            CurvedAnimation(
-                parent: _animationController,
-                curve: const Interval(0.80, 1, curve: Curves.easeOut)));
-
-    animationPositionHeight =
-        Tween<double>(begin: MediaQuery.of(context).size.height, end: 0)
-            .animate(CurvedAnimation(
-      parent: _animationController,
-      curve: const Interval(0.80, 1, curve: Curves.easeOut),
-    ));
-
-    animationOpacity = Tween<double>(begin: 1, end: 0).animate(
-        CurvedAnimation(parent: _animationController, curve: Curves.ease));
   }
 
   @override
@@ -51,6 +34,9 @@ class _HomeScreenState extends State<HomeScreen>
       vsync: this,
       duration: const Duration(seconds: 1),
     );
+
+    animationOpacity = Tween<double>(begin: 1, end: 0).animate(
+        CurvedAnimation(parent: _animationController, curve: Curves.ease));
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await Future.delayed(const Duration(milliseconds: 500));
@@ -112,31 +98,30 @@ class _HomeScreenState extends State<HomeScreen>
                   )
                 ],
               ),
-              Align(
-                alignment: Alignment.topLeft,
+              Positioned.fill(
                 child: AnimatedBuilder(
                     animation: _animationController,
                     builder: (_, __) {
-                      return Opacity(
-                        opacity: animationOpacity.value,
-                        child: Container(
-                          width: animationPositionWidth.value,
-                          height: animationPositionHeight.value,
-                          decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              Colors.black87,
-                              Colors.blue,
-                              Colors.white,
-                            ],
-                            stops: [
-                              0.01,
-                              0.5,
-                              0.9,
-                            ],
-                          )),
+                      return IgnorePointer(
+                        child: Opacity(
+                          opacity: animationOpacity.value,
+                          child: Container(
+                            decoration: const BoxDecoration(
+                                gradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [
+                                Colors.black87,
+                                Colors.blue,
+                                Colors.white,
+                              ],
+                              stops: [
+                                0.01,
+                                0.5,
+                                0.9,
+                              ],
+                            )),
+                          ),
                         ),
                       );
                     }),
