@@ -58,9 +58,11 @@ class CardCine extends StatelessWidget {
                   )
                 ],
                 image: DecorationImage(
-                    image: NetworkImage(
-                        'https://image.tmdb.org/t/p/w500${movie.posterPath}'),
-                    fit: BoxFit.fill),
+                  image: NetworkImage(
+                      'https://image.tmdb.org/t/p/w500${movie.posterPath}'),
+                  filterQuality: FilterQuality.medium,
+                  fit: BoxFit.cover,
+                ),
               ),
               child: Stack(
                 children: [

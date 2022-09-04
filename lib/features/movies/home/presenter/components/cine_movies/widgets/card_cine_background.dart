@@ -22,9 +22,11 @@ class CardCineBackground extends StatelessWidget {
                     const BoxConstraints(maxHeight: 500, minHeight: 380),
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    fit: BoxFit.fill,
                     image: NetworkImage(
-                        'https://image.tmdb.org/t/p/w500${movie.backdropPath}'),
+                      'https://image.tmdb.org/t/p/w500${movie.backdropPath}',
+                    ),
+                    filterQuality: FilterQuality.medium,
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),

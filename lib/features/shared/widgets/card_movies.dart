@@ -56,6 +56,7 @@ class CardMovies extends StatelessWidget {
                         image: NetworkImage(
                           'https://image.tmdb.org/t/p/w200${movie.posterPath}',
                         ),
+                        filterQuality: FilterQuality.medium,
                       ),
                       borderRadius: BorderRadius.circular(10),
                     ),
