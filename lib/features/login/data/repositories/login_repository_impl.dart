@@ -62,6 +62,13 @@ class LoginRepositoryImpl implements ILoginRepository {
           statusCode: result.statusCode,
         ));
       }
+      if (result.statusCode == 401) {
+        return Left(UnauthorizedUser(
+          error: result.statusMessage,
+          message: 'Login inválido: usuário ou senha inválidos',
+          statusCode: result.statusCode,
+        ));
+      }
       return Left(GenericFailure(
         error: result.data,
         message: result.statusMessage,
