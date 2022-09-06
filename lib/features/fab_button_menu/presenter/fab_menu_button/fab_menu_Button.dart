@@ -7,7 +7,18 @@ import 'package:movies_pop/features/fab_button_menu/presenter/fab_menu_button/fa
 
 class FabMenuButton extends StatefulWidget {
   final int movieId;
-  const FabMenuButton({Key? key, required this.movieId}) : super(key: key);
+  final bool movieInListWatched;
+  final bool movieInListWatch;
+  final ValueChanged<int>? validarListWatched;
+  final ValueChanged<int>? validarListWatch;
+  const FabMenuButton({
+    Key? key,
+    required this.movieId,
+    this.validarListWatched,
+    this.validarListWatch,
+    this.movieInListWatched = false,
+    this.movieInListWatch = false,
+  }) : super(key: key);
 
   @override
   State<FabMenuButton> createState() => _FabMenuButtonState();
@@ -17,6 +28,7 @@ class _FabMenuButtonState extends State<FabMenuButton>
     with SingleTickerProviderStateMixin {
   late final FabButtonCubitController _controller;
   late AnimationController animation;
+
   final menuIsOpen = ValueNotifier<bool>(false);
   final watchedMovies = ValueNotifier<bool>(false);
   final watchMovies = ValueNotifier<bool>(false);
@@ -163,12 +175,20 @@ class _FabMenuButtonState extends State<FabMenuButton>
                   child: Icon(
                     Icons.video_library_rounded,
                     color: menuIsOpen.value
-                        ? checkMovies(watchedMovies)
+                        ? widget.movieInListWatched
+                            ? Colors.red
+                            : checkMovies(watchedMovies)
                         : Colors.transparent,
                   ),
                   onPressed: () {
                     setState(() {
-                      if (watchedMovies.value) {
+                      if (watchedMovies.value ||
+                          widget.movieInListWatched != false) {
+                        var validar = widget.validarListWatched;
+                        if (validar != null) {
+                          validar(widget.movieId);
+                        }
+
                         _controller
                             .removeMovieToWatchedMoviesList(widget.movieId);
                       } else {
@@ -187,12 +207,18 @@ class _FabMenuButtonState extends State<FabMenuButton>
                 child: Icon(
                   Icons.live_tv_sharp,
                   color: menuIsOpen.value
-                      ? checkMovies(watchMovies)
+                      ? widget.movieInListWatch
+                          ? Colors.red
+                          : checkMovies(watchMovies)
                       : Colors.transparent,
                 ),
                 onPressed: () {
                   setState(() {
-                    if (watchMovies.value) {
+                    if (watchMovies.value || widget.movieInListWatch != false) {
+                      var validar = widget.validarListWatch;
+                      if (validar != null) {
+                        validar(widget.movieId);
+                      }
                       _controller.removeMovieToWatchMoviesList(
                           movieId: widget.movieId);
                     } else {
