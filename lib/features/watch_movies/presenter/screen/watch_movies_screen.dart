@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_pop/core/dependencies/get_it/dependencies.dart';
+import 'package:movies_pop/features/shared/class/controller_list_movies.dart';
 import 'package:movies_pop/features/shared/entities/movie_entipy/movie_entipy.dart';
 import 'package:movies_pop/features/shared/widgets/card_movies.dart';
 import 'package:movies_pop/features/watch_movies/presenter/controller/watch_movies_cubit_controller.dart';
 import 'package:movies_pop/features/watch_movies/presenter/controller/watch_movies_state.dart';
+
+import '../../../fab_button_menu/presenter/controller/fab_button_cubit_controller.dart';
+import '../../../fab_button_menu/presenter/controller/fab_button_state.dart';
+import '../../../fab_button_menu/presenter/fab_menu_button/fab_menu_Button.dart';
 
 class WatchMoviesScreen extends StatefulWidget {
   const WatchMoviesScreen({Key? key}) : super(key: key);
@@ -14,7 +20,7 @@ class WatchMoviesScreen extends StatefulWidget {
 
 class _WatchMoviesScreenState extends State<WatchMoviesScreen> {
   late WatchMoviesCubitController _controller;
-  final listMoviesWatch = ValueNotifier<List<MovieEntipy>>([]);
+  late ControllerListMovies controllerListMovies;
   int page = 1;
   int totalPages = 1;
   late final ScrollController _scrollController;
@@ -23,8 +29,8 @@ class _WatchMoviesScreenState extends State<WatchMoviesScreen> {
   void initState() {
     super.initState();
     _scrollController = ScrollController();
+    controllerListMovies = ControllerListMovies();
     _controller = context.read<WatchMoviesCubitController>();
-    _controller.getListWatchMovies(page: page);
     _controller.getListWatchMovies(page: page);
     _scrollController.addListener(infiniteScroll);
   }
@@ -78,7 +84,7 @@ class _WatchMoviesScreenState extends State<WatchMoviesScreen> {
             if (state is SuccessWatchMoviesState) {
               page = state.moviesPageEntipy.page;
               totalPages = state.moviesPageEntipy.totalPages;
-              listMoviesWatch.value.addAll(state.moviesPageEntipy.movies);
+              controllerListMovies.value.addAll(state.moviesPageEntipy.movies);
               setState(() {});
             }
             if (state is ErrorWatchMoviesState) {
@@ -114,27 +120,59 @@ class _WatchMoviesScreenState extends State<WatchMoviesScreen> {
                       child: CircularProgressIndicator(),
                     )
                   : SingleChildScrollView(
-                      key: const PageStorageKey<String>('watchList'),
-                      controller: _scrollController,
-                      child: SizedBox(
-                        child: Center(
-                          child: Wrap(
-                            alignment: WrapAlignment.start,
-                            children: listMoviesWatch.value
-                                .map((m) => Container(
-                                    width: mediaSize.width * 0.46,
-                                    height: 390,
-                                    constraints: const BoxConstraints(
-                                        maxWidth: 215, minWidth: 175),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 15, vertical: 20),
-                                      child: CardMovies(movie: m),
-                                    )))
-                                .toList(),
-                          ),
-                        ),
-                      ),
+                      child: ValueListenableBuilder<List<MovieEntipy>>(
+                          valueListenable: controllerListMovies,
+                          builder: (context, _, __) {
+                            return Padding(
+                              padding: const EdgeInsets.only(top: 20),
+                              child: Wrap(
+                                alignment: WrapAlignment.start,
+                                children: controllerListMovies.value
+                                    .map(
+                                      (m) => Container(
+                                        margin: const EdgeInsets.all(10),
+                                        // color: Colors.green,
+                                        height: 350,
+                                        width: mediaSize.width * 0.40,
+                                        constraints: const BoxConstraints(
+                                          maxWidth: 200,
+                                          minWidth: 170,
+                                        ),
+                                        child: Stack(
+                                          children: [
+                                            CardMovies(movie: m),
+                                            Align(
+                                              alignment: Alignment.topLeft,
+                                              child: BlocProvider(
+                                                create: (_) => getItDependency.get<
+                                                    FabButtonCubitController>(),
+                                                child: BlocBuilder<
+                                                    FabButtonCubitController,
+                                                    FabButtonState>(
+                                                  buildWhen:
+                                                      (previous, current) =>
+                                                          previous != current,
+                                                  builder: (context, state) {
+                                                    return FabMenuButton(
+                                                      movieInListWatch: true,
+                                                      movieId: m.id,
+                                                      validarListWatch: (id) {
+                                                        controllerListMovies
+                                                            .removeItem(id);
+                                                      },
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                    .toList(),
+                              ),
+                            );
+                          }),
                     ),
             );
           },

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_pop/features/shared/entities/movie_entipy/movie_entipy.dart';
+import 'package:movies_pop/features/shared/class/controller_list_movies.dart';
 import 'package:movies_pop/features/shared/widgets/card_movies.dart';
 import 'package:movies_pop/features/watched_movies/domain/entities/tv_entity.dart';
 import 'package:movies_pop/features/watched_movies/presenter/controller/watched_cubit_controller.dart';
-import 'package:movies_pop/features/watched_movies/presenter/controller/watched_state.dart';
+
+import '../../../../core/dependencies/get_it/dependencies.dart';
+import '../../../fab_button_menu/presenter/controller/fab_button_cubit_controller.dart';
+import '../../../fab_button_menu/presenter/controller/fab_button_state.dart';
+import '../../../fab_button_menu/presenter/fab_menu_button/fab_menu_Button.dart';
 
 class WatchedMoviesScreen extends StatefulWidget {
   const WatchedMoviesScreen({Key? key}) : super(key: key);
@@ -15,11 +19,12 @@ class WatchedMoviesScreen extends StatefulWidget {
 
 class _WatchedMoviesScreenState extends State<WatchedMoviesScreen> {
   late final WatchedCubitController _controller;
-  final listMoviesWatched = ValueNotifier<List<MovieEntipy>>([]);
+  late ControllerListMovies controllerListMovies;
 
   @override
   void initState() {
     super.initState();
+    controllerListMovies = ControllerListMovies();
     _controller = context.read<WatchedCubitController>();
     _controller.getMyListWatchedMovies();
   }
@@ -60,11 +65,10 @@ class _WatchedMoviesScreenState extends State<WatchedMoviesScreen> {
         body: BlocConsumer<WatchedCubitController, WatchedState>(
           listener: (context, state) async {
             if (state is SucccessWatchedState) {
-              listMoviesWatched.value
+              controllerListMovies.value
                   .addAll(state.myListMoviesWatched.listMovies);
-              listMoviesWatched.value
+              controllerListMovies.value
                   .removeWhere((element) => element is TvEntity);
-              setState(() {});
             }
             if (state is ErrorWatchedState) {
               final mensagen = state.error.message?.toString() ?? 'Error';
@@ -105,21 +109,59 @@ class _WatchedMoviesScreenState extends State<WatchedMoviesScreen> {
                             child: const Center(
                                 child: CircularProgressIndicator()),
                           )
-                        : Wrap(
-                            alignment: WrapAlignment.start,
-                            children: listMoviesWatched.value
-                                .map((m) => Container(
-                                    height: 390,
-                                    width: mediaSize.width * 0.46,
-                                    constraints: const BoxConstraints(
-                                        maxWidth: 215, minWidth: 175),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 15, vertical: 20),
-                                      child: CardMovies(movie: m),
-                                    )))
-                                .toList(),
-                          ),
+                        : ValueListenableBuilder(
+                            valueListenable: controllerListMovies,
+                            builder: (context, _, __) {
+                              return Padding(
+                                padding: const EdgeInsets.only(top: 20),
+                                child: Wrap(
+                                  alignment: WrapAlignment.start,
+                                  children: controllerListMovies.value
+                                      .map((m) => Container(
+                                          margin: const EdgeInsets.all(10),
+                                          // color: Colors.green,
+                                          height: 350,
+                                          width: mediaSize.width * 0.40,
+                                          constraints: const BoxConstraints(
+                                            maxWidth: 200,
+                                            minWidth: 170,
+                                          ),
+                                          child: Stack(
+                                            children: [
+                                              CardMovies(movie: m),
+                                              Align(
+                                                alignment: Alignment.topLeft,
+                                                child: BlocProvider(
+                                                    create: (_) =>
+                                                        getItDependency.get<
+                                                            FabButtonCubitController>(),
+                                                    child: BlocBuilder<
+                                                            FabButtonCubitController,
+                                                            FabButtonState>(
+                                                        buildWhen: (previous,
+                                                                current) =>
+                                                            previous != current,
+                                                        builder:
+                                                            (context, state) {
+                                                          return FabMenuButton(
+                                                            movieInListWatched:
+                                                                true,
+                                                            movieId: m.id,
+                                                            validarListWatched:
+                                                                (id) {
+                                                              controllerListMovies
+                                                                  .removeItem(
+                                                                      id);
+                                                            },
+                                                          );
+                                                        })),
+                                              ),
+                                            ],
+                                          )))
+                                      .toList(),
+                                ),
+                              );
+                            }),
                   ),
                 ),
               ),
