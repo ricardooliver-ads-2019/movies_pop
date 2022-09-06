@@ -32,13 +32,13 @@ class WatchaedMoviesRepositoryImpl implements WatchaedMoviesRepository {
       ));
     }
 
-    // if ((result.data == null) || (result.data['results'] as List).isEmpty) {
-    //   return const Left(GenericFailure(
-    //     error: 'Lista de filmes vazia',
-    //     message: 'Erro ao buscar lista de filmes',
-    //     statusCode: 000,
-    //   ));
-    // }
+    if ((result.data == null) || (result.data['items'] as List).isEmpty) {
+      return const Left(GenericFailure(
+        error: '',
+        message: 'Lista de filmes vazia',
+        statusCode: 000,
+      ));
+    }
 
     try {
       final results = ListWatchedMoviesModel.fromJson(result.data);
