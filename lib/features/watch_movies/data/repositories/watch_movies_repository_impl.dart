@@ -36,8 +36,8 @@ class WatchMoviesRepositoryImpl implements WatchMoviesRepository {
 
     if ((result.data == null) || (result.data['results'] as List).isEmpty) {
       return const Left(GenericFailure(
-        error: 'Lista de filmes vazia',
-        message: 'Erro ao buscar lista de filmes',
+        error: '',
+        message: 'Lista de filmes vazia',
         statusCode: 000,
       ));
     }

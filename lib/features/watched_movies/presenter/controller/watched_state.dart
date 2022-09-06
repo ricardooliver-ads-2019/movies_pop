@@ -1,7 +1,4 @@
-import 'package:equatable/equatable.dart';
-import 'package:movies_pop/core/erros/failures.dart';
-import 'package:movies_pop/features/login/presenter/controller/login_state.dart';
-import 'package:movies_pop/features/watched_movies/domain/entities/list_watched_movies_entity.dart';
+part of 'watched_cubit_controller.dart';
 
 class WatchedState extends Equatable {
   @override
@@ -14,6 +11,7 @@ class LoadingWatchedState extends WatchedState {}
 
 class SucccessWatchedState extends WatchedState {
   final ListWatchedMoviesEntity myListMoviesWatched;
+
   SucccessWatchedState({
     required this.myListMoviesWatched,
   });
