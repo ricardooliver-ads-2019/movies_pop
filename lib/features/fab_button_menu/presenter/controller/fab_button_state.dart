@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:movies_pop/core/erros/failures.dart';
-import 'package:movies_pop/features/fab_button_menu/domain/entities/check_movie_In_my_list_watched_moviesEntity.dart';
 
-import '../../domain/entities/movie_status_entity.dart';
+import '../../../../core/shared_features/status_movies/domain/entities/check_movie_In_my_list_watched_moviesEntity.dart';
+import '../../../../core/shared_features/status_movies/domain/entities/movie_status_entity.dart';
 
 class FabButtonState extends Equatable {
   @override
