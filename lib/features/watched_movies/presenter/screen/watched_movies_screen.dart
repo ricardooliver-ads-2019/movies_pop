@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_pop/features/shared/class/controller_list_movies.dart';
 import 'package:movies_pop/features/shared/widgets/card_movies.dart';
+import 'package:movies_pop/features/shared/widgets/snackBar/snackBar_sistem.dart';
 import 'package:movies_pop/features/watched_movies/domain/entities/tv_entity.dart';
 import 'package:movies_pop/features/watched_movies/presenter/controller/watched_cubit_controller.dart';
 
@@ -71,12 +72,11 @@ class _WatchedMoviesScreenState extends State<WatchedMoviesScreen> {
                   .removeWhere((element) => element is TvEntity);
             }
             if (state is ErrorWatchedState) {
-              final mensagen = state.error.message?.toString() ?? 'Error';
-              final snackBar = SnackBar(
-                content: Text(mensagen),
-                backgroundColor: Colors.red,
+              final message = state.error.message?.toString() ?? 'Error';
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBarSistem().snackBarErrorGeneric(message),
               );
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
             }
           },
           builder: (context, state) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies_pop/features/shared/widgets/snackBar/snackBar_sistem.dart';
 
 class ButtonLogin extends StatefulWidget {
   String login, password;
@@ -125,7 +126,6 @@ class _ButtonLoginState extends State<ButtonLogin>
       ),
       onTap: () async {
         setState(() {});
-        print('clik');
         _animationController.forward();
         if (widget.password.isNotEmpty && widget.login.isNotEmpty) {
           _animationController.forward();
@@ -139,11 +139,9 @@ class _ButtonLoginState extends State<ButtonLogin>
             message = 'Campo senha não pode ser vazio';
           }
           _animationController.reverse();
-          var snackBar = SnackBar(
-            content: Text(message),
-            backgroundColor: Colors.red,
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBarSistem().snackBarErrorGeneric(message),
           );
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
         }
       },
     );

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_pop/core/utils/constants.dart';
 import 'package:movies_pop/features/fab_button_menu/presenter/controller/fab_button_cubit_controller.dart';
 import 'package:movies_pop/features/fab_button_menu/presenter/controller/fab_button_state.dart';
 import 'package:movies_pop/features/fab_button_menu/presenter/fab_menu_button/fab_vertical_delegate.dart';
+import 'package:movies_pop/features/shared/widgets/snackBar/snackBar_sistem.dart';
 
 class FabMenuButton extends StatefulWidget {
   final int movieId;
@@ -87,58 +87,74 @@ class _FabMenuButtonState extends State<FabMenuButton>
           if (state.response) {
             watchedMovies.value = true;
           }
-          final snackBar = SnackBar(
-            content: Text(state.response
-                ? Constants.messageAddMoveiSuccess
-                : Constants.messageAddMoveiError),
-            backgroundColor: state.response ? Colors.green : Colors.red,
-            dismissDirection: DismissDirection.startToEnd,
-          );
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          if (state.response) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBarSistem().snackBarAddSuccessGeneric(
+                  'O filme foi adicionado a sua lista de filmes já vistos'),
+            );
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBarSistem().snackBarErrorGeneric(
+                  'Erro ao adicionar o filme a sua lista de filmes já vistos'),
+            );
+          }
         }
 
         if (state is RequestRemoveMoviesToWatched) {
           if (state.response) {
             watchedMovies.value = false;
           }
-          final snackBar = SnackBar(
-            content: Text(state.response
-                ? Constants.messageRemoveMoveiSuccess
-                : Constants.messageRemoveMoveiError),
-            backgroundColor: state.response ? Colors.green : Colors.red,
-            dismissDirection: DismissDirection.up,
-          );
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          if (state.response) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBarSistem().snackBarRemoveSuccessGeneric(
+                  'O filme foi removido da sua lista de filmes já vistos'),
+            );
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBarSistem().snackBarErrorGeneric(
+                  'Erro ao remover o filme da sua lista de filmes já vistos'),
+            );
+          }
         }
 
         if (state is RequestAddMoviesToWatchList) {
           if (state.response) {
             watchMovies.value = true;
           }
-          final snackBar = SnackBar(
-            content: Text(state.response
-                ? Constants.messageAddMoveiSuccess
-                : Constants.messageAddMoveiError),
-            backgroundColor: state.response ? Colors.green : Colors.red,
-            dismissDirection: DismissDirection.startToEnd,
-          );
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          setState(() {});
+          if (state.response) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBarSistem().snackBarAddSuccessGeneric(
+                  'O filme foi adicionado a sua lista de filmes que deseja assistir'),
+            );
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBarSistem().snackBarErrorGeneric(
+                  'Erro ao adicionar o filme a sua lista de filmes que deseja assistir'),
+            );
+          }
         }
 
         if (state is RequestRemoveMoviesToWatchList) {
           if (state.response) {
             watchMovies.value = false;
           }
-          final snackBar = SnackBar(
-            content: Text(state.response
-                ? Constants.messageRemoveMoveiSuccess
-                : Constants.messageRemoveMoveiError),
-            backgroundColor: state.response ? Colors.green : Colors.red,
-            dismissDirection: DismissDirection.up,
+          if (state.response) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBarSistem().snackBarRemoveSuccessGeneric(
+                  'O filme foi removido da sua lista de filmes que deseja assistir'),
+            );
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBarSistem().snackBarErrorGeneric(
+                  'Erro ao remover o filme da sua lista de filmes que deseja assistir'),
+            );
+          }
+        }
+        if (state is ErrorFabButtonState) {
+          final message = state.error.message?.toString() ?? 'Error';
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBarSistem().snackBarErrorGeneric(message),
           );
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          setState(() {});
         }
       },
       child: Padding(

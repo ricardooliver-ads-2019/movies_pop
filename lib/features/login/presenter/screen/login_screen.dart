@@ -8,6 +8,7 @@ import 'package:movies_pop/features/login/presenter/componets/form_login/widgets
 import 'package:movies_pop/features/login/presenter/controller/login_cubit_controller.dart';
 import 'package:movies_pop/features/login/presenter/controller/login_state.dart';
 import 'package:movies_pop/features/login/presenter/widgets/logo.dart';
+import 'package:movies_pop/features/shared/widgets/snackBar/snackBar_sistem.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -20,7 +21,6 @@ class _LoginScreenState extends State<LoginScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> animationPosition;
-  // late Animation<double> animationPositionHeight;
   late Animation<double> animationOpacity;
 
   late LoginCubitController _controller;
@@ -69,12 +69,10 @@ class _LoginScreenState extends State<LoginScreen>
         listener: (context, state) async {
       if (state is Error) {
         animationErro.value = true;
-        final mensagen = state.error.message?.toString() ?? 'Error';
-        final snackBar = SnackBar(
-          content: Text(mensagen),
-          backgroundColor: Colors.red,
+        final message = state.error.message?.toString() ?? 'Error';
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBarSistem().snackBarErrorGeneric(message),
         );
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
       if (state is LoginSuccess) {
         await _animationController.forward();

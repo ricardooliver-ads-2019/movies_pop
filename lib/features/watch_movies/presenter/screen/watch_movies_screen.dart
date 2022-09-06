@@ -4,6 +4,7 @@ import 'package:movies_pop/core/dependencies/get_it/dependencies.dart';
 import 'package:movies_pop/features/shared/class/controller_list_movies.dart';
 import 'package:movies_pop/features/shared/entities/movie_entipy/movie_entipy.dart';
 import 'package:movies_pop/features/shared/widgets/card_movies.dart';
+import 'package:movies_pop/features/shared/widgets/snackBar/snackBar_sistem.dart';
 import 'package:movies_pop/features/watch_movies/presenter/controller/watch_movies_cubit_controller.dart';
 import 'package:movies_pop/features/watch_movies/presenter/controller/watch_movies_state.dart';
 
@@ -88,12 +89,10 @@ class _WatchMoviesScreenState extends State<WatchMoviesScreen> {
               setState(() {});
             }
             if (state is ErrorWatchMoviesState) {
-              final mensagen = state.error.message?.toString() ?? 'Error';
-              final snackBar = SnackBar(
-                content: Text(mensagen),
-                backgroundColor: Colors.red,
+              final message = state.error.message?.toString() ?? 'Error';
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBarSistem().snackBarErrorGeneric(message),
               );
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
             }
           },
           builder: (context, state) {
