@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../../core/dependencies/get_it/dependencies.dart';
+import '../../../../../fab_button_menu/presenter/controller/fab_button_cubit_controller.dart';
+import '../../../../../fab_button_menu/presenter/controller/fab_button_state.dart';
+import '../../../../../fab_button_menu/presenter/fab_menu_button/fab_menu_Button.dart';
 import '../../../../../shared/widgets/card_movies.dart';
 import 'popular_cubit_controller/popular_cubit_controller.dart';
 import 'popular_cubit_controller/popular_state.dart';
@@ -101,7 +105,7 @@ class _MoviesGroupState extends State<MoviesGroup> {
                   height: mediaSize.height * 0.4,
                   width: mediaSize.width,
                   constraints:
-                      const BoxConstraints(maxWidth: 800, minHeight: 350),
+                      const BoxConstraints(maxWidth: 800, minHeight: 370),
                   child: ListView.builder(
                       key: const PageStorageKey<String>('MoviesPopular'),
                       controller: _scrollControllerr,
@@ -109,10 +113,35 @@ class _MoviesGroupState extends State<MoviesGroup> {
                       itemCount: state.pagePopularMovies.movies.length,
                       itemBuilder: (context, index) {
                         var movie = state.pagePopularMovies.movies[index];
-                        return Padding(
-                          padding: const EdgeInsets.only(left: 15),
-                          child: CardMovies(movie: movie),
-                        );
+                        return Container(
+                            margin: const EdgeInsets.all(10),
+                            // color: Colors.green,
+                            height: 350,
+                            width: mediaSize.width * 0.40,
+                            constraints: const BoxConstraints(
+                              maxWidth: 200,
+                              minWidth: 170,
+                            ),
+                            child: Stack(
+                              children: [
+                                CardMovies(movie: movie),
+                                Align(
+                                  alignment: Alignment.topLeft,
+                                  child: BlocProvider(
+                                      create: (_) => getItDependency
+                                          .get<FabButtonCubitController>(),
+                                      child: BlocBuilder<
+                                              FabButtonCubitController,
+                                              FabButtonState>(
+                                          buildWhen: (previous, current) =>
+                                              previous != current,
+                                          builder: (context, state) {
+                                            return FabMenuButton(
+                                                movieId: movie.id);
+                                          })),
+                                ),
+                              ],
+                            ));
                       }),
                 ),
               ],
