@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_pop/core/dependencies/get_it/dependencies.dart';
-import 'package:movies_pop/features/fab_button_menu/presenter/controller/fab_button_cubit_controller.dart';
-import 'package:movies_pop/features/fab_button_menu/presenter/controller/fab_button_state.dart';
-import 'package:movies_pop/features/fab_button_menu/presenter/fab_menu_button/fab_menu_Button.dart';
-import 'package:movies_pop/features/movies/home/presenter/components/cine_movies/widgets/card_details_movie.dart';
 import 'package:movies_pop/features/shared/entities/movie_entipy/movie_entipy.dart';
+import 'package:movies_pop/features/shared/widgets/card_details_movie.dart';
 import 'package:movies_pop/features/shared/widgets/circular_progress_stars.dart';
 
 class CardMovies extends StatelessWidget {
@@ -23,81 +18,57 @@ class CardMovies extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var mediaSize = MediaQuery.of(context).size;
-    return Container(
-      // color: Colors.red,
-      width: mediaSize.width * 0.40,
-      height: mediaSize.height * 0.30,
-      constraints: const BoxConstraints(
-        maxWidth: 200,
-        minWidth: 170,
-        minHeight: 295,
-        maxHeight: 300,
-      ),
-      child: InkWell(
-        onTap: () {},
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(15),
-          clipBehavior: Clip.antiAlias,
-          child: Stack(
-            children: [
-              Column(
-                children: [
-                  Container(
-                    width: mediaSize.width * 0.40,
-                    height: mediaSize.height * 0.30,
-                    constraints: const BoxConstraints(
-                        maxWidth: 200,
-                        minWidth: 170,
-                        minHeight: 270,
-                        maxHeight: 270),
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: NetworkImage(
-                          'https://image.tmdb.org/t/p/w200${movie.posterPath}',
-                        ),
-                        filterQuality: FilterQuality.medium,
+    return InkWell(
+      onTap: () {},
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(15),
+        clipBehavior: Clip.antiAlias,
+        child: Stack(
+          children: [
+            Column(
+              children: [
+                Container(
+                  width: mediaSize.width * 0.40,
+                  height: mediaSize.height * 0.30,
+                  constraints: const BoxConstraints(
+                      maxWidth: 200,
+                      minWidth: 170,
+                      minHeight: 270,
+                      maxHeight: 270),
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.fill,
+                      image: NetworkImage(
+                        'https://image.tmdb.org/t/p/w200${movie.posterPath}',
                       ),
-                      borderRadius: BorderRadius.circular(10),
+                      filterQuality: FilterQuality.medium,
+                    ),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 0),
+                  child: CardDetailsMovie(movie: movie),
+                )
+              ],
+            ),
+            Positioned(
+                left: 10,
+                top: 270 - 25,
+                child: Container(
+                  width: 55,
+                  height: 55,
+                  decoration: BoxDecoration(
+                    color: Colors.black87,
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: Center(
+                    child: CircularProgressStars(
+                      value: movie.stars,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 5),
-                    child: CardDetailsMovie(movie: movie),
-                  )
-                ],
-              ),
-              Align(
-                alignment: Alignment.topLeft,
-                child: BlocProvider(
-                    create: (_) =>
-                        getItDependency.get<FabButtonCubitController>(),
-                    child:
-                        BlocBuilder<FabButtonCubitController, FabButtonState>(
-                            buildWhen: (previous, current) =>
-                                previous != current,
-                            builder: (context, state) {
-                              return FabMenuButton(movieId: movie.id);
-                            })),
-              ),
-              Positioned(
-                  left: 10,
-                  top: 270 - 25,
-                  child: Container(
-                    width: 55,
-                    height: 55,
-                    decoration: BoxDecoration(
-                      color: Colors.black87,
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                    child: Center(
-                      child: CircularProgressStars(
-                        value: movie.stars,
-                      ),
-                    ),
-                  )),
-            ],
-          ),
+                )),
+          ],
         ),
       ),
     );
