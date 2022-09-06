@@ -39,17 +39,13 @@ class LoginCubitController extends Cubit<LoginState> {
     emit(Loading());
     final result = await _getRequestTokenusecase.call();
     result.fold((error) {
-      //print(error);
       emit(Error(error: error));
     }, (token) async {
-      //print(token);
       final result = await _validateTokenWithLoginUsecase.call(
           login: login, password: password, requestToken: token.requestToken);
       result.fold((error) {
-        //print(error);
         emit(Error(error: error));
       }, (token) {
-        //print(token);
         validateSessionIdUsecase(requestToken: token.requestToken);
         emit(ValidateTokenSuccess(token: token));
       });
@@ -61,7 +57,6 @@ class LoginCubitController extends Cubit<LoginState> {
     final result =
         await _validateSessionIdUsecase.call(requestToken: requestToken);
     result.fold((error) {
-      //print(error);
       emit(Error(error: error));
     }, (sessionId) {
       _authSession.saveSessionId(sessionId: sessionId.sessionId);
@@ -75,7 +70,6 @@ class LoginCubitController extends Cubit<LoginState> {
     emit(Loading());
     final result = await _getDetailsAccountUsecase.call(sessionId: sessionId);
     result.fold((error) {
-      //print(error);
       emit(Error(error: error));
     }, (detailsAccount) {
       _authSession.saveDetailsAccount(

@@ -155,7 +155,10 @@ class DioClient implements HttpClient {
       statusCode: 0,
       statusMessage: 'no connection',
       response: HttpClientResponse(
-          data: null, statusCode: 0, statusMessage: 'no connection'),
+        data: null,
+        statusCode: 0,
+        statusMessage: 'no connection',
+      ),
     );
   }
 

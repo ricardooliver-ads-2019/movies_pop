@@ -76,13 +76,3 @@ class ButtonCreateAccount extends StatelessWidget {
     );
   }
 }
-// Link(
-//                   uri: Uri.parse("https://www.instagram.com/ricardooliver.ads/"),
-//                   target: LinkTarget.blank, 
-//                   builder: (context, followLink){
-//                     return GestureDetector(
-//                       onTap: followLink,
-//                       child: Icon(FontAwesomeIcons.instagramSquare, color: Definicoes.bgColor,size: 30),
-//                     );
-//                   }
-//                 )
