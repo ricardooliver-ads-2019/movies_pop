@@ -16,9 +16,21 @@ abstract class Failure extends Equatable {
 }
 
 class GenericFailure extends Failure {
-  const GenericFailure(
-      {required String? message,
-      required dynamic error,
-      required int? statusCode})
-      : super(message: message, error: error, statusCode: statusCode);
+  const GenericFailure({
+    required String? message,
+    required dynamic error,
+    required int? statusCode,
+  }) : super(message: message, error: error, statusCode: statusCode);
+}
+
+class UnauthorizedUser extends Failure {
+  const UnauthorizedUser({
+    required String? message,
+    required dynamic error,
+    required int? statusCode,
+  }) : super(
+          message: message,
+          error: error,
+          statusCode: statusCode,
+        );
 }
