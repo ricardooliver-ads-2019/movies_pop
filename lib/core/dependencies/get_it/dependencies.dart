@@ -217,17 +217,6 @@ Future<void> getItDependencies() async {
                 getItDependency<DetailsListWatchedMovies>(),
             getMyListWatchedMoviesUsecase:
                 getItDependency<GetMyListWatchedMoviesUsecase>(),
-            checkMovieInMyListWatchedMoviesUsecase:
-                getItDependency<CheckMovieInMyListWatchedMoviesUsecase>(),
-            getStatusMoviesUsecase: getItDependency<GetStatusMoviesUsecase>(),
-            addMovieToWatchedMoviesListUsecase:
-                getItDependency<AddMovieToWatchedMoviesListUsecase>(),
-            removeMovieToWatchedMoviesListUsecase:
-                getItDependency<RemoveMovieToWatchedMoviesListUsecase>(),
-            addMovieToWatchMoviesListUsecase:
-                getItDependency<AddMovieToWatchMoviesListUsecase>(),
-            removeMovieToWatchMoviesListUsecase:
-                getItDependency<RemoveMovieToWatchMoviesListUsecase>(),
           ));
 //=========================== Cubits ===========================
 
