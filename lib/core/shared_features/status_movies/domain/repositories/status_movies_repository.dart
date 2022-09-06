@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:movies_pop/core/erros/failures.dart';
-import 'package:movies_pop/features/fab_button_menu/domain/entities/check_movie_In_my_list_watched_moviesEntity.dart';
-import 'package:movies_pop/features/fab_button_menu/domain/entities/movie_status_entity.dart';
+import 'package:movies_pop/core/shared_features/status_movies/domain/entities/check_movie_In_my_list_watched_moviesEntity.dart';
+import 'package:movies_pop/core/shared_features/status_movies/domain/entities/movie_status_entity.dart';
 
-abstract class FabButtonMenuRepository {
+abstract class StatusMoviesRepository {
   Future<Either<Failure, MovieStatusEntity>> getStatusMovies(
       {required int movieId});
 

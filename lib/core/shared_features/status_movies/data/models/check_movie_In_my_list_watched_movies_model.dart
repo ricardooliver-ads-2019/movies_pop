@@ -1,4 +1,4 @@
-import 'package:movies_pop/features/fab_button_menu/domain/entities/check_movie_In_my_list_watched_moviesEntity.dart';
+import 'package:movies_pop/core/shared_features/status_movies/domain/entities/check_movie_In_my_list_watched_moviesEntity.dart';
 
 class CheckMovieInMyListWatchedMoviesModel
     extends CheckMovieInMyListWatchedMoviesEntity {

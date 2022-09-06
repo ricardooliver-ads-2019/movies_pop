@@ -1,15 +1,15 @@
 import 'package:movies_pop/core/auth/auth.dart';
 import 'package:movies_pop/core/network/http_client.dart';
 import 'package:movies_pop/core/network/http_client_response.dart';
+import 'package:movies_pop/core/shared_features/status_movies/data/datasources/status_movies_datasources.dart';
 import 'package:movies_pop/core/user_lists_watched_movies/details_list_watched_movies.dart';
 import 'package:movies_pop/core/utils/constants.dart';
-import 'package:movies_pop/features/fab_button_menu/data/datasources/fab_button_menu_datasources.dart';
 
-class FabButtonMenuDatasourcesImpl implements FabButtonMenuDatasources {
+class StatusMoviesDatasourcesImpl implements StatusMoviesDatasources {
   final HttpClient _client;
   final AuthSession _auth;
   final DetailsListWatchedMovies _detailsListWatchedMovies;
-  FabButtonMenuDatasourcesImpl(
+  StatusMoviesDatasourcesImpl(
       {required HttpClient client,
       required AuthSession auth,
       required DetailsListWatchedMovies detailsListWatchedMovies})

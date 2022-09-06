@@ -1,6 +1,6 @@
 import 'package:movies_pop/core/network/http_client_response.dart';
 
-abstract class FabButtonMenuDatasources {
+abstract class StatusMoviesDatasources {
   Future<HttpClientResponse> getStatusMovies({required int movieId});
   Future<HttpClientResponse> checkMovieInMyListWatchedMovies(
       {required int movieId});
