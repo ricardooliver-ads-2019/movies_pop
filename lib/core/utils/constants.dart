@@ -1,6 +1,7 @@
 class Constants {
   Constants._();
   static const baseUrl = 'https://api.themoviedb.org/3';
+  static const baseUrlImage = 'https://image.tmdb.org/t/p/w500';
   static const apiKey = '899e6212bb39852b379032c9c5e25689';
   static const messageAddMoveiSuccess = 'Filme adicionando com sucesso!';
   static const messageRemoveMoveiSuccess = 'Filme removido com sucesso!';
