@@ -46,7 +46,6 @@ dependencies:
   equatable: ^2.0.3
 
   shimmer: ^2.0.0
-  transparent_image: ^2.0.0
   youtube_player_flutter: ^8.1.0
   google_fonts: ^3.0.1
 
