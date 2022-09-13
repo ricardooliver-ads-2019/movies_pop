@@ -11,14 +11,11 @@ class CardDetailsMovie extends StatelessWidget {
   Widget build(BuildContext context) {
     var mediaSize = MediaQuery.of(context).size;
     return Container(
-      // color: Colors.yellow,
       width: mediaSize.width * 0.40,
-      height: mediaSize.height * 0.30,
+      height: 70,
       constraints: const BoxConstraints(
         maxWidth: 200,
         minWidth: 170,
-        minHeight: 70,
-        maxHeight: 70,
       ),
       child: Padding(
         padding: const EdgeInsets.only(left: 5),
@@ -36,19 +33,18 @@ class CardDetailsMovie extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.left,
             ),
-            Visibility(
-              visible: movie.releaseDate != null,
-              child: Text(
-                dateFormat.format(movie.releaseDate!),
-                style: const TextStyle(
-                  color: Color.fromARGB(255, 148, 167, 177),
-                  fontSize: 12,
-                  fontWeight: FontWeight.w800,
-                ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            )
+            movie.releaseDate == null
+                ? const Text('')
+                : Text(
+                    dateFormat.format(movie.releaseDate!),
+                    style: const TextStyle(
+                      color: Color.fromARGB(255, 148, 167, 177),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w800,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
           ],
         ),
       ),
