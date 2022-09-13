@@ -6,7 +6,7 @@ class SnackBarSistem {
       backgroundColor: Colors.transparent,
       content: Container(
         padding: const EdgeInsets.all(12),
-        height: 90,
+        height: 95,
         decoration: BoxDecoration(
           color: Colors.red,
           borderRadius: BorderRadius.circular(15),
@@ -61,7 +61,7 @@ class SnackBarSistem {
       backgroundColor: Colors.transparent,
       content: Container(
         padding: const EdgeInsets.all(12),
-        height: 90,
+        height: 95,
         decoration: BoxDecoration(
             color: const Color.fromARGB(237, 245, 242, 242),
             borderRadius: BorderRadius.circular(15),
@@ -115,7 +115,7 @@ class SnackBarSistem {
       backgroundColor: Colors.transparent,
       content: Container(
         padding: const EdgeInsets.all(12),
-        height: 90,
+        height: 95,
         decoration: BoxDecoration(
             color: const Color.fromARGB(237, 245, 242, 242),
             borderRadius: BorderRadius.circular(15),
