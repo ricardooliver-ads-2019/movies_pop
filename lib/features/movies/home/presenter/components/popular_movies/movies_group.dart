@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_pop/features/shared/widgets/card_movies_skeleton.dart';
 
 import '../../../../../../core/dependencies/get_it/dependencies.dart';
 import '../../../../../fab_button_menu/presenter/controller/fab_button_cubit_controller.dart';
@@ -54,13 +55,43 @@ class _MoviesGroupState extends State<MoviesGroup> {
     return BlocBuilder<PopularCubitController, PopularState>(
         builder: (context, state) {
       if (state is LoadingPopularState) {
-        return Container(
-          height: mediaSize.height * 0.4,
-          width: mediaSize.width,
-          constraints: const BoxConstraints(maxWidth: 800, minHeight: 270),
-          child: const Center(
-            child: CircularProgressIndicator(),
-          ),
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(
+              height: 20,
+            ),
+            Container(
+              margin: const EdgeInsets.only(left: 10),
+              width: 140,
+              height: 25,
+              color: Colors.grey.shade300,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Container(
+              height: mediaSize.height * 0.4,
+              width: mediaSize.width,
+              constraints: const BoxConstraints(maxWidth: 800, minHeight: 370),
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return Container(
+                    margin: const EdgeInsets.all(10),
+                    height: 350,
+                    width: mediaSize.width * 0.40,
+                    constraints: const BoxConstraints(
+                      maxWidth: 200,
+                      minWidth: 170,
+                    ),
+                    child: const CardMoviesSkeleton(),
+                  );
+                },
+              ),
+            ),
+          ],
         );
       } else if (state is ErrorPopularState) {
         if (state.error.message != null) {
@@ -107,42 +138,44 @@ class _MoviesGroupState extends State<MoviesGroup> {
                   constraints:
                       const BoxConstraints(maxWidth: 800, minHeight: 370),
                   child: ListView.builder(
-                      key: const PageStorageKey<String>('MoviesPopular'),
-                      controller: _scrollControllerr,
-                      scrollDirection: Axis.horizontal,
-                      itemCount: state.pagePopularMovies.movies.length,
-                      itemBuilder: (context, index) {
-                        var movie = state.pagePopularMovies.movies[index];
-                        return Container(
-                            margin: const EdgeInsets.all(10),
-                            // color: Colors.green,
-                            height: 350,
-                            width: mediaSize.width * 0.40,
-                            constraints: const BoxConstraints(
-                              maxWidth: 200,
-                              minWidth: 170,
-                            ),
-                            child: Stack(
-                              children: [
-                                CardMovies(movie: movie),
-                                Align(
-                                  alignment: Alignment.topLeft,
-                                  child: BlocProvider(
-                                      create: (_) => getItDependency
-                                          .get<FabButtonCubitController>(),
-                                      child: BlocBuilder<
-                                              FabButtonCubitController,
-                                              FabButtonState>(
-                                          buildWhen: (previous, current) =>
-                                              previous != current,
-                                          builder: (context, state) {
-                                            return FabMenuButton(
-                                                movieId: movie.id);
-                                          })),
+                    key: const PageStorageKey<String>('MoviesPopular'),
+                    controller: _scrollControllerr,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: state.pagePopularMovies.movies.length,
+                    itemBuilder: (context, index) {
+                      var movie = state.pagePopularMovies.movies[index];
+                      return Container(
+                        margin: const EdgeInsets.all(10),
+                        // color: Colors.green,
+                        height: 350,
+                        width: mediaSize.width * 0.40,
+                        constraints: const BoxConstraints(
+                          maxWidth: 200,
+                          minWidth: 170,
+                        ),
+                        child: Stack(
+                          children: [
+                            CardMovies(movie: movie),
+                            Align(
+                              alignment: Alignment.topLeft,
+                              child: BlocProvider(
+                                create: (_) => getItDependency
+                                    .get<FabButtonCubitController>(),
+                                child: BlocBuilder<FabButtonCubitController,
+                                    FabButtonState>(
+                                  buildWhen: (previous, current) =>
+                                      previous != current,
+                                  builder: (context, state) {
+                                    return FabMenuButton(movieId: movie.id);
+                                  },
                                 ),
-                              ],
-                            ));
-                      }),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ],
             ),

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_pop/core/dependencies/get_it/dependencies.dart';
+import 'package:movies_pop/core/routes/app_routes.dart';
 import 'package:movies_pop/features/fab_button_menu/presenter/controller/fab_button_cubit_controller.dart';
 import 'package:movies_pop/features/fab_button_menu/presenter/controller/fab_button_state.dart';
 import 'package:movies_pop/features/fab_button_menu/presenter/fab_menu_button/fab_menu_Button.dart';
 import 'package:movies_pop/features/shared/entities/movie_entipy/movie_entipy.dart';
 
-import 'stars.dart';
+import 'stars/stars.dart';
 
 class CardCine extends StatelessWidget {
   final MovieEntipy movie;
@@ -37,51 +38,55 @@ class CardCine extends StatelessWidget {
               minWidth: 160,
               minHeight: 190,
             ),
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 500),
-              margin: EdgeInsets.only(
-                  left: left, top: top, bottom: botton, right: right),
-              width: width,
-              height: mediaSize.height,
-              constraints: const BoxConstraints(
-                maxHeight: 240,
-                maxWidth: 190,
-                minWidth: 160,
-                minHeight: 190,
-              ),
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: color,
-                    blurRadius: 2,
-                    spreadRadius: 5,
-                  )
-                ],
-                image: DecorationImage(
-                  image: NetworkImage(
-                      'https://image.tmdb.org/t/p/w500${movie.posterPath}'),
-                  filterQuality: FilterQuality.medium,
-                  fit: BoxFit.cover,
+            child: InkWell(
+              onTap: (() => Navigator.of(context)
+                  .pushNamed(AppRoutes.movieDetails, arguments: movie.id)),
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 500),
+                margin: EdgeInsets.only(
+                    left: left, top: top, bottom: botton, right: right),
+                width: width,
+                height: mediaSize.height,
+                constraints: const BoxConstraints(
+                  maxHeight: 240,
+                  maxWidth: 190,
+                  minWidth: 160,
+                  minHeight: 190,
                 ),
-              ),
-              child: Stack(
-                children: [
-                  Align(
-                    alignment: Alignment.bottomLeft,
-                    child: SizedBox(
-                      child: BlocProvider(
-                          create: (_) =>
-                              getItDependency.get<FabButtonCubitController>(),
-                          child: BlocBuilder<FabButtonCubitController,
-                                  FabButtonState>(
-                              buildWhen: (previous, current) =>
-                                  previous != current,
-                              builder: (context, state) {
-                                return FabMenuButton(movieId: movie.id);
-                              })),
-                    ),
-                  )
-                ],
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: color,
+                      blurRadius: 2,
+                      spreadRadius: 5,
+                    )
+                  ],
+                  image: DecorationImage(
+                    image: NetworkImage(
+                        'https://image.tmdb.org/t/p/w500${movie.posterPath}'),
+                    filterQuality: FilterQuality.medium,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                child: Stack(
+                  children: [
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: SizedBox(
+                        child: BlocProvider(
+                            create: (_) =>
+                                getItDependency.get<FabButtonCubitController>(),
+                            child: BlocBuilder<FabButtonCubitController,
+                                    FabButtonState>(
+                                buildWhen: (previous, current) =>
+                                    previous != current,
+                                builder: (context, state) {
+                                  return FabMenuButton(movieId: movie.id);
+                                })),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),

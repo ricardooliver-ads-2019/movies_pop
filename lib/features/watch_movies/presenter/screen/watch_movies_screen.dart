@@ -119,59 +119,63 @@ class _WatchMoviesScreenState extends State<WatchMoviesScreen> {
                       child: CircularProgressIndicator(),
                     )
                   : SingleChildScrollView(
-                      child: ValueListenableBuilder<List<MovieEntipy>>(
-                          valueListenable: controllerListMovies,
-                          builder: (context, _, __) {
-                            return Padding(
-                              padding: const EdgeInsets.only(top: 20),
-                              child: Wrap(
-                                alignment: WrapAlignment.start,
-                                children: controllerListMovies.value
-                                    .map(
-                                      (m) => Container(
-                                        margin: const EdgeInsets.all(10),
-                                        // color: Colors.green,
-                                        height: 350,
-                                        width: mediaSize.width * 0.40,
-                                        constraints: const BoxConstraints(
-                                          maxWidth: 200,
-                                          minWidth: 170,
-                                        ),
-                                        child: Stack(
-                                          children: [
-                                            CardMovies(movie: m),
-                                            Align(
-                                              alignment: Alignment.topLeft,
-                                              child: BlocProvider(
-                                                create: (_) => getItDependency.get<
-                                                    FabButtonCubitController>(),
-                                                child: BlocBuilder<
-                                                    FabButtonCubitController,
-                                                    FabButtonState>(
-                                                  buildWhen:
-                                                      (previous, current) =>
-                                                          previous != current,
-                                                  builder: (context, state) {
-                                                    return FabMenuButton(
-                                                      movieInListWatch: true,
-                                                      movieId: m.id,
-                                                      validarListWatch: (id) {
-                                                        controllerListMovies
-                                                            .removeItem(id);
-                                                      },
-                                                    );
-                                                  },
+                      key: const PageStorageKey<String>('ListWatcMovies'),
+                      controller: _scrollController,
+                      child: Center(
+                        child: ValueListenableBuilder<List<MovieEntipy>>(
+                            valueListenable: controllerListMovies,
+                            builder: (context, _, __) {
+                              return Padding(
+                                padding: const EdgeInsets.only(top: 20),
+                                child: Wrap(
+                                  alignment: WrapAlignment.start,
+                                  children: controllerListMovies.value
+                                      .map(
+                                        (m) => Container(
+                                          margin: const EdgeInsets.all(10),
+                                          height: 350,
+                                          width: mediaSize.width * 0.40,
+                                          constraints: const BoxConstraints(
+                                            maxWidth: 200,
+                                            minWidth: 170,
+                                          ),
+                                          child: Stack(
+                                            children: [
+                                              CardMovies(movie: m),
+                                              Align(
+                                                alignment: Alignment.topLeft,
+                                                child: BlocProvider(
+                                                  create: (_) =>
+                                                      getItDependency.get<
+                                                          FabButtonCubitController>(),
+                                                  child: BlocBuilder<
+                                                      FabButtonCubitController,
+                                                      FabButtonState>(
+                                                    buildWhen:
+                                                        (previous, current) =>
+                                                            previous != current,
+                                                    builder: (context, state) {
+                                                      return FabMenuButton(
+                                                        movieInListWatch: true,
+                                                        movieId: m.id,
+                                                        validarListWatch: (id) {
+                                                          controllerListMovies
+                                                              .removeItem(id);
+                                                        },
+                                                      );
+                                                    },
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    )
-                                    .toList(),
-                              ),
-                            );
-                          }),
+                                      )
+                                      .toList(),
+                                ),
+                              );
+                            }),
+                      ),
                     ),
             );
           },
