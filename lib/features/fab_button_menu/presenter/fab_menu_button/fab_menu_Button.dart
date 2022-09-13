@@ -83,6 +83,7 @@ class _FabMenuButtonState extends State<FabMenuButton>
           watchedMovies.value =
               state.checkMovieInMyListWatchedMoviesEntity.status;
         }
+
         if (state is RequestAddMoviesToWatched) {
           if (state.response) {
             watchedMovies.value = true;
@@ -150,6 +151,7 @@ class _FabMenuButtonState extends State<FabMenuButton>
             );
           }
         }
+
         if (state is ErrorFabButtonState) {
           final message = state.error.message?.toString() ?? 'Error';
           ScaffoldMessenger.of(context).showSnackBar(

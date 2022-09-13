@@ -18,9 +18,9 @@ class HomeDatasourceImpl implements IHomeDatasource {
       Constants.baseUrl + '/movie/now_playing',
       queryParameters: {
         'api_key': Constants.apiKey,
-        'language': 'pt-br',
         'regio': 'Brazil',
-        'page': page
+        'page': page,
+        'language': 'pt-br'
       },
     );
   }
@@ -30,9 +30,9 @@ class HomeDatasourceImpl implements IHomeDatasource {
     return await _client
         .get(Constants.baseUrl + '/movie/popular', queryParameters: {
       'api_key': Constants.apiKey,
-      'language': 'pt-br',
       'regio': 'Brazil',
-      'page': page
+      'page': page,
+      'language': 'pt-br'
     });
   }
 
@@ -44,7 +44,7 @@ class HomeDatasourceImpl implements IHomeDatasource {
     }, data: {
       'name': 'filmes_já_vistos',
       'description': 'lista de filmes que já assisti',
-      'language': 'pt'
+      'language': 'pt-br'
     });
   }
 

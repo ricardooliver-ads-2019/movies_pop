@@ -9,15 +9,16 @@ import '../../../../core/shared_features/status_movies/domain/usecase/remove_mov
 import '../../../../core/shared_features/status_movies/domain/usecase/remove_movie_to_watched_movies_list_usecase.dart';
 
 class FabButtonCubitController extends Cubit<FabButtonState> {
-  final RemoveMovieToWatchedMoviesListUsecase
-      _removeMovieToWatchedMoviesListUsecase;
   final GetStatusMoviesUsecase _getStatusMoviesUsecase;
   final CheckMovieInMyListWatchedMoviesUsecase
       _checkMovieInMyListWatchedMoviesUsecase;
   final AddMovieToWatchedMoviesListUsecase _addMovieToWatchedMoviesListUsecase;
+  final RemoveMovieToWatchedMoviesListUsecase
+      _removeMovieToWatchedMoviesListUsecase;
   final AddMovieToWatchMoviesListUsecase _addMovieToWatchMoviesListUsecase;
   final RemoveMovieToWatchMoviesListUsecase
       _removeMovieToWatchMoviesListUsecase;
+
   FabButtonCubitController({
     required GetStatusMoviesUsecase getStatusMoviesUsecase,
     required CheckMovieInMyListWatchedMoviesUsecase
