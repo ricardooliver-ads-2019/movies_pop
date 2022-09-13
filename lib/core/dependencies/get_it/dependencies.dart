@@ -37,6 +37,13 @@ import 'package:movies_pop/features/movies/home/domain/usecase/usecase_list_user
 import 'package:movies_pop/features/movies/home/presenter/components/cine_movies/cine_movies_cubit_controller/cine_movies_cubit_controller.dart';
 import 'package:movies_pop/features/movies/home/presenter/components/popular_movies/popular_cubit_controller/popular_cubit_controller.dart';
 import 'package:movies_pop/features/movies/home/presenter/screens/controller/home_cubit_controller.dart';
+import 'package:movies_pop/features/movies_details/data/datasources/movie_details_datasources.dart';
+import 'package:movies_pop/features/movies_details/data/datasources/movie_details_datasources_impl.dart';
+import 'package:movies_pop/features/movies_details/data/repositories/movie_details_repository_impl.dart';
+import 'package:movies_pop/features/movies_details/domain/repositories/movie_details_repository.dart';
+import 'package:movies_pop/features/movies_details/domain/usecase/get_movie_details_usecase.dart';
+import 'package:movies_pop/features/movies_details/presenter/controller/movie_details_cubit_controller.dart';
+import 'package:movies_pop/features/movies_details/presenter/screen/widgets/card_details/card_buttons/controller/card_Buttons_cubit_controller.dart';
 import 'package:movies_pop/features/watch_movies/data/datasources/watch_movies_datasources.dart';
 import 'package:movies_pop/features/watch_movies/data/datasources/watch_movies_datasources_impl.dart';
 import 'package:movies_pop/features/watch_movies/data/repositories/watch_movies_repository_impl.dart';
@@ -113,6 +120,23 @@ Future<void> getItDependencies() async {
                 getItDependency<AddMovieToWatchMoviesListUsecase>(),
             removeMovieToWatchMoviesListUsecase:
                 getItDependency<RemoveMovieToWatchMoviesListUsecase>(),
+          ));
+
+//=========================== CardButtons =======================
+
+  getItDependency.registerFactory<CardButtonsCubitController>(
+      () => CardButtonsCubitController(
+            getStatusMoviesUsecase: getItDependency<GetStatusMoviesUsecase>(),
+            checkMovieInMyListWatchedMoviesUsecase:
+                getItDependency<CheckMovieInMyListWatchedMoviesUsecase>(),
+            addMovieToWatchMoviesListUsecase:
+                getItDependency<AddMovieToWatchMoviesListUsecase>(),
+            removeMovieToWatchMoviesListUsecase:
+                getItDependency<RemoveMovieToWatchMoviesListUsecase>(),
+            addMovieToWatchedMoviesListUsecase:
+                getItDependency<AddMovieToWatchedMoviesListUsecase>(),
+            removeMovieToWatchedMoviesListUsecase:
+                getItDependency<RemoveMovieToWatchedMoviesListUsecase>(),
           ));
 
 //=========================== Login ===========================
@@ -218,6 +242,19 @@ Future<void> getItDependencies() async {
             getMyListWatchedMoviesUsecase:
                 getItDependency<GetMyListWatchedMoviesUsecase>(),
           ));
+//=========================== MovieDetails ===========================
+  getItDependency.registerFactory<MovieDetailsDatasources>(
+      () => MovieDetailsDatasourcesImpl(client: getItDependency<HttpClient>()));
+  getItDependency.registerFactory<MovieDetailsRepository>(() =>
+      MovieDetailsRepositoryImpl(
+          movieDetailsDatasources: getItDependency<MovieDetailsDatasources>()));
+  getItDependency.registerFactory<GetMovieDetailsUsecase>(() =>
+      GetMovieDetailsUsecase(
+          movieDetailsRepository: getItDependency<MovieDetailsRepository>()));
+  getItDependency.registerFactory<MovieDetailsCubitController>(() =>
+      MovieDetailsCubitController(
+          getMovieDetailsUsecase: getItDependency<GetMovieDetailsUsecase>()));
+
 //=========================== Cubits ===========================
 
   getItDependency.registerFactory<MainNavigationPageCubit>(

@@ -7,6 +7,8 @@ import 'package:movies_pop/features/main_navigation_page/controller/main_navigat
 import 'package:movies_pop/features/main_navigation_page/main_navigation_page.dart';
 import 'package:movies_pop/features/movies/home/presenter/screens/controller/home_cubit_controller.dart';
 import 'package:movies_pop/features/movies/home/presenter/screens/home_screen.dart';
+import 'package:movies_pop/features/movies_details/presenter/controller/movie_details_cubit_controller.dart';
+import 'package:movies_pop/features/movies_details/presenter/screen/movie_details_screen.dart';
 import 'package:movies_pop/features/splash/splash_screen.dart';
 import 'package:movies_pop/features/watch_movies/presenter/controller/watch_movies_cubit_controller.dart';
 import 'package:movies_pop/features/watch_movies/presenter/screen/watch_movies_screen.dart';
@@ -24,6 +26,17 @@ class AppRoutes {
 
   static Route? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case AppRoutes.splash:
+        return MaterialPageRoute(builder: (_) => const SplashScreen());
+
+      case AppRoutes.login:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider<LoginCubitController>(
+            create: (_) => getItDependency.get<LoginCubitController>(),
+            child: const LoginScreen(),
+          ),
+        );
+
       case AppRoutes.mainNavigationPage:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
@@ -32,37 +45,39 @@ class AppRoutes {
           ),
         );
 
-      case AppRoutes.splash:
-        return MaterialPageRoute(builder: (_) => const SplashScreen());
-
-      case AppRoutes.login:
-        return MaterialPageRoute(
-            builder: (_) => BlocProvider<LoginCubitController>(
-                  create: (_) => getItDependency.get<LoginCubitController>(),
-                  child: const LoginScreen(),
-                ));
-
       case AppRoutes.home:
         return MaterialPageRoute(
-            builder: (_) => BlocProvider(
-                  create: (_) => getItDependency.get<HomeCubitController>(),
-                  child: const HomeScreen(),
-                ));
+          builder: (_) => BlocProvider(
+            create: (_) => getItDependency.get<HomeCubitController>(),
+            child: const HomeScreen(),
+          ),
+        );
 
       case AppRoutes.watchedMovies:
         return MaterialPageRoute(
-            builder: (_) => BlocProvider(
-                  create: (_) => getItDependency.get<WatchedCubitController>(),
-                  child: const WatchedMoviesScreen(),
-                ));
+          builder: (_) => BlocProvider(
+            create: (_) => getItDependency.get<WatchedCubitController>(),
+            child: const WatchedMoviesScreen(),
+          ),
+        );
 
       case AppRoutes.watchMovies:
         return MaterialPageRoute(
-            builder: (_) => BlocProvider(
-                  create: (_) =>
-                      getItDependency.get<WatchMoviesCubitController>(),
-                  child: const WatchMoviesScreen(),
-                ));
+          builder: (_) => BlocProvider(
+            create: (_) => getItDependency.get<WatchMoviesCubitController>(),
+            child: const WatchMoviesScreen(),
+          ),
+        );
+
+      case AppRoutes.movieDetails:
+        int movieId;
+        movieId = settings.arguments as int;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getItDependency.get<MovieDetailsCubitController>(),
+            child: MovieDetailsScreen(movieId: movieId),
+          ),
+        );
 
       default:
         null;
