@@ -15,7 +15,7 @@ class MovieStatusModel extends MovieStatusEntity {
     return MovieStatusModel(
       id: json['id'],
       watchMovie: json['watchlist'],
-      rated: json['rated'],
+      rated: (json['rated'] is bool) ? json['rated'] : json['rated']['value'],
     );
   }
 }
