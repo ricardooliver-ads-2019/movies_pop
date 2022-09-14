@@ -156,9 +156,9 @@ class _CardButtonsState extends State<CardButtons> {
                     action: () {
                       showBottomSheet(
                         backgroundColor: Colors.transparent,
-                        constraints: BoxConstraints(
+                        constraints: const BoxConstraints(
                           maxWidth: 300,
-                          maxHeight: MediaQuery.of(context).size.height * 0.5,
+                          maxHeight: 400,
                         ),
                         context: context,
                         builder: (context) => BlocProvider(
