@@ -4,6 +4,13 @@ import 'package:movies_pop/core/network/dio/dio_client.dart';
 import 'package:movies_pop/core/network/http_client.dart';
 import 'package:movies_pop/core/network_connection/i_network_connection.dart';
 import 'package:movies_pop/core/network_connection/network_connection_impl.dart';
+import 'package:movies_pop/core/shared_features/rate_movies/data/datasources/rate_movie_datasources.dart';
+import 'package:movies_pop/core/shared_features/rate_movies/data/datasources/rate_movie_datasources_impl.dart';
+import 'package:movies_pop/core/shared_features/rate_movies/data/repositories/rate_movie_repository_impl.dart';
+import 'package:movies_pop/core/shared_features/rate_movies/domain/repositories/rate_movie_repository.dart';
+import 'package:movies_pop/core/shared_features/rate_movies/domain/usecases/delete_rating_movie_usecase.dart';
+import 'package:movies_pop/core/shared_features/rate_movies/domain/usecases/rate_movie_usecase.dart';
+import 'package:movies_pop/core/shared_features/rate_movies/presenter/controller/bottom_sheet_rate_movie_cubit_controller.dart';
 import 'package:movies_pop/core/shared_features/status_movies/data/datasources/status_movies_datasources.dart';
 import 'package:movies_pop/core/shared_features/status_movies/data/datasources/status_movies_datasources_impl.dart';
 import 'package:movies_pop/core/shared_features/status_movies/data/repositories/status_movies_repository_impl.dart';
@@ -138,7 +145,36 @@ Future<void> getItDependencies() async {
             removeMovieToWatchedMoviesListUsecase:
                 getItDependency<RemoveMovieToWatchedMoviesListUsecase>(),
           ));
+//=========================== BottonSheet =======================
+  getItDependency.registerFactory<RateMovieDatasources>(
+    () => RateMovieDatasourcesImpl(
+      auth: getItDependency<AuthSession>(),
+      client: getItDependency<HttpClient>(),
+    ),
+  );
+  getItDependency.registerFactory<RateMovieRepository>(
+    () => RateMovieRepositoryImpl(
+      rateMovieDatasources: getItDependency<RateMovieDatasources>(),
+    ),
+  );
 
+  getItDependency.registerFactory<RateMovieUsecase>(
+    () => RateMovieUsecase(
+      rateMovieRepository: getItDependency<RateMovieRepository>(),
+    ),
+  );
+  getItDependency.registerFactory<DeleteRatingMovieUsecase>(
+    () => DeleteRatingMovieUsecase(
+      rateMovieRepository: getItDependency<RateMovieRepository>(),
+    ),
+  );
+  getItDependency.registerFactory<BottomSheetRateMovieCubitController>(
+    () => BottomSheetRateMovieCubitController(
+      getStatusMoviesUsecase: getItDependency<GetStatusMoviesUsecase>(),
+      rateMovieUsecase: getItDependency<RateMovieUsecase>(),
+      deleteRatingMovieUsecase: getItDependency<DeleteRatingMovieUsecase>(),
+    ),
+  );
 //=========================== Login ===========================
 
   getItDependency.registerFactory<ILoginDatasources>(
