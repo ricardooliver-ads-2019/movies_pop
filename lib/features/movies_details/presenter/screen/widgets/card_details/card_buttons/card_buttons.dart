@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_pop/core/dependencies/get_it/dependencies.dart';
+import 'package:movies_pop/core/shared_features/rate_movies/presenter/bottom_sheet_rate_movie.dart';
+import 'package:movies_pop/core/shared_features/rate_movies/presenter/controller/bottom_sheet_rate_movie_cubit_controller.dart';
 import 'package:movies_pop/features/movies_details/presenter/screen/widgets/action_button.dart';
 import 'package:movies_pop/features/movies_details/presenter/screen/widgets/card_details/card_buttons/controller/card_Buttons_cubit_controller.dart';
 import 'package:movies_pop/features/movies_details/presenter/screen/widgets/card_details/card_buttons/controller/card_buttons_state.dart';
@@ -17,6 +20,7 @@ class _CardButtonsState extends State<CardButtons> {
   late final CardButtonsCubitController _controller;
   bool watchedMovies = false;
   bool watchMovies = false;
+  final filmIsRated = ValueNotifier<bool>(false);
   dynamic rated;
   @override
   void initState() {
@@ -127,6 +131,7 @@ class _CardButtonsState extends State<CardButtons> {
         }
       },
       builder: (context, state) {
+        filmIsRated.value = (rated is double ? true : false);
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -144,11 +149,33 @@ class _CardButtonsState extends State<CardButtons> {
               check: watchMovies,
               typeIcon: Icons.live_tv_sharp,
             ),
-            ActionButton(
-              action: () {},
-              check: rated is bool ? false : true,
-              typeIcon: Icons.star_outlined,
-            ),
+            ValueListenableBuilder(
+                valueListenable: filmIsRated,
+                builder: (context, __, _) {
+                  return ActionButton(
+                    action: () {
+                      showBottomSheet(
+                        backgroundColor: Colors.transparent,
+                        constraints: BoxConstraints(
+                          maxWidth: 300,
+                          maxHeight: MediaQuery.of(context).size.height * 0.5,
+                        ),
+                        context: context,
+                        builder: (context) => BlocProvider(
+                          create: (context) => getItDependency
+                              .get<BottomSheetRateMovieCubitController>(),
+                          child: BottomSheetRateMovie(
+                              movieId: widget.movieId,
+                              filmIsRated: (rated) {
+                                filmIsRated.value = rated;
+                              }),
+                        ),
+                      );
+                    },
+                    check: filmIsRated.value,
+                    typeIcon: Icons.star_outlined,
+                  );
+                }),
           ],
         );
       },

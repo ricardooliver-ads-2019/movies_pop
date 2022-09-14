@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_pop/core/dependencies/get_it/dependencies.dart';
+import 'package:movies_pop/core/shared_features/rate_movies/presenter/bottom_sheet_rate_movie.dart';
+import 'package:movies_pop/core/shared_features/rate_movies/presenter/controller/bottom_sheet_rate_movie_cubit_controller.dart';
 import 'package:movies_pop/features/fab_button_menu/presenter/controller/fab_button_cubit_controller.dart';
 import 'package:movies_pop/features/fab_button_menu/presenter/controller/fab_button_state.dart';
 import 'package:movies_pop/features/fab_button_menu/presenter/fab_menu_button/fab_vertical_delegate.dart';
@@ -32,7 +35,7 @@ class _FabMenuButtonState extends State<FabMenuButton>
   final menuIsOpen = ValueNotifier<bool>(false);
   final watchedMovies = ValueNotifier<bool>(false);
   final watchMovies = ValueNotifier<bool>(false);
-  final rated = ValueNotifier<bool>(false);
+  final rate = ValueNotifier<bool>(false);
 
   @override
   void initState() {
@@ -74,9 +77,9 @@ class _FabMenuButtonState extends State<FabMenuButton>
         if (state is SuccessFabButtonState) {
           watchMovies.value = state.movieStatus.watchMovie;
           if (state.movieStatus.rated is bool) {
-            rated.value = state.movieStatus.rated;
+            rate.value = state.movieStatus.rated;
           } else {
-            rated.value = true;
+            rate.value = true;
           }
         }
         if (state is SuccessMovieStatusInListWatchedMoviesFabButtonState) {
@@ -246,22 +249,42 @@ class _FabMenuButtonState extends State<FabMenuButton>
                 },
               ),
             ),
-            SizedBox(
-              width: 40,
-              height: 40,
-              child: FloatingActionButton(
-                backgroundColor: actionButtonColor,
-                child: Icon(
-                  Icons.star_outlined,
-                  color: menuIsOpen.value
-                      ? checkMovies(rated)
-                      : Colors.transparent,
-                ),
-                onPressed: () {
-                  debugPrint('object');
-                },
-              ),
-            ),
+            ValueListenableBuilder(
+                valueListenable: rate,
+                builder: (context, __, _) {
+                  return SizedBox(
+                    width: 40,
+                    height: 40,
+                    child: FloatingActionButton(
+                      backgroundColor: actionButtonColor,
+                      child: Icon(
+                        Icons.star_outlined,
+                        color: menuIsOpen.value
+                            ? checkMovies(rate)
+                            : Colors.transparent,
+                      ),
+                      onPressed: () {
+                        showBottomSheet(
+                          backgroundColor: Colors.transparent,
+                          constraints: BoxConstraints(
+                            maxWidth: 300,
+                            maxHeight: MediaQuery.of(context).size.height * 0.5,
+                          ),
+                          context: context,
+                          builder: (context) => BlocProvider(
+                            create: (context) => getItDependency
+                                .get<BottomSheetRateMovieCubitController>(),
+                            child: BottomSheetRateMovie(
+                                movieId: widget.movieId,
+                                filmIsRated: (rated) {
+                                  rate.value = rated;
+                                }),
+                          ),
+                        );
+                      },
+                    ),
+                  );
+                }),
           ],
         ),
       ),
