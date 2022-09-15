@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_pop/features/shared/widgets/card_movies_skeleton.dart';
+import 'package:movies_pop/features/shared/widgets/snackBar/snackBar_sistem.dart';
 
 import '../../../../../../core/dependencies/get_it/dependencies.dart';
 import '../../../../../fab_button_menu/presenter/controller/fab_button_cubit_controller.dart';
@@ -101,65 +102,13 @@ class _MoviesGroupState extends State<MoviesGroup> {
                 ))
             .toList());
       }
-      if (state is ErrorPopularState) {}
+      if (state is ErrorPopularState) {
+        final message = state.error.message?.toString() ?? 'Error';
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBarSistem().snackBarErrorGeneric(message),
+        );
+      }
     }, builder: (context, state) {
-      // if (state is LoadingPopularState) {
-      //   return Column(
-      //     crossAxisAlignment: CrossAxisAlignment.start,
-      //     children: [
-      //       const SizedBox(
-      //         height: 20,
-      //       ),
-      //       Container(
-      //         margin: const EdgeInsets.only(left: 10),
-      //         width: 140,
-      //         height: 25,
-      //         color: Colors.grey.shade300,
-      //       ),
-      //       const SizedBox(
-      //         height: 20,
-      //       ),
-      //       Container(
-      //         height: mediaSize.height * 0.4,
-      //         width: mediaSize.width,
-      //         constraints: const BoxConstraints(maxWidth: 800, minHeight: 370),
-      //         child: ListView.builder(
-      //           scrollDirection: Axis.horizontal,
-      //           itemCount: 10,
-      //           itemBuilder: (context, index) {
-      //             return Container(
-      //               margin: const EdgeInsets.all(10),
-      //               height: 350,
-      //               width: mediaSize.width * 0.40,
-      //               constraints: const BoxConstraints(
-      //                 maxWidth: 200,
-      //                 minWidth: 170,
-      //               ),
-      //               child: const CardMoviesSkeleton(),
-      //             );
-      //           },
-      //         ),
-      //       ),
-      //     ],
-      //   );
-      // } else if (state is ErrorPopularState) {
-      //   if (state.error.message != null) {
-      //     return Container(
-      //       height: mediaSize.height * 0.4,
-      //       width: mediaSize.width,
-      //       constraints: const BoxConstraints(maxWidth: 800, minHeight: 270),
-      //       child: Center(child: Text('${state.error.message}')),
-      //     );
-      //   }
-
-      //   return Container(
-      //     height: mediaSize.height * 0.4,
-      //     width: mediaSize.width,
-      //     constraints: const BoxConstraints(maxWidth: 800, minHeight: 270),
-      //     child: const Center(child: Text('Error')),
-      //   );
-      // } else
-
       return SizedBox(
         width: mediaSize.width,
         child: Center(
@@ -192,12 +141,6 @@ class _MoviesGroupState extends State<MoviesGroup> {
           ),
         ),
       );
-    }
-        // return Container(
-        //   height: mediaSize.height * 0.4,
-        //   width: mediaSize.width,
-        //   constraints: const BoxConstraints(maxWidth: 800, minHeight: 270),
-        // );
-        );
+    });
   }
 }
