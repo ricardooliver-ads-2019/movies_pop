@@ -12,8 +12,10 @@ class CardMoviesSkeleton extends StatelessWidget {
       highlightColor: Colors.white,
       baseColor: Colors.grey.shade300,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
+            margin: const EdgeInsets.all(10),
             width: mediaSize.width * 0.40,
             height: mediaSize.height * 0.30,
             constraints: const BoxConstraints(

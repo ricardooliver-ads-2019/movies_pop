@@ -23,11 +23,12 @@ class _MoviesGroupState extends State<MoviesGroup> {
   int pageFin = 1;
   late final PopularCubitController _controller;
   late final ScrollController _scrollControllerr;
+  List<Widget> listComponets = [];
   @override
   void initState() {
     _controller = context.read<PopularCubitController>();
     _controller.getMoviesPopular(page: page);
-    print(_controller.state.props);
+
     _scrollControllerr = ScrollController();
     _scrollControllerr.addListener(infiniteScroll);
   }
@@ -52,141 +53,151 @@ class _MoviesGroupState extends State<MoviesGroup> {
   Widget build(BuildContext context) {
     var mediaSize = MediaQuery.of(context).size;
 
-    return BlocBuilder<PopularCubitController, PopularState>(
-        builder: (context, state) {
+    return BlocConsumer<PopularCubitController, PopularState>(
+        listener: (context, state) {
       if (state is LoadingPopularState) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(
-              height: 20,
-            ),
-            Container(
-              margin: const EdgeInsets.only(left: 10),
-              width: 140,
-              height: 25,
-              color: Colors.grey.shade300,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Container(
-              height: mediaSize.height * 0.4,
-              width: mediaSize.width,
-              constraints: const BoxConstraints(maxWidth: 800, minHeight: 370),
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return Container(
-                    margin: const EdgeInsets.all(10),
-                    height: 350,
-                    width: mediaSize.width * 0.40,
-                    constraints: const BoxConstraints(
-                      maxWidth: 200,
-                      minWidth: 170,
-                    ),
-                    child: const CardMoviesSkeleton(),
-                  );
-                },
-              ),
-            ),
-          ],
-        );
-      } else if (state is ErrorPopularState) {
-        if (state.error.message != null) {
-          return Container(
-            height: mediaSize.height * 0.4,
-            width: mediaSize.width,
-            constraints: const BoxConstraints(maxWidth: 800, minHeight: 270),
-            child: Center(child: Text('${state.error.message}')),
-          );
+        for (var i = 0; i < 5; i++) {
+          listComponets.add(const CardMoviesSkeleton());
+        }
+      }
+
+      if (state is SuccessPopularState) {
+        pageFin = state.pagePopularMovies.totalPages;
+        if (listComponets.isNotEmpty) {
+          for (var i = 0; i < 5; i++) {
+            listComponets.removeLast();
+          }
         }
 
-        return Container(
-          height: mediaSize.height * 0.4,
-          width: mediaSize.width,
-          constraints: const BoxConstraints(maxWidth: 800, minHeight: 270),
-          child: const Center(child: Text('Error')),
-        );
-      } else if (state is SuccessPopularState) {
-        pageFin = state.pagePopularMovies.totalPages;
-
-        return SizedBox(
-          width: mediaSize.width,
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 15, top: 15),
-                  child: Text(
-                    '${widget.title}',
-                    style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
+        listComponets.addAll(state.pagePopularMovies.movies
+            .map((movie) => Container(
+                  margin: const EdgeInsets.all(10),
+                  height: 350,
+                  width: mediaSize.width * 0.40,
+                  constraints: const BoxConstraints(
+                    maxWidth: 200,
+                    minWidth: 170,
                   ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  height: mediaSize.height * 0.4,
-                  width: mediaSize.width,
-                  constraints:
-                      const BoxConstraints(maxWidth: 800, minHeight: 370),
-                  child: ListView.builder(
-                    key: const PageStorageKey<String>('MoviesPopular'),
-                    controller: _scrollControllerr,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: state.pagePopularMovies.movies.length,
-                    itemBuilder: (context, index) {
-                      var movie = state.pagePopularMovies.movies[index];
-                      return Container(
-                        margin: const EdgeInsets.all(10),
-                        // color: Colors.green,
-                        height: 350,
-                        width: mediaSize.width * 0.40,
-                        constraints: const BoxConstraints(
-                          maxWidth: 200,
-                          minWidth: 170,
+                  child: Stack(
+                    children: [
+                      CardMovies(movie: movie),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: BlocProvider(
+                          create: (_) =>
+                              getItDependency.get<FabButtonCubitController>(),
+                          child: BlocBuilder<FabButtonCubitController,
+                              FabButtonState>(
+                            buildWhen: (previous, current) =>
+                                previous != current,
+                            builder: (context, state) {
+                              return FabMenuButton(movieId: movie.id);
+                            },
+                          ),
                         ),
-                        child: Stack(
-                          children: [
-                            CardMovies(movie: movie),
-                            Align(
-                              alignment: Alignment.topLeft,
-                              child: BlocProvider(
-                                create: (_) => getItDependency
-                                    .get<FabButtonCubitController>(),
-                                child: BlocBuilder<FabButtonCubitController,
-                                    FabButtonState>(
-                                  buildWhen: (previous, current) =>
-                                      previous != current,
-                                  builder: (context, state) {
-                                    return FabMenuButton(movieId: movie.id);
-                                  },
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            ),
-          ),
-        );
+                ))
+            .toList());
       }
-      return Container(
-        height: mediaSize.height * 0.4,
+      if (state is ErrorPopularState) {}
+    }, builder: (context, state) {
+      // if (state is LoadingPopularState) {
+      //   return Column(
+      //     crossAxisAlignment: CrossAxisAlignment.start,
+      //     children: [
+      //       const SizedBox(
+      //         height: 20,
+      //       ),
+      //       Container(
+      //         margin: const EdgeInsets.only(left: 10),
+      //         width: 140,
+      //         height: 25,
+      //         color: Colors.grey.shade300,
+      //       ),
+      //       const SizedBox(
+      //         height: 20,
+      //       ),
+      //       Container(
+      //         height: mediaSize.height * 0.4,
+      //         width: mediaSize.width,
+      //         constraints: const BoxConstraints(maxWidth: 800, minHeight: 370),
+      //         child: ListView.builder(
+      //           scrollDirection: Axis.horizontal,
+      //           itemCount: 10,
+      //           itemBuilder: (context, index) {
+      //             return Container(
+      //               margin: const EdgeInsets.all(10),
+      //               height: 350,
+      //               width: mediaSize.width * 0.40,
+      //               constraints: const BoxConstraints(
+      //                 maxWidth: 200,
+      //                 minWidth: 170,
+      //               ),
+      //               child: const CardMoviesSkeleton(),
+      //             );
+      //           },
+      //         ),
+      //       ),
+      //     ],
+      //   );
+      // } else if (state is ErrorPopularState) {
+      //   if (state.error.message != null) {
+      //     return Container(
+      //       height: mediaSize.height * 0.4,
+      //       width: mediaSize.width,
+      //       constraints: const BoxConstraints(maxWidth: 800, minHeight: 270),
+      //       child: Center(child: Text('${state.error.message}')),
+      //     );
+      //   }
+
+      //   return Container(
+      //     height: mediaSize.height * 0.4,
+      //     width: mediaSize.width,
+      //     constraints: const BoxConstraints(maxWidth: 800, minHeight: 270),
+      //     child: const Center(child: Text('Error')),
+      //   );
+      // } else
+
+      return SizedBox(
         width: mediaSize.width,
-        constraints: const BoxConstraints(maxWidth: 800, minHeight: 270),
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 15, top: 15),
+                child: Text(
+                  '${widget.title}',
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              SingleChildScrollView(
+                controller: _scrollControllerr,
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: listComponets,
+                ),
+              )
+            ],
+          ),
+        ),
       );
-    });
+    }
+        // return Container(
+        //   height: mediaSize.height * 0.4,
+        //   width: mediaSize.width,
+        //   constraints: const BoxConstraints(maxWidth: 800, minHeight: 270),
+        // );
+        );
   }
 }
