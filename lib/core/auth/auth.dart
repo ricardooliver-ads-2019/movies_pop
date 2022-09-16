@@ -15,9 +15,6 @@ class AuthSession {
     sessionId = preferences.getString(Constants.sharedPreferencesSessionId);
     username = preferences.getString(Constants.sharedPreferencesUsername);
     id = preferences.getInt(Constants.sharedPreferencesAccountId);
-
-    // print('========================');
-    // print(sessionId);
   }
 
   Future<void> saveSessionId({required String sessionId}) async {
@@ -33,7 +30,7 @@ class AuthSession {
     await preferences.setInt(Constants.sharedPreferencesAccountId, id);
   }
 
-  Future<void> resetSessionId({required String sessionId}) async {
+  Future<void> resetSessionId() async {
     final preferences = await getInstancySharedPreferences();
     await preferences.remove(Constants.sharedPreferencesUsername);
     await preferences.remove(Constants.sharedPreferencesAccountId);
