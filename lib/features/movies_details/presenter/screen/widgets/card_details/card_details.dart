@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:movies_pop/core/theme/app_colors.dart';
+import 'package:movies_pop/core/theme/app_text_styles.dart';
 import 'package:movies_pop/features/movies_details/domain/entities/genre_entity.dart';
 import 'package:movies_pop/features/movies_details/domain/entities/movie_details_entity.dart';
 import 'package:movies_pop/features/movies_details/presenter/screen/widgets/star_film_rating.dart';
@@ -17,73 +19,67 @@ class CardDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var mediaSize = MediaQuery.of(context).size;
-    return Container(
-      width: mediaSize.width >= 300 ? mediaSize.width * 0.47 : mediaSize.width,
-      height: mediaSize.height * 0.50,
-      constraints: const BoxConstraints(maxWidth: 500, maxHeight: 250),
-      child: Padding(
-        padding: const EdgeInsets.only(left: 5),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              movie.title,
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
-              getGenres(movie.genre),
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          width:
+              mediaSize.width >= 300 ? mediaSize.width * 0.47 : mediaSize.width,
+          height: mediaSize.height * 0.40,
+          constraints: const BoxConstraints(
+            maxWidth: 500,
+            maxHeight: 300,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 5),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Icon(
-                  Icons.access_time_rounded,
-                  color: Colors.blue,
-                ),
-                const SizedBox(width: 5),
                 Text(
-                  runTime(movie.runtime),
-                  style: const TextStyle(
-                    color: Colors.black87,
-                    fontSize: 16,
-                  ),
+                  movie.title,
+                  style: AppTextStyles.titleCardDetails,
                 ),
-                const SizedBox(width: 10),
                 Text(
-                  movie.releaseDate != null
-                      ? '(' + dateFormat.format(movie.releaseDate!) + ')'
-                      : '',
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 18,
-                    fontWeight: FontWeight.normal,
-                  ),
+                  getGenres(movie.genre),
+                  style: AppTextStyles.titleGenres,
                 ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const Icon(
+                      Icons.access_time_rounded,
+                      color: AppColors.secondary,
+                    ),
+                    const SizedBox(width: 5),
+                    Text(
+                      runTime(movie.runtime),
+                      style: AppTextStyles.runTime,
+                    ),
+                    const SizedBox(width: 10),
+                    Text(
+                      movie.releaseDate != null
+                          ? '(' + dateFormat.format(movie.releaseDate!) + ')'
+                          : '',
+                      style: AppTextStyles.dateY,
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                StarFilmRating(value: movie.stars),
+                Container(
+                    width: mediaSize.width * 0.5,
+                    constraints: const BoxConstraints(maxWidth: 150),
+                    child: sectionButtons),
               ],
             ),
-            const SizedBox(
-              height: 5,
-            ),
-            StarFilmRating(value: movie.stars),
-            Container(
-                width: mediaSize.width * 0.5,
-                constraints: const BoxConstraints(maxWidth: 150),
-                child: sectionButtons),
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 

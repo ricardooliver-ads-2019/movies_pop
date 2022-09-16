@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies_pop/core/theme/app_text_styles.dart';
 import 'package:movies_pop/features/movies_details/domain/entities/trailer_movie_entity.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -52,45 +53,39 @@ class _CardTrailerMovieState extends State<CardTrailerMovie> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Trailer',
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
+            style: AppTextStyles.subTitleMovieDetails,
           ),
           const SizedBox(
             height: 10,
           ),
-          Container(
-            child: Column(
-              children: [
-                Container(
-                  width: mediaSize.width,
-                  constraints:
-                      const BoxConstraints(maxHeight: 320, minWidth: 300),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: YoutubePlayerBuilder(
-                          player: YoutubePlayer(
-                            controller: _controller,
-                            showVideoProgressIndicator: true,
-                            progressIndicatorColor: Colors.blue,
-                          ),
-                          builder: (context, player) {
-                            return player;
-                          }),
-                    ),
+          Column(
+            children: [
+              Container(
+                width: mediaSize.width,
+                constraints:
+                    const BoxConstraints(maxHeight: 320, minWidth: 300),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: YoutubePlayerBuilder(
+                        player: YoutubePlayer(
+                          controller: _controller,
+                          showVideoProgressIndicator: true,
+                          progressIndicatorColor: Colors.blue,
+                        ),
+                        builder: (context, player) {
+                          return player;
+                        }),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           )
         ],
       ),

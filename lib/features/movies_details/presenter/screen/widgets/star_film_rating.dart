@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:movies_pop/core/theme/app_colors.dart';
+import 'package:movies_pop/core/theme/app_text_styles.dart';
 import 'package:movies_pop/features/movies/home/presenter/components/cine_movies/widgets/stars/create_stars.dart';
 
 class StarFilmRating extends StatelessWidget {
@@ -7,7 +9,7 @@ class StarFilmRating extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var star = generateStars(value, Colors.yellow.shade800, 18);
+    var star = generateStars(value, AppColors.stars, 18);
     return SizedBox(
       height: 40,
       child: Column(
@@ -20,11 +22,7 @@ class StarFilmRating extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 5),
                 child: Text(
                   (value / 2).toStringAsFixed(1),
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 24,
-                    fontWeight: FontWeight.w500,
-                  ),
+                  style: AppTextStyles.ratingMovieDetails,
                 ),
               ),
               Row(children: star),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_pop/core/dependencies/get_it/dependencies.dart';
+import 'package:movies_pop/core/theme/app_text_styles.dart';
 import 'package:movies_pop/features/shared/class/controller_list_movies.dart';
 import 'package:movies_pop/features/shared/entities/movie_entipy/movie_entipy.dart';
 import 'package:movies_pop/features/shared/widgets/card_movies.dart';
@@ -57,28 +58,13 @@ class _WatchMoviesScreenState extends State<WatchMoviesScreen> {
     var mediaSize = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
+          elevation: 2,
           automaticallyImplyLeading: true,
           centerTitle: true,
-          title: const Text(
+          title: Text(
             'Assistir depois',
-            style: TextStyle(fontWeight: FontWeight.w500),
+            style: AppTextStyles.titleHomeM,
           ),
-          flexibleSpace: Container(
-              decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Colors.black87,
-              Colors.blue,
-              Colors.white,
-            ],
-            stops: [
-              0.01,
-              0.5,
-              0.9,
-            ],
-          ))),
         ),
         body: BlocConsumer<WatchMoviesCubitController, WatchMoviesState>(
           listener: (context, state) async {
@@ -96,22 +82,7 @@ class _WatchMoviesScreenState extends State<WatchMoviesScreen> {
             }
           },
           builder: (context, state) {
-            return Container(
-              decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  Colors.black87,
-                  Colors.blue,
-                  Colors.white,
-                ],
-                stops: [
-                  0.01,
-                  0.5,
-                  0.9,
-                ],
-              )),
+            return SizedBox(
               width: mediaSize.width,
               height: mediaSize.height,
               child: state is LoadingWatchMoviesState

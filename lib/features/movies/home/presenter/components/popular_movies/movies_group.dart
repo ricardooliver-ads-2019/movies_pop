@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_pop/core/theme/app_text_styles.dart';
 import 'package:movies_pop/features/shared/widgets/card_movies_skeleton.dart';
 import 'package:movies_pop/features/shared/widgets/snackBar/snackBar_sistem.dart';
 
@@ -57,7 +58,7 @@ class _MoviesGroupState extends State<MoviesGroup> {
     return BlocConsumer<PopularCubitController, PopularState>(
         listener: (context, state) {
       if (state is LoadingPopularState) {
-        for (var i = 0; i < 5; i++) {
+        for (var i = 0; i < 3; i++) {
           listComponets.add(const CardMoviesSkeleton());
         }
       }
@@ -65,7 +66,7 @@ class _MoviesGroupState extends State<MoviesGroup> {
       if (state is SuccessPopularState) {
         pageFin = state.pagePopularMovies.totalPages;
         if (listComponets.isNotEmpty) {
-          for (var i = 0; i < 5; i++) {
+          for (var i = 0; i < 3; i++) {
             listComponets.removeLast();
           }
         }
@@ -118,13 +119,8 @@ class _MoviesGroupState extends State<MoviesGroup> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 15, top: 15),
-                child: Text(
-                  '${widget.title}',
-                  style: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                child: Text('${widget.title}',
+                    style: AppTextStyles.titleBoldHeading),
               ),
               const SizedBox(
                 height: 10,

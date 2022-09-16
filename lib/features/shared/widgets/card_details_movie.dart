@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:movies_pop/core/theme/app_text_styles.dart';
 import 'package:movies_pop/features/shared/entities/movie_entipy/movie_entipy.dart';
 
 class CardDetailsMovie extends StatelessWidget {
@@ -25,10 +26,7 @@ class CardDetailsMovie extends StatelessWidget {
           children: [
             Text(
               movie.title,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
+              style: AppTextStyles.titleCardMovies,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.left,
@@ -37,11 +35,7 @@ class CardDetailsMovie extends StatelessWidget {
                 ? const Text('')
                 : Text(
                     dateFormat.format(movie.releaseDate!),
-                    style: const TextStyle(
-                      color: Color.fromARGB(255, 148, 167, 177),
-                      fontSize: 12,
-                      fontWeight: FontWeight.w800,
-                    ),
+                    style: AppTextStyles.releaseDateCardMovies,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),

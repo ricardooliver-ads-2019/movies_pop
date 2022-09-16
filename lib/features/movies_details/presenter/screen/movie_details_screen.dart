@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_pop/core/dependencies/get_it/dependencies.dart';
+import 'package:movies_pop/core/theme/app_text_styles.dart';
 import 'package:movies_pop/features/movies_details/presenter/screen/skeleton/screen_movie_details_skeleton.dart';
 import 'package:movies_pop/features/movies_details/presenter/screen/widgets/box_images_movie.dart';
 import 'package:movies_pop/features/movies_details/presenter/screen/widgets/card_details/card_buttons/card_buttons.dart';
@@ -40,7 +41,10 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
       appBar: AppBar(
         centerTitle: true,
         elevation: 2,
-        title: const Text('Detalhe'),
+        title: Text(
+          'Detalhe',
+          style: AppTextStyles.titleHomeM,
+        ),
       ),
       body: BlocConsumer<MovieDetailsCubitController, MovieDetailsState>(
         listener: (context, state) {
@@ -65,13 +69,19 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
               child: Center(
                 child: SizedBox(
                   child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Container(
-                        margin: const EdgeInsets.all(8.0),
+                        margin: const EdgeInsets.only(
+                          top: 8.0,
+                          left: 8.0,
+                          right: 8.0,
+                        ),
                         width: mediaSize.width,
                         constraints: const BoxConstraints(maxWidth: 800),
                         child: Wrap(
                           alignment: WrapAlignment.start,
+                          crossAxisAlignment: WrapCrossAlignment.start,
                           children: [
                             BoxImageMovie(
                                 urlImage:

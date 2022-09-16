@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies_pop/core/theme/app_colors.dart';
 
 class ActionButton extends StatelessWidget {
   VoidCallback action;
@@ -17,7 +18,7 @@ class ActionButton extends StatelessWidget {
     return GestureDetector(
       child: Icon(
         typeIcon,
-        color: check ? Colors.red : Colors.blue,
+        color: check ? AppColors.red : AppColors.secondary,
         size: 30,
       ),
       onTap: action,

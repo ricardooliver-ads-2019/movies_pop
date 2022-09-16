@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies_pop/core/theme/app_colors.dart';
 import 'package:movies_pop/features/movies/home/presenter/components/cine_movies/widgets/stars/create_stars.dart';
 
 class Stars extends StatelessWidget {
@@ -47,7 +48,7 @@ class Stars extends StatelessWidget {
             child: Text(
               value.toStringAsFixed(1),
               style: const TextStyle(
-                color: Colors.blue,
+                color: AppColors.secondary,
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:movies_pop/core/theme/app_colors.dart';
+import 'package:movies_pop/core/theme/app_text_styles.dart';
 
 class StarRating extends StatelessWidget {
   final double value;
@@ -17,19 +19,12 @@ class StarRating extends StatelessWidget {
           children: [
             Text(
               value.toStringAsFixed(1),
-              style: const TextStyle(
-                color: Colors.blue,
-                fontSize: 17,
-                fontWeight: FontWeight.bold,
-                height: 0,
-                letterSpacing: 0,
-                wordSpacing: 0,
-              ),
+              style: AppTextStyles.starRating,
             ),
-            Icon(
+            const Icon(
               Icons.star_outlined,
               size: 8,
-              color: Colors.yellow.shade800,
+              color: AppColors.stars,
             )
           ],
         ),

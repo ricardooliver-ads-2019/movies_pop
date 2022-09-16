@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies_pop/core/theme/app_colors.dart';
 import 'package:movies_pop/features/shared/entities/movie_entipy/movie_entipy.dart';
 
 class CardCineBackground extends StatelessWidget {
@@ -10,8 +11,6 @@ class CardCineBackground extends StatelessWidget {
     var mediaSize = MediaQuery.of(context).size;
     return SizedBox(
       width: mediaSize.width,
-      //constraints: const BoxConstraints(maxWidth: 500),
-      //color: Colors.red,
       child: Column(
         children: [
           Stack(
@@ -35,7 +34,7 @@ class CardCineBackground extends StatelessWidget {
                 constraints:
                     const BoxConstraints(maxHeight: 500, minHeight: 380),
                 decoration:
-                    BoxDecoration(color: Colors.white38.withOpacity(0.1)),
+                    BoxDecoration(color: AppColors.shape.withOpacity(0.1)),
               ),
             ],
           ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_pop/core/routes/app_routes.dart';
+import 'package:movies_pop/core/theme/app_colors.dart';
 import 'package:movies_pop/features/login/presenter/componets/form_login/button_login.dart';
 import 'package:movies_pop/features/login/presenter/componets/form_login/form_login.dart';
 import 'package:movies_pop/features/login/presenter/componets/form_login/widgets/button_create_account.dart';
@@ -75,121 +76,85 @@ class _LoginScreenState extends State<LoginScreen>
         );
       }
       if (state is LoginSuccess) {
-        await _animationController.forward();
-
         Navigator.of(context)
             .pushReplacementNamed(AppRoutes.mainNavigationPage);
-
-        await _animationController.reverse();
       }
     }, builder: (context, state) {
       return Scaffold(
           body: SingleChildScrollView(
-        child: Stack(
-          children: [
-            Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    Colors.black87,
-                    Colors.blue,
-                    Colors.white,
-                  ],
-                  stops: [
-                    0.01,
-                    0.5,
-                    0.9,
-                  ],
-                ),
+        child: Container(
+          decoration: const BoxDecoration(
+            gradient: AppColors.linearGradient,
+          ),
+          child: Center(
+            child: Container(
+              constraints: const BoxConstraints(
+                maxWidth: 800,
+                minHeight: 550,
               ),
-              child: Center(
-                child: Container(
-                  constraints:
-                      const BoxConstraints(maxWidth: 800, minHeight: 550),
-                  width: mediaSize.width,
-                  height: mediaSize.height,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Logo(),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        FormLogin(
-                          login: (value) {
-                            setState(() {
-                              login = value;
-                            });
-                          },
-                          password: (value) {
-                            setState(() {
-                              password = value;
-                            });
-                          },
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            ButtonLogin(
-                              functionLogin: () {
-                                _controller.validateTokenWithLoginUsecase(
-                                  login: login,
-                                  password: password,
-                                );
-                              },
-                              animationErro: animationErro,
-                              login: login,
-                              password: password,
-                            ),
-                            const SizedBox(
-                              height: 50,
-                            ),
-                            const ButtonForgotPassword(),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 50,
-                        ),
-                        const ButtonCreateAccount()
-                      ],
+              width: mediaSize.width,
+              height: mediaSize.height,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Logo(),
+                    Container(
+                      constraints: const BoxConstraints(
+                        maxWidth: 500,
+                        minWidth: 300,
+                      ),
+                      child: FormLogin(
+                        login: (value) {
+                          setState(() {
+                            login = value;
+                          });
+                        },
+                        password: (value) {
+                          setState(() {
+                            password = value;
+                          });
+                        },
+                      ),
                     ),
-                  ),
+                    Container(
+                      constraints: const BoxConstraints(
+                        maxWidth: 500,
+                        minWidth: 300,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          ButtonLogin(
+                            functionLogin: () {
+                              _controller.validateTokenWithLoginUsecase(
+                                login: login,
+                                password: password,
+                              );
+                            },
+                            animationErro: animationErro,
+                            login: login,
+                            password: password,
+                          ),
+                          const SizedBox(
+                            height: 50,
+                          ),
+                          const ButtonForgotPassword(),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    const ButtonCreateAccount()
+                  ],
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment.topLeft,
-              child: AnimatedBuilder(
-                  animation: _animationController,
-                  builder: (_, __) {
-                    return Container(
-                      width: 0,
-                      height: 0,
-                      decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Colors.black87,
-                          Colors.blue,
-                          Colors.white,
-                        ],
-                        stops: [
-                          0.01,
-                          0.5,
-                          0.9,
-                        ],
-                      )),
-                    );
-                  }),
-            )
-          ],
+          ),
         ),
       ));
     });

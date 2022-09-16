@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_pop/core/dependencies/get_it/dependencies.dart';
 import 'package:movies_pop/core/shared_features/rate_movies/presenter/bottom_sheet_rate_movie.dart';
 import 'package:movies_pop/core/shared_features/rate_movies/presenter/controller/bottom_sheet_rate_movie_cubit_controller.dart';
+import 'package:movies_pop/core/theme/app_colors.dart';
 import 'package:movies_pop/features/fab_button_menu/presenter/controller/fab_button_cubit_controller.dart';
 import 'package:movies_pop/features/fab_button_menu/presenter/controller/fab_button_state.dart';
 import 'package:movies_pop/features/fab_button_menu/presenter/fab_menu_button/fab_vertical_delegate.dart';
@@ -62,15 +63,15 @@ class _FabMenuButtonState extends State<FabMenuButton>
 
   Color checkMovies(ValueNotifier<bool> value) {
     if (value.value) {
-      return Colors.red;
+      return AppColors.red;
     }
-    return Colors.blue;
+    return AppColors.secondary;
   }
 
   @override
   Widget build(BuildContext context) {
     Color actionButtonColor =
-        menuIsOpen.value ? Colors.white : Colors.white.withOpacity(0.5);
+        menuIsOpen.value ? AppColors.shape : AppColors.shape.withOpacity(0.5);
     return BlocListener<FabButtonCubitController, FabButtonState>(
       listener: (context, state) {
         setState(() {});
@@ -176,7 +177,7 @@ class _FabMenuButtonState extends State<FabMenuButton>
                 child: AnimatedIcon(
                   progress: animation,
                   icon: AnimatedIcons.menu_close,
-                  color: Colors.blue,
+                  color: AppColors.secondary,
                 ),
                 onPressed: () {
                   toggleButtonMenu();
@@ -197,7 +198,7 @@ class _FabMenuButtonState extends State<FabMenuButton>
                     Icons.video_library_rounded,
                     color: menuIsOpen.value
                         ? widget.movieInListWatched
-                            ? Colors.red
+                            ? AppColors.red
                             : checkMovies(watchedMovies)
                         : Colors.transparent,
                   ),
@@ -229,7 +230,7 @@ class _FabMenuButtonState extends State<FabMenuButton>
                   Icons.live_tv_sharp,
                   color: menuIsOpen.value
                       ? widget.movieInListWatch
-                          ? Colors.red
+                          ? AppColors.red
                           : checkMovies(watchMovies)
                       : Colors.transparent,
                 ),
@@ -265,7 +266,7 @@ class _FabMenuButtonState extends State<FabMenuButton>
                       ),
                       onPressed: () {
                         showBottomSheet(
-                          backgroundColor: Colors.transparent,
+                          backgroundColor: AppColors.transparent,
                           constraints: const BoxConstraints(
                             maxWidth: 300,
                             maxHeight: 400,

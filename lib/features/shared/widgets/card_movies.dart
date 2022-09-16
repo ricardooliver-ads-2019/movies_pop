@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies_pop/core/routes/app_routes.dart';
+import 'package:movies_pop/core/theme/app_colors.dart';
 import 'package:movies_pop/core/utils/constants.dart';
 import 'package:movies_pop/features/shared/entities/movie_entipy/movie_entipy.dart';
 import 'package:movies_pop/features/shared/widgets/card_details_movie.dart';
@@ -62,7 +63,7 @@ class _CardMoviesState extends State<CardMovies>
                   minWidth: 170,
                 ),
                 decoration: BoxDecoration(
-                  color: Colors.grey.shade300,
+                  color: AppColors.backgroundCardMovies,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: AnimatedBuilder(

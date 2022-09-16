@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies_pop/core/theme/app_text_styles.dart';
 
 class SinopseMovie extends StatelessWidget {
   final String description;
@@ -9,19 +10,15 @@ class SinopseMovie extends StatelessWidget {
     var mediaSize = MediaQuery.of(context).size;
     return Container(
       width: mediaSize.width,
-      margin: const EdgeInsets.all(8.0),
+      margin: const EdgeInsets.symmetric(horizontal: 8),
       constraints: const BoxConstraints(maxWidth: 800),
       child: Column(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Sinopse:',
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 20,
-              fontWeight: FontWeight.w400,
-            ),
+            style: AppTextStyles.subTitleMovieDetails,
             textAlign: TextAlign.start,
           ),
           const SizedBox(
@@ -29,11 +26,7 @@ class SinopseMovie extends StatelessWidget {
           ),
           Text(
             description,
-            style: const TextStyle(
-              color: Colors.black87,
-              fontSize: 16,
-              fontWeight: FontWeight.w400,
-            ),
+            style: AppTextStyles.sinopseDescription,
             textAlign: TextAlign.justify,
           ),
         ],

@@ -18,8 +18,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
-  late final AnimationController _animationController;
-  late final Animation<double> animationOpacity;
   late final HomeCubitController _controller;
   @override
   void didChangeDependencies() {
@@ -30,25 +28,12 @@ class _HomeScreenState extends State<HomeScreen>
   void initState() {
     _controller = context.read<HomeCubitController>();
     _controller.getMyList();
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 1),
-    );
-
-    animationOpacity = Tween<double>(begin: 1, end: 0).animate(
-        CurvedAnimation(parent: _animationController, curve: Curves.ease));
-
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await Future.delayed(const Duration(milliseconds: 500));
-      _animationController.forward();
-    });
 
     super.initState();
   }
 
   @override
   void dispose() {
-    _animationController.dispose();
     super.dispose();
   }
 
@@ -56,78 +41,33 @@ class _HomeScreenState extends State<HomeScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Container(
-          decoration: const BoxDecoration(
-              gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Colors.black87,
-              Colors.blue,
-              Colors.white,
-            ],
-            stops: [
-              0.01,
-              0.5,
-              0.9,
-            ],
-          )),
-          child: Stack(
-            children: [
-              Column(
-                children: [
-                  BlocProvider(
-                    create: (_) =>
-                        getItDependency.get<CineMoviesCubitController>(),
-                    child:
-                        BlocBuilder<CineMoviesCubitController, CineMoviesState>(
-                            buildWhen: (previous, current) =>
-                                previous != current,
-                            builder: (context, state) {
-                              return const CineGroup();
-                            }),
+        child: Stack(
+          children: [
+            Column(
+              children: [
+                BlocProvider(
+                  create: (_) =>
+                      getItDependency.get<CineMoviesCubitController>(),
+                  child:
+                      BlocBuilder<CineMoviesCubitController, CineMoviesState>(
+                    buildWhen: (previous, current) => previous != current,
+                    builder: (context, state) {
+                      return const CineGroup();
+                    },
                   ),
-                  BlocProvider(
-                    create: (_) =>
-                        getItDependency.get<PopularCubitController>(),
-                    child: BlocBuilder<PopularCubitController, PopularState>(
-                        buildWhen: (previous, current) => previous != current,
-                        builder: (context, state) {
-                          return const MoviesGroup(title: 'Mais populares');
-                        }),
-                  )
-                ],
-              ),
-              Positioned.fill(
-                child: AnimatedBuilder(
-                    animation: _animationController,
-                    builder: (_, __) {
-                      return IgnorePointer(
-                        child: Opacity(
-                          opacity: animationOpacity.value,
-                          child: Container(
-                            decoration: const BoxDecoration(
-                                gradient: LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              colors: [
-                                Colors.black87,
-                                Colors.blue,
-                                Colors.white,
-                              ],
-                              stops: [
-                                0.01,
-                                0.5,
-                                0.9,
-                              ],
-                            )),
-                          ),
-                        ),
-                      );
-                    }),
-              )
-            ],
-          ),
+                ),
+                BlocProvider(
+                  create: (_) => getItDependency.get<PopularCubitController>(),
+                  child: BlocBuilder<PopularCubitController, PopularState>(
+                    buildWhen: (previous, current) => previous != current,
+                    builder: (context, state) {
+                      return const MoviesGroup(title: 'Mais populares');
+                    },
+                  ),
+                )
+              ],
+            ),
+          ],
         ),
       ),
     );

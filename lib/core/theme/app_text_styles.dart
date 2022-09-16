@@ -9,11 +9,39 @@ class AppTextStyles {
     color: AppColors.heading,
   );
 
+  static final titleHomeM = GoogleFonts.lexendDeca(
+    fontSize: 24,
+    fontWeight: FontWeight.w600,
+    color: AppColors.secondary,
+  );
+
   static final titleRegular = GoogleFonts.lexendDeca(
     fontSize: 20,
     fontWeight: FontWeight.w400,
     color: AppColors.heading,
   );
+
+  static final releaseDateCardMovies = GoogleFonts.lexendDeca(
+    fontSize: 12,
+    fontWeight: FontWeight.w800,
+    color: AppColors.releaseDate,
+  );
+
+  static final starRating = GoogleFonts.lexendDeca(
+    fontSize: 17,
+    fontWeight: FontWeight.bold,
+    height: 0,
+    letterSpacing: 0,
+    wordSpacing: 0,
+    color: AppColors.secondary,
+  );
+
+  static final titleCardMovies = GoogleFonts.lexendDeca(
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+    color: AppColors.thirdary,
+  );
+
   static final titleBoldHeading = GoogleFonts.lexendDeca(
     fontSize: 20,
     fontWeight: FontWeight.w600,
@@ -34,10 +62,41 @@ class AppTextStyles {
     fontWeight: FontWeight.w600,
     color: AppColors.background,
   );
-  static final titleListTile = GoogleFonts.lexendDeca(
-    fontSize: 17,
-    fontWeight: FontWeight.w600,
-    color: AppColors.heading,
+  static final titleCardDetails = GoogleFonts.lexendDeca(
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+    color: AppColors.thirdary,
+  );
+  static final subTitleMovieDetails = GoogleFonts.lexendDeca(
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+    color: AppColors.black,
+  );
+
+  static final sinopseDescription = GoogleFonts.lexendDeca(
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    color: AppColors.black,
+  );
+  static final titleGenres = GoogleFonts.lexendDeca(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    color: AppColors.thirdary,
+  );
+  static final runTime = GoogleFonts.lexendDeca(
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+    color: AppColors.black,
+  );
+  static final dateY = GoogleFonts.lexendDeca(
+    fontSize: 18,
+    fontWeight: FontWeight.normal,
+    color: AppColors.black,
+  );
+  static final ratingMovieDetails = GoogleFonts.lexendDeca(
+    fontSize: 24,
+    fontWeight: FontWeight.w500,
+    color: AppColors.black,
   );
   static final trailingRegular = GoogleFonts.lexendDeca(
     fontSize: 16,

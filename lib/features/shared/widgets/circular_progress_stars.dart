@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies_pop/core/theme/app_colors.dart';
 import 'package:movies_pop/features/shared/widgets/star_rating.dart';
 
 class CircularProgressStars extends StatefulWidget {
@@ -36,12 +37,12 @@ class _CircularProgressStarsState extends State<CircularProgressStars>
 
   Color setColor(double value) {
     if (value < 2.5) {
-      return Colors.red;
+      return AppColors.red;
     }
     if (value < 3.5) {
-      return Colors.blue;
+      return AppColors.secondary;
     }
-    return Colors.green;
+    return AppColors.green;
   }
 
   @override
