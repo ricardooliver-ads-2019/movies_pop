@@ -25,6 +25,14 @@ class WatchaedMoviesRepositoryImpl implements WatchaedMoviesRepository {
         ));
       }
 
+      if (result.statusCode == 404) {
+        return Left(ErrorNotFound(
+          error: result.data,
+          message: result.statusMessage,
+          statusCode: result.statusCode,
+        ));
+      }
+
       return Left(GenericFailure(
         error: result.data,
         message: result.statusMessage,
@@ -47,7 +55,7 @@ class WatchaedMoviesRepositoryImpl implements WatchaedMoviesRepository {
       return const Left(GenericFailure(
         message: 'Erro de conversão',
         error: 'xxListWatchedMoviesxx',
-        statusCode: 500,
+        statusCode: 800,
       ));
     }
   }

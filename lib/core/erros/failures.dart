@@ -34,3 +34,15 @@ class UnauthorizedUser extends Failure {
           statusCode: statusCode,
         );
 }
+
+class ErrorNotFound extends Failure {
+  const ErrorNotFound({
+    required String? message,
+    required dynamic error,
+    required int? statusCode,
+  }) : super(
+          message: message,
+          error: error,
+          statusCode: statusCode,
+        );
+}

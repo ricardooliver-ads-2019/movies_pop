@@ -25,5 +25,14 @@ class ErrorWatchedState extends WatchedState {
   ErrorWatchedState({required this.error});
 
   @override
-  List<Object?> get props => [Error];
+  List<Object?> get props => [error];
+}
+
+class ErrorNotFoundWatchedState extends ErrorWatchedState {
+  @override
+  final Failure error;
+  ErrorNotFoundWatchedState({required this.error}) : super(error: error);
+
+  @override
+  List<Object?> get props => [error];
 }
