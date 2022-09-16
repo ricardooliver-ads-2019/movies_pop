@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_pop/core/theme/app_colors.dart';
+import 'package:movies_pop/core/theme/app_text_styles.dart';
 import 'package:movies_pop/features/movies/home/presenter/components/cine_movies/cine_movies_cubit_controller/cine_movies_cubit_controller.dart';
+import 'package:movies_pop/features/shared/entities/movie_entipy/movie_entipy.dart';
+import 'package:movies_pop/features/shared/widgets/snackBar/snackBar_sistem.dart';
 
 import 'widgets/card_cine.dart';
 import 'widgets/card_cine_background.dart';
@@ -16,9 +20,13 @@ class _CineGroupState extends State<CineGroup> {
   int page = 1;
   int pageFin = 1;
   int _currentPage = 2;
+  bool isLoading = true;
   late final CineMoviesCubitController _controller;
   late final PageController _scrollController;
   late final PageController _scrollController2;
+  List<Widget> listComponets = [];
+  List<MovieEntipy> listWithMovies = [];
+
   @override
   void initState() {
     super.initState();
@@ -65,35 +73,26 @@ class _CineGroupState extends State<CineGroup> {
   @override
   Widget build(BuildContext context) {
     var mediaSize = MediaQuery.of(context).size;
-    return BlocBuilder<CineMoviesCubitController, CineMoviesState>(
-        builder: (context, state) {
+    return BlocConsumer<CineMoviesCubitController, CineMoviesState>(
+        listener: (context, state) {
       if (state is LoadingState) {
-        return Container(
-          color: Colors.transparent,
-          width: mediaSize.width,
-          height: mediaSize.height * 0.4,
-          constraints: const BoxConstraints(
-              maxHeight: 500, maxWidth: 800, minHeight: 320),
-          child: const Center(
-            child: CircularProgressIndicator(),
-          ),
-        );
-      } else if (state is ErrorState) {
-        if (state.error.message != null) {
-          return Container(
-            width: mediaSize.width,
-            height: mediaSize.height * 0.4,
-            constraints: const BoxConstraints(
-                maxHeight: 500, maxWidth: 800, minHeight: 320),
-            child: Center(child: Text('${state.error.message}')),
-          );
-        }
-
-        return const Center(child: Text('Error'));
-      } else if (state is SuccessState) {
+        isLoading = true;
+      }
+      if (state is SuccessState) {
+        listWithMovies.addAll(state.pageCineMovies.movies);
         pageFin = state.pageCineMovies.totalPages;
-        return Container(
-          //color: Colors.red,
+        isLoading = false;
+      }
+      if (state is ErrorState) {
+        isLoading = false;
+        final message = state.error.message?.toString() ?? 'Error';
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBarSistem().snackBarErrorGeneric(message),
+        );
+      }
+    }, builder: (context, state) {
+      return SafeArea(
+        child: Container(
           height: mediaSize.height * 0.4,
           constraints: const BoxConstraints(
               maxHeight: 500, maxWidth: 800, minHeight: 380),
@@ -106,9 +105,9 @@ class _CineGroupState extends State<CineGroup> {
                 child: PageView.builder(
                     key: const PageStorageKey<String>('MoviesCine'),
                     controller: _scrollController2,
-                    itemCount: state.pageCineMovies.movies.length,
+                    itemCount: listWithMovies.length,
                     itemBuilder: (context, index) {
-                      var movie = state.pageCineMovies.movies[index];
+                      var movie = listWithMovies[index];
                       return CardCineBackground(movie: movie);
                     }),
               ),
@@ -120,10 +119,10 @@ class _CineGroupState extends State<CineGroup> {
                   child: PageView.builder(
                       key: const PageStorageKey<String>('MoviesCine'),
                       controller: _scrollController,
-                      itemCount: state.pageCineMovies.movies.length,
+                      itemCount: listWithMovies.length,
                       itemBuilder: (context, index) {
                         bool isCurrentPage = index == _currentPage;
-                        var movie = state.pageCineMovies.movies[index];
+                        var movie = listWithMovies[index];
                         return CardCine(
                           movie: movie,
                           isCurrentPage: isCurrentPage,
@@ -131,15 +130,42 @@ class _CineGroupState extends State<CineGroup> {
                       }),
                 ),
               ),
+              Visibility(
+                visible: isLoading,
+                child: Container(
+                  height: mediaSize.height * 0.4,
+                  constraints: const BoxConstraints(
+                    maxHeight: 500,
+                    maxWidth: 800,
+                    minHeight: 380,
+                  ),
+                  child: const Center(
+                    child: CircularProgressIndicator(
+                      color: AppColors.secondary,
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                height: mediaSize.height * 0.10,
+                width: mediaSize.width,
+                padding: const EdgeInsets.only(top: 10),
+                constraints: const BoxConstraints(
+                  maxHeight: 70,
+                  minHeight: 40,
+                ),
+                decoration: BoxDecoration(
+                  color: AppColors.thirdary.withOpacity(1),
+                ),
+                child: Center(
+                    child: Text(
+                  'Filmes em cartaz',
+                  style: AppTextStyles.titleHomeM,
+                )),
+              ),
             ],
           ),
-        );
-      }
-      return Container(
-        width: mediaSize.width,
-        height: mediaSize.height * 0.4,
-        constraints:
-            const BoxConstraints(maxHeight: 500, maxWidth: 800, minHeight: 320),
+        ),
       );
     });
   }
