@@ -294,12 +294,18 @@ Future<void> getItDependencies() async {
 //=========================== Cubits ===========================
 
   getItDependency.registerFactory<MainNavigationPageCubit>(
-      () => MainNavigationPageCubit());
+    () => MainNavigationPageCubit(
+      detailsListWatchedMovies: getItDependency<DetailsListWatchedMovies>(),
+      authSession: getItDependency<AuthSession>(),
+    ),
+  );
 
-  getItDependency.registerFactory<CineMoviesCubitController>(() =>
-      CineMoviesCubitController(
-          moviesPlayingInBrazilNowUsecase:
-              getItDependency<GetMoviesPlayingInBrazilNowUsecase>()));
+  getItDependency.registerFactory<CineMoviesCubitController>(
+    () => CineMoviesCubitController(
+      moviesPlayingInBrazilNowUsecase:
+          getItDependency<GetMoviesPlayingInBrazilNowUsecase>(),
+    ),
+  );
 
   getItDependency
       .registerFactory<PopularCubitController>(() => PopularCubitController(

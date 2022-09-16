@@ -40,6 +40,8 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
                   icon: Icon(Icons.video_library_rounded), label: 'Já vistos'),
               BottomNavigationBarItem(
                   icon: Icon(Icons.live_tv_sharp), label: 'Assistir'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.logout_outlined), label: 'Sair'),
             ],
           ),
           body: Navigator(
