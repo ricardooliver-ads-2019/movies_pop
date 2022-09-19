@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:movies_pop/core/auth/auth.dart';
 import 'package:movies_pop/core/dependencies/get_it/dependencies.dart';
 import 'package:movies_pop/core/routes/app_routes.dart';
+import 'package:movies_pop/core/user_lists_watched_movies/details_list_watched_movies.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -69,6 +70,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await getItDependency.get<AuthSession>().init();
+      await getItDependency.get<DetailsListWatchedMovies>().init();
     });
   }
 
@@ -76,7 +78,8 @@ class _SplashScreenState extends State<SplashScreen>
     if (status == AnimationStatus.completed) {
       if (getItDependency.get<AuthSession>().sessionId == null ||
           getItDependency.get<AuthSession>().id == null ||
-          getItDependency.get<AuthSession>().username == null) {
+          getItDependency.get<AuthSession>().username == null ||
+          getItDependency.get<DetailsListWatchedMovies>().idList == null) {
         Navigator.of(context).pushReplacementNamed(AppRoutes.login);
       } else {
         Navigator.of(context)
