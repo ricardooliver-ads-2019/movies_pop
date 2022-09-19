@@ -133,6 +133,7 @@ class _WatchMoviesScreenState extends State<WatchMoviesScreen> {
                                                           controllerListMovies
                                                               .removeItem(id);
                                                         },
+                                                        urlImage: m.posterPath,
                                                       );
                                                     },
                                                   ),

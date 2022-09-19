@@ -81,7 +81,10 @@ class CardCine extends StatelessWidget {
                               buildWhen: (previous, current) =>
                                   previous != current,
                               builder: (context, state) {
-                                return FabMenuButton(movieId: movie.id);
+                                return FabMenuButton(
+                                  movieId: movie.id,
+                                  urlImage: movie.posterPath,
+                                );
                               })),
                     ),
                   )

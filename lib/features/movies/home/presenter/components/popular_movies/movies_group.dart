@@ -93,7 +93,10 @@ class _MoviesGroupState extends State<MoviesGroup> {
                             buildWhen: (previous, current) =>
                                 previous != current,
                             builder: (context, state) {
-                              return FabMenuButton(movieId: movie.id);
+                              return FabMenuButton(
+                                movieId: movie.id,
+                                urlImage: movie.posterPath,
+                              );
                             },
                           ),
                         ),

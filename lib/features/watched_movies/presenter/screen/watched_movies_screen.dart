@@ -139,6 +139,8 @@ class _WatchedMoviesScreenState extends State<WatchedMoviesScreen> {
                                                             controllerListMovies
                                                                 .removeItem(id);
                                                           },
+                                                          urlImage:
+                                                              m.posterPath,
                                                         );
                                                       })),
                                             ),

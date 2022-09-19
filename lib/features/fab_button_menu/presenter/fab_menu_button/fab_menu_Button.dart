@@ -13,6 +13,7 @@ class FabMenuButton extends StatefulWidget {
   final int movieId;
   final bool movieInListWatched;
   final bool movieInListWatch;
+  final String? urlImage;
   final ValueChanged<int>? validarListWatched;
   final ValueChanged<int>? validarListWatch;
   const FabMenuButton({
@@ -22,6 +23,7 @@ class FabMenuButton extends StatefulWidget {
     this.validarListWatch,
     this.movieInListWatched = false,
     this.movieInListWatch = false,
+    this.urlImage,
   }) : super(key: key);
 
   @override
@@ -267,16 +269,13 @@ class _FabMenuButtonState extends State<FabMenuButton>
                       onPressed: () {
                         showBottomSheet(
                           backgroundColor: AppColors.transparent,
-                          constraints: const BoxConstraints(
-                            maxWidth: 300,
-                            maxHeight: 400,
-                          ),
                           context: context,
                           builder: (context) => BlocProvider(
                             create: (context) => getItDependency
                                 .get<BottomSheetRateMovieCubitController>(),
                             child: BottomSheetRateMovie(
                                 movieId: widget.movieId,
+                                urlImage: widget.urlImage,
                                 filmIsRated: (rated) {
                                   rate.value = rated;
                                 }),
