@@ -18,10 +18,12 @@ class DetailsListWatchedMovies {
     final preferences = await getInstancySharedPreferences();
     await preferences.setInt(
         Constants.sharedPreferencesIdListWatchMovies, idList);
+    init();
   }
 
   Future<void> resetIdListWatchMovies() async {
     final preferences = await getInstancySharedPreferences();
     await preferences.remove(Constants.sharedPreferencesIdListWatchMovies);
+    init();
   }
 }
