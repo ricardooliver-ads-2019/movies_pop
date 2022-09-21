@@ -187,40 +187,35 @@ class _FabMenuButtonState extends State<FabMenuButton>
                 },
               ),
             ),
-            GestureDetector(
-              onTap: () {
-                debugPrint('tess');
-              },
-              child: SizedBox(
-                width: 40,
-                height: 40,
-                child: FloatingActionButton(
-                  backgroundColor: actionButtonColor,
-                  child: Icon(
-                    Icons.video_library_rounded,
-                    color: menuIsOpen.value
-                        ? widget.movieInListWatched
-                            ? AppColors.red
-                            : checkMovies(watchedMovies)
-                        : Colors.transparent,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      if (watchedMovies.value ||
-                          widget.movieInListWatched != false) {
-                        var validar = widget.validarListWatched;
-                        if (validar != null) {
-                          validar(widget.movieId);
-                        }
-
-                        _controller
-                            .removeMovieToWatchedMoviesList(widget.movieId);
-                      } else {
-                        _controller.addMovieToWatchedMoviesList(widget.movieId);
-                      }
-                    });
-                  },
+            SizedBox(
+              width: 40,
+              height: 40,
+              child: FloatingActionButton(
+                backgroundColor: actionButtonColor,
+                child: Icon(
+                  Icons.video_library_rounded,
+                  color: menuIsOpen.value
+                      ? widget.movieInListWatched
+                          ? AppColors.red
+                          : checkMovies(watchedMovies)
+                      : Colors.transparent,
                 ),
+                onPressed: () {
+                  setState(() {
+                    if (watchedMovies.value ||
+                        widget.movieInListWatched != false) {
+                      var validar = widget.validarListWatched;
+                      if (validar != null) {
+                        validar(widget.movieId);
+                      }
+
+                      _controller
+                          .removeMovieToWatchedMoviesList(widget.movieId);
+                    } else {
+                      _controller.addMovieToWatchedMoviesList(widget.movieId);
+                    }
+                  });
+                },
               ),
             ),
             SizedBox(
