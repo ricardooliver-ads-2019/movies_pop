@@ -156,10 +156,6 @@ class _CardButtonsState extends State<CardButtons> {
                     action: () {
                       showBottomSheet(
                         backgroundColor: Colors.transparent,
-                        constraints: const BoxConstraints(
-                          maxWidth: 300,
-                          maxHeight: 400,
-                        ),
                         context: context,
                         builder: (context) => BlocProvider(
                           create: (context) => getItDependency
