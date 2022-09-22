@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:movies_pop/core/auth/auth.dart';
 import 'package:movies_pop/core/dependencies/get_it/dependencies.dart';
 import 'package:movies_pop/core/routes/app_routes.dart';
+import 'package:movies_pop/core/theme/app_colors.dart';
 import 'package:movies_pop/core/user_lists_watched_movies/details_list_watched_movies.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -108,42 +109,47 @@ class _SplashScreenState extends State<SplashScreen>
   Widget build(BuildContext context) {
     var mediaSize = MediaQuery.of(context).size;
     return Scaffold(
-      body: Stack(
-        children: [
-          AnimatedBuilder(
-            animation: _filmAnimationController,
-            builder: (context, _) {
-              return Transform.translate(
-                offset: Offset(_position.value, 0),
-                child: Center(
-                  child: Opacity(
-                    opacity: _opacity.value,
-                    child: Image.asset(
-                      'assets/images/images_splash/logoFilm.png',
-                      width: 300,
-                      filterQuality: FilterQuality.medium,
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
-          Center(
-            child: AnimatedBuilder(
-              animation: _logoAnimationController,
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: AppColors.linearGradient,
+        ),
+        child: Stack(
+          children: [
+            AnimatedBuilder(
+              animation: _filmAnimationController,
               builder: (context, _) {
-                return Container(
-                  width: mediaSize.width * 0.50,
-                  constraints: const BoxConstraints(maxWidth: 100),
-                  child: LogoPrincipal(
-                    size: _size.value,
-                    degrees: _degrees.value,
+                return Transform.translate(
+                  offset: Offset(_position.value, 0),
+                  child: Center(
+                    child: Opacity(
+                      opacity: _opacity.value,
+                      child: Image.asset(
+                        'assets/images/images_splash/logoFilm.png',
+                        width: 300,
+                        filterQuality: FilterQuality.medium,
+                      ),
+                    ),
                   ),
                 );
               },
             ),
-          ),
-        ],
+            Center(
+              child: AnimatedBuilder(
+                animation: _logoAnimationController,
+                builder: (context, _) {
+                  return Container(
+                    width: mediaSize.width * 0.50,
+                    constraints: const BoxConstraints(maxWidth: 100),
+                    child: LogoPrincipal(
+                      size: _size.value,
+                      degrees: _degrees.value,
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
