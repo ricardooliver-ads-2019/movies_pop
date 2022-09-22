@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_pop/core/routes/app_routes.dart';
@@ -25,6 +26,7 @@ class _LoginScreenState extends State<LoginScreen>
   late Animation<double> animationOpacity;
 
   late LoginCubitController _controller;
+  final scrollControler = ScrollController();
 
   var animationErro = ValueNotifier(false);
   late RenderBox? renderBox;
@@ -82,6 +84,9 @@ class _LoginScreenState extends State<LoginScreen>
     }, builder: (context, state) {
       return Scaffold(
           body: SingleChildScrollView(
+        dragStartBehavior: DragStartBehavior.down,
+        padding: EdgeInsets.zero,
+        reverse: true,
         child: Container(
           decoration: const BoxDecoration(
             gradient: AppColors.linearGradient,
