@@ -51,7 +51,7 @@ class _WatchedMoviesScreenState extends State<WatchedMoviesScreen> {
     var mediaSize = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
-          automaticallyImplyLeading: true,
+          automaticallyImplyLeading: false,
           elevation: 2,
           centerTitle: true,
           title: Text(

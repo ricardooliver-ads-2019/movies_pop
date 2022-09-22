@@ -59,7 +59,7 @@ class _WatchMoviesScreenState extends State<WatchMoviesScreen> {
     return Scaffold(
         appBar: AppBar(
           elevation: 2,
-          automaticallyImplyLeading: true,
+          automaticallyImplyLeading: false,
           centerTitle: true,
           title: Text(
             'Assistir depois',
