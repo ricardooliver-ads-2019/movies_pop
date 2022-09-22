@@ -30,7 +30,7 @@ class SnackBarSistem {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    'Alert:',
+                    'Alerta:',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,
@@ -84,7 +84,7 @@ class SnackBarSistem {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    'Success:',
+                    'Sucesso:',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 18,
@@ -138,7 +138,7 @@ class SnackBarSistem {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    'Success:',
+                    'Sucesso:',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 18,
