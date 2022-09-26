@@ -74,7 +74,7 @@ void main() {
     // Act
     final result = await repositoryImpl.getMoviesPlayingInBrazilNow(page: page);
     final moviesReturn = result.fold((l) => l, ((r) => null));
-    print(moviesReturn);
+
     // Assert
     expect(
         moviesReturn,
