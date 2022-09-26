@@ -258,10 +258,11 @@ Future<void> getItDependencies() async {
 
 //=========================== WatchedMovies ===========================
 
-  getItDependency.registerFactory<WatchaedMoviesDatasource>(() =>
-      WatchaedMoviesDatasourceImpl(
-          client: getItDependency<HttpClient>(),
-          idList: getItDependency<DetailsListWatchedMovies>()));
+  getItDependency.registerFactory<WatchaedMoviesDatasource>(
+    () => WatchaedMoviesDatasourceImpl(
+      client: getItDependency<HttpClient>(),
+    ),
+  );
 
   getItDependency.registerFactory<WatchaedMoviesRepository>(() =>
       WatchaedMoviesRepositoryImpl(

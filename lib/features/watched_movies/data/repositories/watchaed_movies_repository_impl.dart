@@ -15,7 +15,7 @@ class WatchaedMoviesRepositoryImpl implements WatchaedMoviesRepository {
   @override
   Future<Either<Failure, ListWatchedMoviesEntity>> getListWatchedMovies(
       {required int idList}) async {
-    final result = await _datasource.getListWatchedMovies();
+    final result = await _datasource.getListWatchedMovies(idList: idList);
     if (result is HttpClientResponseError) {
       if (result.statusCode == 0) {
         return Left(GenericFailure(
