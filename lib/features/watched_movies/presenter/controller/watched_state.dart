@@ -20,6 +20,8 @@ class SucccessWatchedState extends WatchedState {
   List<Object?> get props => [myListMoviesWatched];
 }
 
+class ErrorIdListNull extends WatchedState {}
+
 class ErrorWatchedState extends WatchedState {
   final Failure error;
   ErrorWatchedState({required this.error});

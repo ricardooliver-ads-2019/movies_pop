@@ -5,18 +5,15 @@ import 'package:movies_pop/features/watched_movies/domain/entities/list_watched_
 
 class ListWatchedMoviesModel extends ListWatchedMoviesEntity {
   const ListWatchedMoviesModel({
-    required int id,
     required String name,
     required List<MovieEntipy> listMovies,
   }) : super(
-          id: id,
           name: name,
           listMovies: listMovies,
         );
 
   factory ListWatchedMoviesModel.fromJson(Map<String, dynamic> json) {
     return ListWatchedMoviesModel(
-      id: int.parse(json['id']),
       name: json['name'],
       listMovies: (json['items'] as List).map((movie) {
         if (movie['media_type'] == 'movie') {

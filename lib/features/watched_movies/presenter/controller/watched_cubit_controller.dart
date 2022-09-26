@@ -19,9 +19,9 @@ class WatchedCubitController extends Cubit<WatchedState> {
 
   Future<void> getMyListWatchedMovies() async {
     emit(LoadingWatchedState());
-    if (detailsListWatchedMovies.idList != null) {
-      final result = await _getMyListWatchedMoviesUsecase.call(
-          idList: detailsListWatchedMovies.idList!);
+    if (validateIdList() is int) {
+      final result =
+          await _getMyListWatchedMoviesUsecase.call(idList: validateIdList());
       result.fold((error) {
         if (error is ErrorNotFound) {
           emit(ErrorNotFoundWatchedState(error: error));
@@ -31,6 +31,12 @@ class WatchedCubitController extends Cubit<WatchedState> {
       }, (myListMoviesWatched) {
         emit(SucccessWatchedState(myListMoviesWatched: myListMoviesWatched));
       });
+    } else {
+      emit(ErrorIdListNull());
     }
+  }
+
+  dynamic validateIdList() {
+    return detailsListWatchedMovies.idList ?? false;
   }
 }

@@ -61,6 +61,9 @@ class _WatchedMoviesScreenState extends State<WatchedMoviesScreen> {
         ),
         body: BlocConsumer<WatchedCubitController, WatchedState>(
           listener: (context, state) async {
+            if (state is ErrorIdListNull) {
+              Navigator.of(context).pushReplacementNamed(AppRoutes.login);
+            }
             if (state is SucccessWatchedState) {
               controllerListMovies.value
                   .addAll(state.myListMoviesWatched.listMovies);
