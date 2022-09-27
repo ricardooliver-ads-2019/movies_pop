@@ -29,7 +29,13 @@ class WatchedCubitController extends Cubit<WatchedState> {
           emit(ErrorWatchedState(error: error));
         }
       }, (myListMoviesWatched) {
-        emit(SucccessWatchedState(myListMoviesWatched: myListMoviesWatched));
+        if (myListMoviesWatched.listMovies.isEmpty) {
+          emit(
+            ListIsEmptyWatchedState(myListMoviesWatched: myListMoviesWatched),
+          );
+        } else {
+          emit(SucccessWatchedState(myListMoviesWatched: myListMoviesWatched));
+        }
       });
     } else {
       emit(ErrorIdListNull());

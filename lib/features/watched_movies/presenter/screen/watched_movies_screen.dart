@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_pop/core/routes/app_routes.dart';
 import 'package:movies_pop/core/theme/app_text_styles.dart';
 import 'package:movies_pop/core/user_lists_watched_movies/details_list_watched_movies.dart';
+import 'package:movies_pop/core/utils/constants.dart';
 import 'package:movies_pop/features/shared/class/controller_list_movies.dart';
 import 'package:movies_pop/features/shared/widgets/card_movies.dart';
 import 'package:movies_pop/features/shared/widgets/snackBar/snackBar_sistem.dart';
@@ -64,6 +65,13 @@ class _WatchedMoviesScreenState extends State<WatchedMoviesScreen> {
             if (state is ErrorIdListNull) {
               Navigator.of(context).pushReplacementNamed(AppRoutes.login);
             }
+            if (state is ListIsEmptyWatchedState) {
+              const message = Constants.messageListaVazia;
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBarSistem().snackBarErrorGeneric(message),
+              );
+            }
+
             if (state is SucccessWatchedState) {
               controllerListMovies.value
                   .addAll(state.myListMoviesWatched.listMovies);
@@ -96,8 +104,9 @@ class _WatchedMoviesScreenState extends State<WatchedMoviesScreen> {
                       ? SizedBox(
                           width: mediaSize.width,
                           height: mediaSize.height,
-                          child:
-                              const Center(child: CircularProgressIndicator()),
+                          child: const Center(
+                            child: CircularProgressIndicator(),
+                          ),
                         )
                       : ValueListenableBuilder(
                           valueListenable: controllerListMovies,
@@ -107,9 +116,9 @@ class _WatchedMoviesScreenState extends State<WatchedMoviesScreen> {
                               child: Wrap(
                                 alignment: WrapAlignment.start,
                                 children: controllerListMovies.value
-                                    .map((m) => Container(
+                                    .map(
+                                      (m) => Container(
                                         margin: const EdgeInsets.all(10),
-                                        // color: Colors.green,
                                         height: 350,
                                         width: mediaSize.width * 0.40,
                                         constraints: const BoxConstraints(
@@ -118,41 +127,43 @@ class _WatchedMoviesScreenState extends State<WatchedMoviesScreen> {
                                         ),
                                         child: Stack(
                                           children: [
-                                            CardMovies(movie: m),
+                                            CardMovies(
+                                              movie: m,
+                                            ),
                                             Align(
                                               alignment: Alignment.topLeft,
                                               child: BlocProvider(
-                                                  create: (_) =>
-                                                      getItDependency.get<
-                                                          FabButtonCubitController>(),
-                                                  child: BlocBuilder<
-                                                          FabButtonCubitController,
-                                                          FabButtonState>(
-                                                      buildWhen: (previous,
-                                                              current) =>
+                                                create: (_) => getItDependency.get<
+                                                    FabButtonCubitController>(),
+                                                child: BlocBuilder<
+                                                    FabButtonCubitController,
+                                                    FabButtonState>(
+                                                  buildWhen:
+                                                      (previous, current) =>
                                                           previous != current,
-                                                      builder:
-                                                          (context, state) {
-                                                        return FabMenuButton(
-                                                          movieInListWatched:
-                                                              true,
-                                                          movieId: m.id,
-                                                          validarListWatched:
-                                                              (id) {
-                                                            controllerListMovies
-                                                                .removeItem(id);
-                                                          },
-                                                          urlImage:
-                                                              m.posterPath,
-                                                        );
-                                                      })),
+                                                  builder: (context, state) {
+                                                    return FabMenuButton(
+                                                      movieInListWatched: true,
+                                                      movieId: m.id,
+                                                      validarListWatched: (id) {
+                                                        controllerListMovies
+                                                            .removeItem(id);
+                                                      },
+                                                      urlImage: m.posterPath,
+                                                    );
+                                                  },
+                                                ),
+                                              ),
                                             ),
                                           ],
-                                        )))
+                                        ),
+                                      ),
+                                    )
                                     .toList(),
                               ),
                             );
-                          }),
+                          },
+                        ),
                 ),
               ),
             );

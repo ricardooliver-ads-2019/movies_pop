@@ -18,7 +18,7 @@ class WatchaedMoviesRepositoryImpl implements WatchaedMoviesRepository {
     final result = await _datasource.getListWatchedMovies(idList: idList);
     if (result is HttpClientResponseError) {
       if (result.statusCode == 0) {
-        return Left(GenericFailure(
+        return Left(ErrorNoConnection(
           error: result.data,
           message: result.statusMessage,
           statusCode: result.statusCode,
@@ -40,11 +40,11 @@ class WatchaedMoviesRepositoryImpl implements WatchaedMoviesRepository {
       ));
     }
 
-    if ((result.data == null) || (result.data['items'] as List).isEmpty) {
-      return const Left(GenericFailure(
+    if (result.data == null) {
+      return const Left(ErrorInvalidData(
         error: '',
-        message: 'Lista de filmes vazia',
-        statusCode: 000,
+        message: 'Dados não encontrados',
+        statusCode: 44,
       ));
     }
 
@@ -52,10 +52,10 @@ class WatchaedMoviesRepositoryImpl implements WatchaedMoviesRepository {
       final results = ListWatchedMoviesModel.fromJson(result.data);
       return Right(results);
     } catch (e) {
-      return const Left(GenericFailure(
+      return const Left(ErrorInvalidData(
         message: 'Erro de conversão',
         error: 'xxListWatchedMoviesxx',
-        statusCode: 800,
+        statusCode: 44,
       ));
     }
   }

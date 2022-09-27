@@ -20,6 +20,17 @@ class SucccessWatchedState extends WatchedState {
   List<Object?> get props => [myListMoviesWatched];
 }
 
+class ListIsEmptyWatchedState extends WatchedState {
+  final ListWatchedMoviesEntity myListMoviesWatched;
+
+  ListIsEmptyWatchedState({
+    required this.myListMoviesWatched,
+  });
+
+  @override
+  List<Object?> get props => [myListMoviesWatched];
+}
+
 class ErrorIdListNull extends WatchedState {}
 
 class ErrorWatchedState extends WatchedState {
