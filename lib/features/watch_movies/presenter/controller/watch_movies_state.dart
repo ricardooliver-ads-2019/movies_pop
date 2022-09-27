@@ -25,6 +25,14 @@ class SuccessWatchMoviesState extends WatchMoviesState {
   List<Object?> get props => [moviesPageEntipy];
 }
 
+class ListIsEmptyWatchMoviesState extends WatchMoviesState {
+  final MoviesPageEntipy moviesPageEntipy;
+  ListIsEmptyWatchMoviesState({required this.moviesPageEntipy});
+
+  @override
+  List<Object?> get props => [moviesPageEntipy];
+}
+
 class ErrorWatchMoviesState extends WatchMoviesState {
   final Failure error;
   ErrorWatchMoviesState({required this.error});

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_pop/core/dependencies/get_it/dependencies.dart';
 import 'package:movies_pop/core/theme/app_text_styles.dart';
+import 'package:movies_pop/core/utils/constants.dart';
 import 'package:movies_pop/features/shared/class/controller_list_movies.dart';
 import 'package:movies_pop/features/shared/entities/movie_entipy/movie_entipy.dart';
 import 'package:movies_pop/features/shared/widgets/card_movies.dart';
@@ -73,6 +74,17 @@ class _WatchMoviesScreenState extends State<WatchMoviesScreen> {
               totalPages = state.moviesPageEntipy.totalPages;
               controllerListMovies.value.addAll(state.moviesPageEntipy.movies);
               setState(() {});
+            }
+            if (state is ListIsEmptyWatchMoviesState) {
+              page = state.moviesPageEntipy.page;
+              totalPages = state.moviesPageEntipy.totalPages;
+              controllerListMovies.value.addAll(state.moviesPageEntipy.movies);
+              setState(() {
+                const message = Constants.messageListaVazia;
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBarSistem().snackBarErrorGeneric(message),
+                );
+              });
             }
             if (state is ErrorWatchMoviesState) {
               final message = state.error.message?.toString() ?? 'Error';

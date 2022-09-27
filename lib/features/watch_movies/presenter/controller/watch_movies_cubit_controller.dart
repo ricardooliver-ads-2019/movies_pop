@@ -13,7 +13,11 @@ class WatchMoviesCubitController extends Cubit<WatchMoviesState> {
     final result = await _usecase.call(page);
     result.fold((error) => emit(ErrorWatchMoviesState(error: error)),
         (watchMoviesPage) {
-      emit(SuccessWatchMoviesState(moviesPageEntipy: watchMoviesPage));
+      if (watchMoviesPage.movies.isEmpty) {
+        emit(ListIsEmptyWatchMoviesState(moviesPageEntipy: watchMoviesPage));
+      } else {
+        emit(SuccessWatchMoviesState(moviesPageEntipy: watchMoviesPage));
+      }
     });
   }
 }
