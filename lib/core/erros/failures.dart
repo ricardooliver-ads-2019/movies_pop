@@ -23,8 +23,32 @@ class GenericFailure extends Failure {
   }) : super(message: message, error: error, statusCode: statusCode);
 }
 
+class ErrorNoConnection extends Failure {
+  const ErrorNoConnection({
+    required String? message,
+    required dynamic error,
+    required int? statusCode,
+  }) : super(
+          message: message,
+          error: error,
+          statusCode: statusCode,
+        );
+}
+
 class UnauthorizedUser extends Failure {
   const UnauthorizedUser({
+    required String? message,
+    required dynamic error,
+    required int? statusCode,
+  }) : super(
+          message: message,
+          error: error,
+          statusCode: statusCode,
+        );
+}
+
+class ErrorInvalidData extends Failure {
+  const ErrorInvalidData({
     required String? message,
     required dynamic error,
     required int? statusCode,

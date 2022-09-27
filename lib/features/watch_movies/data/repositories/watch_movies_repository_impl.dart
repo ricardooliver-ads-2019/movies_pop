@@ -20,36 +20,55 @@ class WatchMoviesRepositoryImpl implements WatchMoviesRepository {
 
     if (result is HttpClientResponseError) {
       if (result.statusCode == 0) {
-        return Left(GenericFailure(
+        return Left(
+          ErrorNoConnection(
+            error: result.data,
+            message: result.statusMessage,
+            statusCode: result.statusCode,
+          ),
+        );
+      }
+
+      if (result.statusCode == 404) {
+        return Left(
+          ErrorNotFound(
+            error: result.data,
+            message: result.statusMessage,
+            statusCode: result.statusCode,
+          ),
+        );
+      }
+
+      return Left(
+        GenericFailure(
           error: result.data,
           message: result.statusMessage,
           statusCode: result.statusCode,
-        ));
-      }
-
-      return Left(GenericFailure(
-        error: result.data,
-        message: result.statusMessage,
-        statusCode: result.statusCode,
-      ));
+        ),
+      );
     }
 
-    if ((result.data == null) || (result.data['results'] as List).isEmpty) {
-      return const Left(GenericFailure(
-        error: '',
-        message: 'Lista de filmes vazia',
-        statusCode: 000,
-      ));
+    if (result.data == null) {
+      return const Left(
+        ErrorInvalidData(
+          error: '',
+          message: 'Dados não encontrados',
+          statusCode: 44,
+        ),
+      );
     }
 
     try {
       final results = MoviesPageModel.fromJson(result.data);
       return Right(results);
     } catch (e) {
-      return const Left(GenericFailure(
+      return const Left(
+        ErrorInvalidData(
           message: 'Erro de conversão',
           error: 'xxMoviePagexx',
-          statusCode: 500));
+          statusCode: 44,
+        ),
+      );
     }
   }
 }
