@@ -8,8 +8,8 @@ import 'package:movies_pop/features/watched_movies/data/datasources/watchaed_mov
 class MockHttpClient extends Mock implements HttpClient {}
 
 void main() {
-  late final WatchaedMoviesDatasource datasource;
-  late final HttpClient client;
+  late WatchaedMoviesDatasource datasource;
+  late HttpClient client;
 
   setUp(() {
     client = MockHttpClient();
@@ -18,7 +18,7 @@ void main() {
 
   const urlBase = 'https://api.themoviedb.org/3/list/5555';
 
-  Map<String, dynamic> tResponseRequestTokenGetWatchaedMovies = {
+  Map<String, dynamic> tResponseRequestGetWatchaedMovies = {
     "created_by": "travisbell",
     "description": "This is pretty wicked.",
     "favorite_count": 0,
@@ -50,7 +50,7 @@ void main() {
   };
 
   final respon = HttpClientResponseSuccess(
-    data: tResponseRequestTokenGetWatchaedMovies,
+    data: tResponseRequestGetWatchaedMovies,
     statusCode: 200,
     statusMessage: 'success',
   );

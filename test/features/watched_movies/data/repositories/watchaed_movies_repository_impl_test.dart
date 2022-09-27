@@ -89,6 +89,11 @@ void main() {
     listMovies: listMovieEntity,
   );
 
+  var listWatchedEmpty = const ListWatchedMoviesModel(
+    name: 'filmes_já_vistos',
+    listMovies: [],
+  );
+
   const Failure error =
       GenericFailure(message: 'Erro Genérico', error: 'error', statusCode: 401);
 
@@ -115,9 +120,9 @@ void main() {
         .thenAnswer((_) async => responseSuccessListEmpty);
 
     final result = await repository.getListWatchedMovies(idList: 55225);
-    final expectListWatched = result.fold((l) => l, (r) => null);
+    final responseListWatched = result.fold((l) => l, (r) => r);
 
-    expect(expectListWatched, errorListEmpty);
+    expect(responseListWatched, listWatchedEmpty);
 
     verify(() => datasource.getListWatchedMovies(idList: 55225)).called(1);
   });

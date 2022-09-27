@@ -14,8 +14,8 @@ class MockWatchMoviesDatasources extends Mock
     implements WatchMoviesDatasources {}
 
 void main() {
-  late final WatchMoviesDatasources datasources;
-  late final WatchMoviesRepository repository;
+  late WatchMoviesDatasources datasources;
+  late WatchMoviesRepository repository;
   setUp(() {
     datasources = MockWatchMoviesDatasources();
     repository = WatchMoviesRepositoryImpl(watchMoviesDatasources: datasources);

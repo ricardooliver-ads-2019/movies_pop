@@ -48,9 +48,7 @@ Future<void> main() async {
     );
 
     final result = await datasourcesImpl.getRequestToken();
-    print(result.data);
-    print(result.statusCode);
-    print(result.statusMessage);
+
     expect(
       result.data,
       tResponseRequestToken,
@@ -114,7 +112,7 @@ Future<void> main() async {
 
     final result = await datasourcesImpl.validateSessionId(
         requestToken: '039ad8a2ef1b5636a6bba3351a592a905c801392');
-    print(result.data);
+
     expect(result.data, tResponseSessionId);
 
     verify(

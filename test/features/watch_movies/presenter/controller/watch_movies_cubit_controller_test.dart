@@ -14,10 +14,10 @@ class MockGetListWatchMoviesUsecase extends Mock
     implements GetListWatchMoviesUsecase {}
 
 void main() {
-  late final GetListWatchMoviesUsecase usecase;
-  late final WatchMoviesCubitController cubitController;
+  late GetListWatchMoviesUsecase usecase;
+  late WatchMoviesCubitController cubitController;
 
-  setUp(() {
+  setUp(() async {
     usecase = MockGetListWatchMoviesUsecase();
     cubitController = WatchMoviesCubitController(usecase: usecase);
   });
@@ -36,49 +36,55 @@ void main() {
   final pageMoviesListEmpty =
       MoviesPageModel.fromJson(mockPageMovieWithListMoviesIsEmpty);
 
-  blocTest<WatchMoviesCubitController, WatchMoviesState>(
-    'Deve retornar um caso de SuccessWatchMoviesState ...',
-    build: () {
-      when(() => usecase.call(page)).thenAnswer((_) async => Right(pageMovies));
-      return cubitController;
-    },
-    act: (cubitController) async {
-      await cubitController.getListWatchMovies(page: page);
-    },
-    expect: () => [
-      LoadingWatchMoviesState(),
-      SuccessWatchMoviesState(moviesPageEntipy: pageMovies),
-    ],
-  );
+  tearDown(() => cubitController.close());
 
-  blocTest<WatchMoviesCubitController, WatchMoviesState>(
-    'Deve retornar um caso de ListIsEmptyWatchMoviesState ...',
-    build: () {
-      when(() => usecase.call(page))
-          .thenAnswer((_) async => Right(pageMoviesListEmpty));
-      return cubitController;
-    },
-    act: (cubitController) async {
-      await cubitController.getListWatchMovies(page: page);
-    },
-    expect: () => [
-      LoadingWatchMoviesState(),
-      ListIsEmptyWatchMoviesState(moviesPageEntipy: pageMoviesListEmpty),
-    ],
-  );
+  group('Testando o WatchMoviesCubitController ', () {
+    blocTest<WatchMoviesCubitController, WatchMoviesState>(
+      'Deve retornar um caso de SuccessWatchMoviesState ...',
+      build: () {
+        when(() => usecase.call(page))
+            .thenAnswer((_) async => Right(pageMovies));
+        return cubitController;
+      },
+      act: (cubitController) async {
+        await cubitController.getListWatchMovies(page: page);
+      },
+      expect: () => [
+        LoadingWatchMoviesState(),
+        SuccessWatchMoviesState(moviesPageEntipy: pageMovies),
+      ],
+    );
 
-  blocTest<WatchMoviesCubitController, WatchMoviesState>(
-    'Deve retornar um caso de ErrorWatchMoviesState ...',
-    build: () {
-      when(() => usecase.call(page)).thenAnswer((_) async => const Left(error));
-      return cubitController;
-    },
-    act: (cubitController) async {
-      await cubitController.getListWatchMovies(page: page);
-    },
-    expect: () => [
-      LoadingWatchMoviesState(),
-      ErrorWatchMoviesState(error: error),
-    ],
-  );
+    blocTest<WatchMoviesCubitController, WatchMoviesState>(
+      'Deve retornar um caso de ListIsEmptyWatchMoviesState ...',
+      build: () {
+        when(() => usecase.call(page))
+            .thenAnswer((_) async => Right(pageMoviesListEmpty));
+        return cubitController;
+      },
+      act: (cubitController) async {
+        await cubitController.getListWatchMovies(page: page);
+      },
+      expect: () => [
+        LoadingWatchMoviesState(),
+        ListIsEmptyWatchMoviesState(moviesPageEntipy: pageMoviesListEmpty),
+      ],
+    );
+
+    blocTest<WatchMoviesCubitController, WatchMoviesState>(
+      'Deve retornar um caso de ErrorWatchMoviesState ...',
+      build: () {
+        when(() => usecase.call(page))
+            .thenAnswer((_) async => const Left(error));
+        return cubitController;
+      },
+      act: (cubitController) async {
+        await cubitController.getListWatchMovies(page: page);
+      },
+      expect: () => [
+        LoadingWatchMoviesState(),
+        ErrorWatchMoviesState(error: error),
+      ],
+    );
+  });
 }
