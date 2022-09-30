@@ -202,7 +202,6 @@ Future<void> getItDependencies() async {
           getItDependency<ValidateTokenWithLoginUsecase>(),
       validateSessionIdUsecase: getItDependency<ValidateSessionIdUsecase>(),
       getDetailsAccountUsecase: getItDependency<GetDetailsAccountUsecase>(),
-      detailsListWatchedMovies: getItDependency<DetailsListWatchedMovies>(),
     ),
   );
 

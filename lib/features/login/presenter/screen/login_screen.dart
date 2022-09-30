@@ -135,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen>
                         children: [
                           ButtonLogin(
                             functionLogin: () {
-                              _controller.validateTokenWithLoginUsecase(
+                              _controller.validateTokenWithLogin(
                                 login: login,
                                 password: password,
                               );
