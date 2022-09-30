@@ -603,7 +603,7 @@ packages:
   test_api:
     dependency: transitive
     description:
-      name: test_api
+      name: test
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.9"
