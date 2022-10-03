@@ -70,7 +70,7 @@ class CardDetails extends StatelessWidget {
                 const SizedBox(
                   height: 5,
                 ),
-                StarFilmRating(value: movie.stars),
+                StarFilmRating(value: movie.stars / 2),
                 Container(
                     width: mediaSize.width * 0.5,
                     constraints: const BoxConstraints(maxWidth: 150),

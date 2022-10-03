@@ -12,13 +12,21 @@ List<Widget> generateStars(double value, Color color, double size) {
   Icon? halfStar;
 
   var quantStarsCheias = value ~/ 1;
-
-  if (value % 1 != 0) {
-    halfStar = Icon(
-      Icons.star_half_outlined,
-      color: color,
-      size: size,
-    );
+  var test = value % 1;
+  if (test != 0) {
+    if (test > 0.099) {
+      halfStar = Icon(
+        Icons.star_half_outlined,
+        color: color,
+        size: size,
+      );
+    } else {
+      halfStar = Icon(
+        Icons.star_outline,
+        color: color,
+        size: size,
+      );
+    }
   }
 
   var quantStarsVazias = (5 - value).floor();
