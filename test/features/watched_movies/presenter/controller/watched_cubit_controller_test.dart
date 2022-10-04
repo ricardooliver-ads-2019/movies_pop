@@ -63,6 +63,8 @@ void main() {
     );
   });
 
+  tearDown(() => cubitController.close());
+
   blocTest<WatchedCubitController, WatchedState>(
     'Deve retornar um estado de SucccessWatchedState',
     build: () {
