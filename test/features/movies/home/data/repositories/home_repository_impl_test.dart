@@ -78,8 +78,11 @@ void main() {
     // Assert
     expect(
         moviesReturn,
-        const GenericFailure(
-            error: 'Error', statusCode: 0, message: 'no conection'));
+        const ErrorNoConnection(
+          error: 'Error',
+          statusCode: 0,
+          message: 'no conection',
+        ));
     verify(() => datasource.getMoviesPlayingInBrazilNow(page: page)).called(1);
   });
 
@@ -127,33 +130,13 @@ void main() {
     final moviesReturn = result.fold((l) => l, ((r) => null));
     // Assert
     expect(
-        moviesReturn,
-        const GenericFailure(
-          error: 'Lista de filmes vazia',
-          message: 'Erro ao buscar lista de filmes',
-          statusCode: 54,
-        ));
-  });
-
-  test('deve obter uma falha de lista de filmes vazia', () async {
-    // Arrange
-    when(() => datasource.getMoviesPlayingInBrazilNow(page: page))
-        .thenAnswer((_) async => HttpClientResponseSuccess(
-              data: mockPageMovieWithListMoviesIsEmpty,
-              statusCode: 200,
-              statusMessage: 'Success',
-            ));
-    // Act
-    final result = await repositoryImpl.getMoviesPlayingInBrazilNow(page: page);
-    final moviesReturn = result.fold((l) => l, ((r) => null));
-    // Assert
-    expect(
-        moviesReturn,
-        const GenericFailure(
-          error: 'Lista de filmes vazia',
-          message: 'Erro ao buscar lista de filmes',
-          statusCode: 54,
-        ));
+      moviesReturn,
+      const ErrorInvalidData(
+        message: 'Dados não encontrados',
+        error: '',
+        statusCode: 44,
+      ),
+    );
   });
 
   test('deve obter uma falha conversão de contrato no MoviesPage', () async {
@@ -170,34 +153,14 @@ void main() {
 
     // Assert
     expect(
-        moviesReturn,
-        const GenericFailure(
-          message: 'Erro de conversão',
-          error: 'xxMoviePagexx',
-          statusCode: 500,
-        ));
+      moviesReturn,
+      const ErrorInvalidData(
+        message: 'Dados não encontrados',
+        error: 'Falha de Conversão nos dados recebidos',
+        statusCode: 44,
+      ),
+    );
   });
-
-  // test('deve obter uma falha conversão de contrato no Movies', () async {
-  //   // Arrange
-  //   when(() => datasource.getMoviesPlayingInBrazilNow(page: page))
-  //       .thenAnswer((_) async => HttpClientResponseSuccess(
-  //             data: mockPageMovieWithContractMovieInvaled,
-  //             statusCode: 200,
-  //             statusMessage: 'Success',
-  //           ));
-  //   // Act
-  //   final result = await repositoryImpl.getMoviesPlayingInBrazilNow(page: page);
-  //   final moviesReturn = result.fold((l) => l, ((r) => null));
-  //   // Assert
-  //   expect(
-  //       moviesReturn,
-  //       const GenericFailure(
-  //         message: 'Erro de conversão nos filmes',
-  //         error: 'XXFilmeXX',
-  //         statusCode: 500,
-  //       ));
-  // });
 
   //==============================================================
 
@@ -225,9 +188,13 @@ void main() {
     final returnRenponse = result.fold((l) => l, (r) => r);
 
     expect(
-        returnRenponse,
-        const GenericFailure(
-            message: 'no conection', error: '', statusCode: 0));
+      returnRenponse,
+      const ErrorNoConnection(
+        message: 'no conection',
+        error: '',
+        statusCode: 0,
+      ),
+    );
   });
 
   test('deve obter uma lista de moledo de filmes', () async {
@@ -274,33 +241,13 @@ void main() {
     final moviesReturn = result.fold((l) => l, ((r) => null));
     // Assert
     expect(
-        moviesReturn,
-        const GenericFailure(
-          error: 'Lista de filmes vazia',
-          message: 'Erro ao buscar lista de filmes',
-          statusCode: 000,
-        ));
-  });
-
-  test('deve obter uma falha de lista de filmes vazia', () async {
-    // Arrange
-    when(() => datasource.getMoviesPopular(page: page))
-        .thenAnswer((_) async => HttpClientResponseSuccess(
-              data: mockPageMovieWithListMoviesIsEmpty,
-              statusCode: 200,
-              statusMessage: 'Success',
-            ));
-    // Act
-    final result = await repositoryImpl.getMoviesPopular(page: page);
-    final moviesReturn = result.fold((l) => l, ((r) => null));
-    // Assert
-    expect(
-        moviesReturn,
-        const GenericFailure(
-          error: 'Lista de filmes vazia',
-          message: 'Erro ao buscar lista de filmes',
-          statusCode: 000,
-        ));
+      moviesReturn,
+      const ErrorInvalidData(
+        message: 'Dados não encontrados',
+        error: 'Falha de Conversão nos dados recebidos',
+        statusCode: 44,
+      ),
+    );
   });
 
   test('deve obter uma falha conversão de contrato no MoviesPage', () async {
@@ -316,12 +263,13 @@ void main() {
     final moviesReturn = result.fold((l) => l, ((r) => null));
     // Assert
     expect(
-        moviesReturn,
-        const GenericFailure(
-          message: 'Erro de conversão',
-          error: 'xxMoviePagexx',
-          statusCode: 500,
-        ));
+      moviesReturn,
+      const ErrorInvalidData(
+        message: 'Dados não encontrados',
+        error: 'Falha de Conversão nos dados recebidos',
+        statusCode: 44,
+      ),
+    );
   });
 
   test('deve obter MyListsMoviesEntity ...', () async {

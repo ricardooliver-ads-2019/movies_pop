@@ -27,11 +27,11 @@ class HomeCubitController extends Cubit<HomeState> {
       result.fold((erro) => emit(ErrorHomeState(error: erro)), (lists) {
         if (lists.myLists.isNotEmpty) {
           for (var list in lists.myLists) {
-            print(list.name);
             if (list.name == 'filmes_já_vistos') {
               myList = list;
               _detailsListWatchedMovies.saveIdListWatchMovies(idList: list.id);
               _detailsListWatchedMovies.init();
+              emit(SuccessHomeState());
               break;
             }
           }
@@ -52,6 +52,7 @@ class HomeCubitController extends Cubit<HomeState> {
       _detailsListWatchedMovies.saveIdListWatchMovies(
           idList: listId.idListWatchedMovies);
       _detailsListWatchedMovies.init();
+      emit(SuccessHomeState());
     });
   }
 }
