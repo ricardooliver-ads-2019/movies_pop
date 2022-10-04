@@ -42,7 +42,7 @@ class WatchaedMoviesRepositoryImpl implements WatchaedMoviesRepository {
 
     if (result.data == null) {
       return const Left(ErrorInvalidData(
-        error: '',
+        error: 'Falha de Conversão nos dados recebidos',
         message: 'Dados não encontrados',
         statusCode: 44,
       ));
