@@ -131,7 +131,9 @@ class _CardButtonsState extends State<CardButtons> {
         }
       },
       builder: (context, state) {
-        filmIsRated.value = (rated is double ? true : false);
+        filmIsRated.value = filmIsRated.value
+            ? filmIsRated.value
+            : (rated is double ? true : false);
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [

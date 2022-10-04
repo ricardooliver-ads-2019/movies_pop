@@ -43,7 +43,7 @@ void main() {
   late Failure error;
 
   setUp(() {
-    authSession = AuthSession();
+    authSession = MockAuthSession();
     validateTokenWithLoginUsecase = MockValidateTokenWithLoginUsecase();
     validateSessionIdUsecase = MockValidateSessionIdUsecase();
     getRequestTokenusecase = MockGetRequestTokenUsecase();
@@ -72,6 +72,8 @@ void main() {
     );
   });
 
+  tearDown(() => cubitController.close());
+
   blocTest<LoginCubitController, LoginState>(
     ' Deve retonar um estado de sucesso ...',
     build: () {
@@ -97,13 +99,20 @@ void main() {
               sessionId: sessionIdEntity.sessionId))
           .thenAnswer((_) async => Right(detailsAccount));
 
-      when(() =>
-          authSession.saveDetailsAccount(username: 'logintest', id: 123456));
+      when(() => authSession.saveDetailsAccount(
+          username: any(named: 'username'),
+          id: any(named: 'id'))).thenAnswer((_) async => Future.value());
+
+      when(() => authSession.saveSessionId(
+              sessionId: '039ad8a2ef1b5636a6bba3351a592a905c801392'))
+          .thenAnswer((_) async => Future.value());
+
+      when(() => authSession.init()).thenAnswer((_) async => Future.value());
 
       return cubitController;
     },
     act: (cubitController) async {
-      final result = await cubitController.validateTokenWithLogin(
+      await cubitController.validateTokenWithLogin(
         login: 'logintest',
         password: 'abc123456',
       );

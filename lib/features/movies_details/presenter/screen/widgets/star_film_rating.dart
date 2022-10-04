@@ -21,7 +21,7 @@ class StarFilmRating extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 5),
                 child: Text(
-                  (value / 2).toStringAsFixed(1),
+                  (value).toStringAsFixed(1),
                   style: AppTextStyles.ratingMovieDetails,
                 ),
               ),

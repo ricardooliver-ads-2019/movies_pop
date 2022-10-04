@@ -41,9 +41,9 @@ class DioClient implements HttpClient {
     return HttpClientResponseError(
       data: null,
       statusCode: 0,
-      statusMessage: 'no connection',
+      statusMessage: 'Sem conexão de internet',
       response: HttpClientResponse(
-          data: null, statusCode: 0, statusMessage: 'no connection'),
+          data: null, statusCode: 0, statusMessage: 'Sem conexão de internet'),
     );
   }
 
@@ -68,9 +68,9 @@ class DioClient implements HttpClient {
     return HttpClientResponseError(
       data: null,
       statusCode: 0,
-      statusMessage: 'no connection',
+      statusMessage: 'Sem conexão de internet',
       response: HttpClientResponse(
-          data: null, statusCode: 0, statusMessage: 'no connection'),
+          data: null, statusCode: 0, statusMessage: 'Sem conexão de internet'),
     );
   }
 
@@ -97,9 +97,9 @@ class DioClient implements HttpClient {
     return HttpClientResponseError(
       data: null,
       statusCode: 0,
-      statusMessage: 'no connection',
+      statusMessage: 'Sem conexão de internet',
       response: HttpClientResponse(
-          data: null, statusCode: 0, statusMessage: 'no connection'),
+          data: null, statusCode: 0, statusMessage: 'Sem conexão de internet'),
     );
   }
 
@@ -124,9 +124,9 @@ class DioClient implements HttpClient {
     return HttpClientResponseError(
       data: null,
       statusCode: 0,
-      statusMessage: 'no connection',
+      statusMessage: 'Sem conexão de internet',
       response: HttpClientResponse(
-          data: null, statusCode: 0, statusMessage: 'no connection'),
+          data: null, statusCode: 0, statusMessage: 'Sem conexão de internet'),
     );
   }
 
@@ -153,11 +153,11 @@ class DioClient implements HttpClient {
     return HttpClientResponseError(
       data: null,
       statusCode: 0,
-      statusMessage: 'no connection',
+      statusMessage: 'Sem conexão de internet',
       response: HttpClientResponse(
         data: null,
         statusCode: 0,
-        statusMessage: 'no connection',
+        statusMessage: 'Sem conexão de internet',
       ),
     );
   }
@@ -184,9 +184,9 @@ class DioClient implements HttpClient {
     return HttpClientResponseError(
       data: null,
       statusCode: 0,
-      statusMessage: 'no connection',
+      statusMessage: 'Sem conexão de internet',
       response: HttpClientResponse(
-          data: null, statusCode: 0, statusMessage: 'no connection'),
+          data: null, statusCode: 0, statusMessage: 'Sem conexão de internet'),
     );
   }
 
