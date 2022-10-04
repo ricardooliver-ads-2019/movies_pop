@@ -56,7 +56,7 @@ class LoginCubitController extends Cubit<LoginState> {
       emit(Error(error: error));
     }, (sessionId) {
       _authSession.saveSessionId(sessionId: sessionId.sessionId);
-      _authSession.sessionId = sessionId.sessionId;
+
       emit(SessionIdSuccess(sessionId: sessionId));
       getDetailsAccount(sessionId: sessionId.sessionId);
     });
@@ -68,11 +68,9 @@ class LoginCubitController extends Cubit<LoginState> {
     result.fold((error) {
       emit(Error(error: error));
     }, (detailsAccount) {
+      emit(LoginSuccess(detailsAccount: detailsAccount));
       _authSession.saveDetailsAccount(
           username: detailsAccount.username, id: detailsAccount.id);
-      _authSession.username = detailsAccount.username;
-      _authSession.id = detailsAccount.id;
-      emit(LoginSuccess(detailsAccount: detailsAccount));
     });
   }
 }
