@@ -26,6 +26,13 @@ class MovieDetailsRepositoryImpl implements MovieDetailsRepository {
           statusCode: result.statusCode,
         ));
       }
+      if (result.statusCode == 404) {
+        return Left(ErrorNotFound(
+          error: result.data,
+          message: result.statusMessage,
+          statusCode: result.statusCode,
+        ));
+      }
       return Left(GenericFailure(
         error: result.data,
         message: result.statusMessage,
@@ -37,10 +44,11 @@ class MovieDetailsRepositoryImpl implements MovieDetailsRepository {
       final results = MovieDetailsModel.fromMap(result.data);
       return Right(results);
     } catch (e) {
-      return const Left(GenericFailure(
-          message: 'Erro de conversão',
-          error: 'xxMovieDetailsxx',
-          statusCode: 500));
+      return const Left(ErrorInvalidData(
+        error: 'Falha de Conversão nos dados recebidos',
+        message: 'Dados não encontrados',
+        statusCode: 44,
+      ));
     }
   }
 }
