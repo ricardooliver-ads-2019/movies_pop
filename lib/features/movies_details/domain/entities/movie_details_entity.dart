@@ -1,7 +1,8 @@
+import 'package:equatable/equatable.dart';
 import 'package:movies_pop/features/movies_details/domain/entities/genre_entity.dart';
 import 'package:movies_pop/features/movies_details/domain/entities/trailer_movie_entity.dart';
 
-class MovieDetailsEntity {
+class MovieDetailsEntity extends Equatable {
   final int id;
   final String title;
   final String? posterPath;
@@ -28,6 +29,7 @@ class MovieDetailsEntity {
     required this.trailers,
   });
 
+  @override
   List<Object?> get props => [
         id,
         title,
