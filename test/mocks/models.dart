@@ -6,6 +6,224 @@ const movieMock = '''{
 "release_date": "2022-03-04"
 }''';
 
+const movieDetailsMock = {
+  "adult": false,
+  "backdrop_path": "/sO2VWeJ8qagNtYoznyLRL8TeSkw.jpg",
+  "belongs_to_collection": {
+    "id": 1241,
+    "name": "Harry Potter: Coleção",
+    "poster_path": "/2CTBoD2ToqlyH375VfMSBIyQGhR.jpg",
+    "backdrop_path": "/4gV0rKUjB1nLUdZB4zIltLvNZZr.jpg"
+  },
+  "budget": 150000000,
+  "genres": [
+    {"id": 12, "name": "Aventura"},
+    {"id": 14, "name": "Fantasia"},
+    {"id": 9648, "name": "Mistério"}
+  ],
+  "homepage":
+      "https://www.wizardingworld.com/discover/films/harry-potter-and-the-order-of-the-phoenix",
+  "id": 675,
+  "imdb_id": "tt0373889",
+  "original_language": "en",
+  "original_title": "Harry Potter and the Order of the Phoenix",
+  "overview":
+      "A rebelião começa! Lord Voldemort está de volta, mas o Ministério da Magia está fazendo tudo a seu alcance para impedir que a comunidade mundial de bruxos descubra isso – incluindo indicar a oficial do Ministério, Dolores Umbridge, como a nova professora de Defesa Contra as Artes das Trevas de Hogwarts. Quando Umbridge se recusa a ensinar a prática de mágica defensiva, Rony e Hermione convencem Harry a secretamente treinar um grupo de estudantes para a guerra de magia que está prestes a estourar. Um terrível combate entre o bem e o mal será o incrível ápice desta versão para o quinto filme da série Harry Potter, mais uma vez baseado na obra de J.K. Rowling. Se prepare para a batalha!",
+  "popularity": 179.484,
+  "poster_path": "/tIf9aUyNljda9MG1pjlOLHCZ3b0.jpg",
+  "production_companies": [
+    {
+      "id": 174,
+      "logo_path": "/IuAlhI9eVC9Z8UQWOIDdWRKSEJ.png",
+      "name": "Warner Bros. Pictures",
+      "origin_country": "US"
+    },
+    {
+      "id": 437,
+      "logo_path": "/nu20mtwbEIhUNnQ5NXVhHsNknZj.png",
+      "name": "Heyday Films",
+      "origin_country": "GB"
+    }
+  ],
+  "production_countries": [
+    {"iso_3166_1": "GB", "name": "United Kingdom"},
+    {"iso_3166_1": "US", "name": "United States of America"}
+  ],
+  "release_date": "2007-06-28",
+  "revenue": 938212738,
+  "runtime": 138,
+  "spoken_languages": [
+    {"english_name": "English", "iso_639_1": "en", "name": "English"}
+  ],
+  "status": "Released",
+  "tagline": "",
+  "title": "Harry Potter e a Ordem da Fênix",
+  "video": false,
+  "vote_average": 7.691,
+  "vote_count": 16812,
+  "images": {
+    "backdrops": [
+      {
+        "aspect_ratio": 1.778,
+        "height": 720,
+        "iso_639_1": "en",
+        "file_path": "/ynNhY4ahMVdcSwtox0xu4FJYOgv.jpg",
+        "vote_average": 5.172,
+        "vote_count": 1,
+        "width": 1280
+      },
+      {
+        "aspect_ratio": 1.778,
+        "height": 1080,
+        "iso_639_1": "en",
+        "file_path": "/fn0xj4jsT7EY2kJtKeFmYubPFys.jpg",
+        "vote_average": 0.0,
+        "vote_count": 0,
+        "width": 1920
+      }
+    ],
+    "logos": [
+      {
+        "aspect_ratio": 2.14,
+        "height": 293,
+        "iso_639_1": "en",
+        "file_path": "/dzW5HE8NDBq5vh2HS5lnZCBeHIZ.png",
+        "vote_average": 0.0,
+        "vote_count": 0,
+        "width": 627
+      },
+      {
+        "aspect_ratio": 2.171,
+        "height": 636,
+        "iso_639_1": "en",
+        "file_path": "/oNi3hYWJLiauhXGFWRf2stMBDou.png",
+        "vote_average": 0.0,
+        "vote_count": 0,
+        "width": 1381
+      },
+      {
+        "aspect_ratio": 2.553,
+        "height": 705,
+        "iso_639_1": "en",
+        "file_path": "/ahATBnNM9GwdCLqCrtnUp3EmCOT.png",
+        "vote_average": 0.0,
+        "vote_count": 0,
+        "width": 1800
+      }
+    ],
+    "posters": [
+      {
+        "aspect_ratio": 0.667,
+        "height": 3000,
+        "iso_639_1": "en",
+        "file_path": "/nz53JpTTu3Qcn8QWNS0Kbugduw2.jpg",
+        "vote_average": 0.0,
+        "vote_count": 0,
+        "width": 2000
+      }
+    ]
+  },
+  "credits": {
+    "cast": [
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 2208934,
+        "known_for_department": "Crew",
+        "name": "Mark Archer",
+        "original_name": "Mark Archer",
+        "popularity": 0.828,
+        "profile_path": null,
+        "credit_id": "5f39ab51c8f3c40037dc4f46",
+        "department": "Crew",
+        "job": "Stunts"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 2390085,
+        "known_for_department": "Visual Effects",
+        "name": "John Richardson",
+        "original_name": "John Richardson",
+        "popularity": 0.6,
+        "profile_path": null,
+        "credit_id": "619ef7229c97bd00649a10b5",
+        "department": "Visual Effects",
+        "job": "Special Effects Supervisor"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 2568649,
+        "known_for_department": "Acting",
+        "name": "José Granell",
+        "original_name": "José Granell",
+        "popularity": 0.6,
+        "profile_path": null,
+        "credit_id": "619ef7debc2cb3002cc25220",
+        "department": "Visual Effects",
+        "job": "Modelling Supervisor"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 2744578,
+        "known_for_department": "Crew",
+        "name": "Gabrielle Fritz",
+        "original_name": "Gabrielle Fritz",
+        "popularity": 0.731,
+        "profile_path": null,
+        "credit_id": "5f39aa59519bbb003473e360",
+        "department": "Crew",
+        "job": "Stunt Double"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 3323748,
+        "known_for_department": "Art",
+        "name": "Martin Schadler",
+        "original_name": "Martin Schadler",
+        "popularity": 0.6,
+        "profile_path": null,
+        "credit_id": "619efd031283e900887ff8dc",
+        "department": "Art",
+        "job": "Art Direction"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 3323749,
+        "known_for_department": "Sound",
+        "name": "Jethro Loughran",
+        "original_name": "Jethro Loughran",
+        "popularity": 0.6,
+        "profile_path": null,
+        "credit_id": "619efdc166362700448d1dbd",
+        "department": "Sound",
+        "job": "Sound Effects Editor"
+      }
+    ]
+  },
+  "videos": {
+    "results": [
+      {
+        "iso_639_1": "pt",
+        "iso_3166_1": "BR",
+        "name":
+            "Trailer de \"Harry Potter e a Ordem da Fênix\" (2007) [legendado em HD]",
+        "key": "Tbv2Al6LGW8",
+        "site": "YouTube",
+        "size": 1080,
+        "type": "Trailer",
+        "official": false,
+        "published_at": "2013-01-11T20:48:23.000Z",
+        "id": "5e572da3f48b340015781242"
+      }
+    ]
+  }
+};
+
 const mockPageMovie = {
   "dates": {"maximum": "2022-07-20", "minimum": "2022-06-02"},
   "page": 1,
