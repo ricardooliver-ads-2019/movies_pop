@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_pop/core/dependencies/get_it/dependencies.dart';
-import 'package:movies_pop/core/shared_features/rate_movies/presenter/bottom_sheet_rate_movie.dart';
-import 'package:movies_pop/core/shared_features/rate_movies/presenter/controller/bottom_sheet_rate_movie_cubit_controller.dart';
 import 'package:movies_pop/features/movies_details/presenter/screen/widgets/action_button.dart';
 import 'package:movies_pop/features/movies_details/presenter/screen/widgets/card_details/card_buttons/controller/card_Buttons_cubit_controller.dart';
 import 'package:movies_pop/features/movies_details/presenter/screen/widgets/card_details/card_buttons/controller/card_buttons_state.dart';
+import 'package:movies_pop/features/shared/shared_features/rate_movies/presenter/bottom_sheet_rate_movie.dart';
+import 'package:movies_pop/features/shared/shared_features/rate_movies/presenter/controller/bottom_sheet_rate_movie_cubit_controller.dart';
 import 'package:movies_pop/features/shared/widgets/snackBar/snackBar_sistem.dart';
 
 class CardButtons extends StatefulWidget {

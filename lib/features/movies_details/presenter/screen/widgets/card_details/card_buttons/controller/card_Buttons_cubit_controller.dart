@@ -1,13 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_pop/core/shared_features/status_movies/domain/entities/check_movie_In_my_list_watched_moviesEntity.dart';
-import 'package:movies_pop/core/shared_features/status_movies/domain/entities/movie_status_entity.dart';
-import 'package:movies_pop/core/shared_features/status_movies/domain/usecase/add_movie_to_watch_movies_list_usecase.dart';
-import 'package:movies_pop/core/shared_features/status_movies/domain/usecase/add_movie_to_watched_movies_list_usecase.dart';
-import 'package:movies_pop/core/shared_features/status_movies/domain/usecase/check_movie_in_my_list_watched_movies_usecase.dart';
-import 'package:movies_pop/core/shared_features/status_movies/domain/usecase/get_status_movies_usecase.dart';
-import 'package:movies_pop/core/shared_features/status_movies/domain/usecase/remove_movie_to_watch_movies_list_usecase.dart';
-import 'package:movies_pop/core/shared_features/status_movies/domain/usecase/remove_movie_to_watched_movies_list_usecase.dart';
 import 'package:movies_pop/features/movies_details/presenter/screen/widgets/card_details/card_buttons/controller/card_buttons_state.dart';
+import 'package:movies_pop/features/shared/shared_features/status_movies/domain/entities/check_movie_In_my_list_watched_moviesEntity.dart';
+import 'package:movies_pop/features/shared/shared_features/status_movies/domain/entities/movie_status_entity.dart';
+import 'package:movies_pop/features/shared/shared_features/status_movies/domain/usecase/add_movie_to_watch_movies_list_usecase.dart';
+import 'package:movies_pop/features/shared/shared_features/status_movies/domain/usecase/add_movie_to_watched_movies_list_usecase.dart';
+import 'package:movies_pop/features/shared/shared_features/status_movies/domain/usecase/check_movie_in_my_list_watched_movies_usecase.dart';
+import 'package:movies_pop/features/shared/shared_features/status_movies/domain/usecase/get_status_movies_usecase.dart';
+import 'package:movies_pop/features/shared/shared_features/status_movies/domain/usecase/remove_movie_to_watch_movies_list_usecase.dart';
+import 'package:movies_pop/features/shared/shared_features/status_movies/domain/usecase/remove_movie_to_watched_movies_list_usecase.dart';
 
 class CardButtonsCubitController extends Cubit<CardButtonsState> {
   final GetStatusMoviesUsecase _getStatusMoviesUsecase;

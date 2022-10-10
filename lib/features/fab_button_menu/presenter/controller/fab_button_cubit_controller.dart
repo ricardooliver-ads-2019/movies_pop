@@ -1,12 +1,12 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_pop/features/fab_button_menu/presenter/controller/fab_button_state.dart';
 
-import '../../../../core/shared_features/status_movies/domain/usecase/add_movie_to_watch_movies_list_usecase.dart';
-import '../../../../core/shared_features/status_movies/domain/usecase/add_movie_to_watched_movies_list_usecase.dart';
-import '../../../../core/shared_features/status_movies/domain/usecase/check_movie_in_my_list_watched_movies_usecase.dart';
-import '../../../../core/shared_features/status_movies/domain/usecase/get_status_movies_usecase.dart';
-import '../../../../core/shared_features/status_movies/domain/usecase/remove_movie_to_watch_movies_list_usecase.dart';
-import '../../../../core/shared_features/status_movies/domain/usecase/remove_movie_to_watched_movies_list_usecase.dart';
+import '../../../shared/shared_features/status_movies/domain/usecase/add_movie_to_watch_movies_list_usecase.dart';
+import '../../../shared/shared_features/status_movies/domain/usecase/add_movie_to_watched_movies_list_usecase.dart';
+import '../../../shared/shared_features/status_movies/domain/usecase/check_movie_in_my_list_watched_movies_usecase.dart';
+import '../../../shared/shared_features/status_movies/domain/usecase/get_status_movies_usecase.dart';
+import '../../../shared/shared_features/status_movies/domain/usecase/remove_movie_to_watch_movies_list_usecase.dart';
+import '../../../shared/shared_features/status_movies/domain/usecase/remove_movie_to_watched_movies_list_usecase.dart';
 
 class FabButtonCubitController extends Cubit<FabButtonState> {
   final GetStatusMoviesUsecase _getStatusMoviesUsecase;

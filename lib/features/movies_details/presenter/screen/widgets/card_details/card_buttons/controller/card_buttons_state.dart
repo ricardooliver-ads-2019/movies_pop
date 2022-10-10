@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:movies_pop/core/erros/failures.dart';
-import 'package:movies_pop/core/shared_features/status_movies/domain/entities/check_movie_In_my_list_watched_moviesEntity.dart';
-import 'package:movies_pop/core/shared_features/status_movies/domain/entities/movie_status_entity.dart';
+import 'package:movies_pop/features/shared/shared_features/status_movies/domain/entities/check_movie_In_my_list_watched_moviesEntity.dart';
+import 'package:movies_pop/features/shared/shared_features/status_movies/domain/entities/movie_status_entity.dart';
 
 class CardButtonsState extends Equatable {
   @override

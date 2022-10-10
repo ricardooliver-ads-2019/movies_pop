@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies_pop/core/theme/app_colors.dart';
 import 'package:movies_pop/core/theme/app_text_styles.dart';
 import 'package:movies_pop/features/movies_details/domain/entities/trailer_movie_entity.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -77,7 +78,7 @@ class _CardTrailerMovieState extends State<CardTrailerMovie> {
                         player: YoutubePlayer(
                           controller: _controller,
                           showVideoProgressIndicator: true,
-                          progressIndicatorColor: Colors.blue,
+                          progressIndicatorColor: AppColors.secondary,
                         ),
                         builder: (context, player) {
                           return player;

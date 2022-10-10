@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_pop/core/dependencies/get_it/dependencies.dart';
-import 'package:movies_pop/core/shared_features/rate_movies/presenter/bottom_sheet_rate_movie.dart';
-import 'package:movies_pop/core/shared_features/rate_movies/presenter/controller/bottom_sheet_rate_movie_cubit_controller.dart';
 import 'package:movies_pop/core/theme/app_colors.dart';
 import 'package:movies_pop/features/fab_button_menu/presenter/controller/fab_button_cubit_controller.dart';
 import 'package:movies_pop/features/fab_button_menu/presenter/controller/fab_button_state.dart';
 import 'package:movies_pop/features/fab_button_menu/presenter/fab_menu_button/fab_vertical_delegate.dart';
+import 'package:movies_pop/features/shared/shared_features/rate_movies/presenter/bottom_sheet_rate_movie.dart';
+import 'package:movies_pop/features/shared/shared_features/rate_movies/presenter/controller/bottom_sheet_rate_movie_cubit_controller.dart';
 import 'package:movies_pop/features/shared/widgets/snackBar/snackBar_sistem.dart';
 
 class FabMenuButton extends StatefulWidget {

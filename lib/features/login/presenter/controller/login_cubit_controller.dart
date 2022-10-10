@@ -70,7 +70,10 @@ class LoginCubitController extends Cubit<LoginState> {
     }, (detailsAccount) {
       emit(LoginSuccess(detailsAccount: detailsAccount));
       _authSession.saveDetailsAccount(
-          username: detailsAccount.username, id: detailsAccount.id);
+        username: detailsAccount.username,
+        id: detailsAccount.id,
+      );
+      _authSession.init();
     });
   }
 }
