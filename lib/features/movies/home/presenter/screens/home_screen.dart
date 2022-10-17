@@ -5,6 +5,8 @@ import 'package:movies_pop/features/movies/home/presenter/components/popular_mov
 import 'package:movies_pop/features/movies/home/presenter/components/popular_movies/popular_cubit_controller/popular_cubit_controller.dart';
 import 'package:movies_pop/features/movies/home/presenter/components/popular_movies/popular_cubit_controller/popular_state.dart';
 import 'package:movies_pop/features/movies/home/presenter/screens/controller/home_cubit_controller.dart';
+import 'package:movies_pop/features/movies/home/presenter/screens/controller/home_state.dart';
+import 'package:movies_pop/features/movies/home/presenter/screens/skeleton/skeleton_home_screen.dart';
 
 import '../components/cine_movies/cine_group.dart';
 import '../components/cine_movies/cine_movies_cubit_controller/cine_movies_cubit_controller.dart';
@@ -26,10 +28,9 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   void initState() {
+    super.initState();
     _controller = context.read<HomeCubitController>();
     _controller.getMyList();
-
-    super.initState();
   }
 
   @override
@@ -39,35 +40,49 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   Widget build(BuildContext context) {
+    var mediaSize = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
-        child: Stack(
-          children: [
-            Column(
+        child: BlocConsumer<HomeCubitController, HomeState>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            if (state is LoadingHomeState) {
+              return SizedBox(
+                child: const SkeletonHomeScreen(),
+                width: mediaSize.width,
+                height: mediaSize.height,
+              );
+            }
+            return Stack(
               children: [
-                BlocProvider(
-                  create: (_) =>
-                      getItDependency.get<CineMoviesCubitController>(),
-                  child:
-                      BlocBuilder<CineMoviesCubitController, CineMoviesState>(
-                    buildWhen: (previous, current) => previous != current,
-                    builder: (context, state) {
-                      return const CineGroup();
-                    },
-                  ),
+                Column(
+                  children: [
+                    BlocProvider(
+                      create: (_) =>
+                          getItDependency.get<CineMoviesCubitController>(),
+                      child: BlocBuilder<CineMoviesCubitController,
+                          CineMoviesState>(
+                        buildWhen: (previous, current) => previous != current,
+                        builder: (context, state) {
+                          return const CineGroup();
+                        },
+                      ),
+                    ),
+                    BlocProvider(
+                      create: (_) =>
+                          getItDependency.get<PopularCubitController>(),
+                      child: BlocBuilder<PopularCubitController, PopularState>(
+                        buildWhen: (previous, current) => previous != current,
+                        builder: (context, state) {
+                          return const MoviesGroup(title: 'Mais populares');
+                        },
+                      ),
+                    )
+                  ],
                 ),
-                BlocProvider(
-                  create: (_) => getItDependency.get<PopularCubitController>(),
-                  child: BlocBuilder<PopularCubitController, PopularState>(
-                    buildWhen: (previous, current) => previous != current,
-                    builder: (context, state) {
-                      return const MoviesGroup(title: 'Mais populares');
-                    },
-                  ),
-                )
               ],
-            ),
-          ],
+            );
+          },
         ),
       ),
     );

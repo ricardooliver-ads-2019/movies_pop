@@ -20,32 +20,31 @@ class HomeCubitController extends Cubit<HomeState> {
         super(InitalHomeState());
 
   Future<void> getMyList() async {
-    if (_detailsListWatchedMovies.idList == null) {
-      MyListEntipy? myList;
-      emit(LoadingHomeState());
-      final result = await _getMyListsUsecase.call();
-      result.fold((erro) => emit(ErrorHomeState(error: erro)), (lists) {
-        if (lists.myLists.isNotEmpty) {
-          for (var list in lists.myLists) {
-            if (list.name == 'filmes_já_vistos') {
-              myList = list;
-              _detailsListWatchedMovies.saveIdListWatchMovies(idList: list.id);
-              _detailsListWatchedMovies.init();
-              emit(SuccessHomeState());
-              break;
-            }
+    MyListEntipy? myList;
+    emit(LoadingHomeState());
+    final result = await _getMyListsUsecase.call();
+    result.fold((erro) => emit(ErrorHomeState(error: erro)), (lists) {
+      if (lists.myLists.isNotEmpty) {
+        for (var list in lists.myLists) {
+          if (list.name == 'filmes_já_vistos') {
+            myList = list;
+            _detailsListWatchedMovies.saveIdListWatchMovies(idList: list.id);
+            _detailsListWatchedMovies.init();
+            emit(SuccessHomeState());
+            break;
           }
-          if (myList == null) {
-            createMyListWatchedMoviesUsecase();
-          }
-        } else {
+        }
+        if (myList == null) {
           createMyListWatchedMoviesUsecase();
         }
-      });
-    }
+      } else {
+        createMyListWatchedMoviesUsecase();
+      }
+    });
   }
 
   Future<void> createMyListWatchedMoviesUsecase() async {
+    emit(LoadingHomeState());
     final result =
         await _createMyListWatchedMoviesUsecase.createMyListWatchedMovies();
     result.fold((error) => emit(ErrorHomeState(error: error)), (listId) {
