@@ -115,29 +115,27 @@ class _MoviesGroupState extends State<MoviesGroup> {
     }, builder: (context, state) {
       return SizedBox(
         width: mediaSize.width,
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 15, top: 15),
-                child: Text('${widget.title}',
-                    style: AppTextStyles.titleBoldHeading),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 15, top: 15),
+              child: Text('${widget.title}',
+                  style: AppTextStyles.titleBoldHeading),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            SingleChildScrollView(
+              controller: _scrollControllerr,
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: listComponets,
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              SingleChildScrollView(
-                controller: _scrollControllerr,
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: listComponets,
-                ),
-              )
-            ],
-          ),
+            )
+          ],
         ),
       );
     });

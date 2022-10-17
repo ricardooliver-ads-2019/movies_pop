@@ -154,9 +154,6 @@ class _CineGroupState extends State<CineGroup> {
                   maxHeight: 70,
                   minHeight: 40,
                 ),
-                decoration: BoxDecoration(
-                  color: AppColors.thirdary.withOpacity(1),
-                ),
                 child: Center(
                     child: Text(
                   'Filmes em cartaz',
