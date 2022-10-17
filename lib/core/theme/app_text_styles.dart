@@ -12,7 +12,14 @@ class AppTextStyles {
   static final titleHomeM = GoogleFonts.lexendDeca(
     fontSize: 24,
     fontWeight: FontWeight.w600,
-    color: AppColors.secondary,
+    color: AppColors.primary.withOpacity(0.5),
+    shadows: [
+      Shadow(
+        color: AppColors.black.withOpacity(0.5),
+        blurRadius: 0.5,
+        offset: const Offset(0, 2),
+      )
+    ],
   );
 
   static final titleRegular = GoogleFonts.lexendDeca(
@@ -182,6 +189,6 @@ class AppTextStyles {
   static final input = GoogleFonts.inter(
     fontSize: 15,
     fontWeight: FontWeight.w400,
-    color: AppColors.input,
+    color: AppColors.shimmerGrey,
   );
 }

@@ -17,7 +17,9 @@ class AppColors {
   static const shape = Color(0xFFFAFAFC);
   static const background = Color(0xFFFFFFFF);
   static const backgroundCardMovies = Color.fromARGB(255, 224, 224, 224);
-  static const input = Color(0xFFB1B0B8);
+  static const shimmerGrey = Color(0xFFB1B0B8);
+  static const shimmerHighlightColor = Colors.white;
+  static const shimmerBaseColor = Colors.grey;
   static const stars = Color.fromARGB(255, 249, 168, 37);
   static const releaseDate = Color.fromARGB(255, 148, 167, 177);
   static const linearGradient = LinearGradient(
